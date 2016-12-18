@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>  
+<?xml-stylesheet type="text/xsl" href="../test.xsl"?>  
+  
+<teams>  
+    <team>  
+        <mankind>tangsheng</mankind>  
+        <monkey>wukong</monkey>  
+        <pig>bajie</pig>  
+        <celestial>sasheng</celestial>  
+        <horse>bailong</horse>  
+    </team>  
+</teams>  

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="menu2.xsl"?>
+<tree type="menu" name="菜单">
+	
+
+ 	<node name="工作台">
+	    <node name="待处理"  type="post" target="openarea"  />
+	    <node name="已处理"  type="post" target="openarea"  />
+	    <node name="已完成"  type="post" target="openarea"  />
+	 
+	</node>
+	
+	
+	
+	<node name="投标报价">
+	    <node name="投标项目信息"  type="post" target="openarea" code="J001L" />
+	    <node name="报价项目明细"  type="post" target="openarea"  />
+	 
+	</node>
+	
+
+	<node name="系统管理" >
+		 <node name="系统信息" >
+		    <node name="部门信息"  type="link" target="openarea" code="staticpage/busyness.htm" />
+		    <node name="用户信息"  type="link" target="openarea" code="staticpage/train.htm" />
+		</node>
+	   
+	   	 <node name="流程管理" >
+		    <node name="流程定义"  type="link" target="openarea" code="staticpage/busyness.htm" />
+		    <node name="任务定义"  type="link" target="openarea" code="staticpage/train.htm" />
+		    <node name="流程岗位"  type="link" target="openarea" code="staticpage/train.htm" />
+		    <node name="业务要素"  type="link" target="openarea" code="staticpage/train.htm" />
+		</node>
+		
+		<node name="公共信息维护" >
+		    <node name="企业信息"  type="link" target="openarea" code="staticpage/busyness.htm" />
+		    <node name="产品信息"  type="link" target="openarea" code="staticpage/train.htm" />
+		    <node name="行业信息"  type="link" target="openarea" code="staticpage/train.htm" />
+		    <node name="销售信息"  type="link" target="openarea" code="staticpage/train.htm" />
+		</node>
+		
+	</node>
+	
+</tree>

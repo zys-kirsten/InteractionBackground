@@ -1,0 +1,37 @@
+
+
+
+<html>
+	<head>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="import.js"></script>
+<script type="text/javascript" src="Menu.js"></script>
+ 
+ 	
+
+	<script language="javascript">
+    function add(){
+    
+    	 	 var menu= new Menu();
+			 menu.load("menu.xml");
+			 menu.loadxsl("menu.xsl");
+			 //menu.show_topleft(5,100);
+			 menu.show("MENU.RIGHT");
+			
+    }
+</script>
+<script language="javascript" for="window"  event="onload">
+add();
+</script>
+	</head>
+	<body >	 
+			<DIV>
+				<DIV >
+					<DIV id="MENU.RIGHT"   style="width:30;height:80;position:relative;border:#000 solid 0px;z-index:100;">	
+					</DIV>
+					
+			   </DIV>
+
+			</DIV>
+	</body>
+</html>
