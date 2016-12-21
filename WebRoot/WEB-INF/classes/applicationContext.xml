@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+xmlns:jee="http://www.springframework.org/schema/jee"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+xmlns:util="http://www.springframework.org/schema/util"
+xmlns:mvc="http://www.springframework.org/schema/mvc"
+xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-2.0.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd"
+default-lazy-init="true" default-init-method="init" default-destroy-method="destroy">
+
+  <context:component-scan base-package="com.interaction"></context:component-scan>
+  <mvc:annotation-driven></mvc:annotation-driven>
+   
+    <bean class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+	id="transactionManager">
+		<property name="sessionFactory"  ref="sessionFactory"></property>
+	</bean> 
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/interaction"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="1221"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">false</prop>
+	             <prop key="hibernate.format_sql">true</prop>
+	             <prop key="hibernate.hbm2ddl.auto">update</prop>
+	             <prop key="connection.autocommit">true</prop>
+			</props>
+		</property>
+		
+		<property name="mappingResources">
+			<list>
+				<value>com/interaction/pojo/Student.hbm.xml</value>
+				<value>com/interaction/pojo/Semclatest.hbm.xml</value>
+				<value>com/interaction/pojo/Seminarclass.hbm.xml</value>
+				<value>com/interaction/pojo/Question.hbm.xml</value>
+				<value>com/interaction/pojo/Answer.hbm.xml</value>
+				<value>com/interaction/pojo/Seminar.hbm.xml</value>
+				<value>com/interaction/pojo/Outgroupeval.hbm.xml</value>
+				<value>com/interaction/pojo/Course.hbm.xml</value>
+				<value>com/interaction/pojo/Outgroupevalitem.hbm.xml</value>
+				<value>com/interaction/pojo/Ingroupevalitem.hbm.xml</value>		
+				<value>com/interaction/pojo/Ingroupeval.hbm.xml</value>
+				<value>com/interaction/pojo/Teacher.hbm.xml</value>
+				<value>com/interaction/pojo/Class.hbm.xml</value>
+				<value>com/interaction/pojo/Evaluation.hbm.xml</value>
+				<value>com/interaction/pojo/Scoreshow.hbm.xml</value>
+				<value>com/interaction/pojo/Classmodule.hbm.xml</value>
+				<value>com/interaction/pojo/Classmoduleevaluation.hbm.xml</value>
+				<value>com/interaction/pojo/Classmoduleseminar.hbm.xml</value></list>
+		</property>
+	</bean>
+</beans>

@@ -1,4 +1,4 @@
-package com.android.AHP;
+package com.interaction.AHP;
 
 import java.math.BigDecimal;
 
@@ -18,12 +18,14 @@ public class ComputeWeight {
 	        matrix[0][3]=2.0;
 	        matrix[0][4]=4.0;
 	        matrix[1][2]=1.0;
-	        matrix[1][3]=0.33333;
+	        matrix[1][3]=(double)1/3;
 	        matrix[1][4]=3.0;
-	        matrix[2][3]=0.33333;
+	        matrix[2][3]=(double)1/3;
 	        matrix[2][4]=3.0;
 	        matrix[3][4]=4.0;
 	       calculWeight(matrix,N);
+//		 double a = (double)1/3;
+//		 System.out.println(a);
 	    }
 
 	private static void calculWeight(Double[][] matrix, int N) {

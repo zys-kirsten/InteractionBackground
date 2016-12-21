@@ -262,6 +262,7 @@ float:left;
 				<ul>
 					<li><a class="a" href="${ctxPath }/listEvaluation.do?cid=${course.cid}" target="rightFrame">查看评价单</a></li>
 					<li><a class="a" href="${ctxPath }/background/evaluation/addEvaluation.jsp" target="rightFrame">添加评价单</a></li>
+					<li><a class="a" href="${ctxPath }/background/evaluation/configEvaluationWeight.jsp" target="rightFrame">评价因素权重设置</a></li>
 				</ul>
 			</div>
 			<div class="div2">
