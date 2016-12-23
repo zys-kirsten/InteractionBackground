@@ -255,14 +255,19 @@ float:left;
 			</div>
 			<div class="div2">
 				<div class="spgl"></div>
-				&nbsp;&nbsp;
-				评价单管理
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				  评价因素管理
 			</div>
 			<div class="div3">
 				<ul>
+					<li><a class="a" href="${ctxPath }/ShowStudentAchieveWeight.do?cid=${course.cid}" target="rightFrame">学生学习效果评价设置</a></li>
+					<li><a class="a" href="${ctxPath }/ShowUnquantizationWeight.do?eeid=2" target="rightFrame">非量化指标评价设置</a></li>
+					<li><a class="a" href="${ctxPath }/ShowWeight.do?cid=${course.cid}" target="rightFrame">量化指标评价设置</a></li>
+					<li><a class="a" href="${ctxPath }/ShowWeight.do?cid=${course.cid}" target="rightFrame">学生自评设置</a></li>
+					<li><a class="a" href="${ctxPath }/ShowWeight.do?cid=${course.cid}" target="rightFrame">学生评价设置</a></li>
+					<li><a class="a" href="${ctxPath }/ShowWeight.do?cid=${course.cid}" target="rightFrame">教师评价设置</a></li>
 					<li><a class="a" href="${ctxPath }/listEvaluation.do?cid=${course.cid}" target="rightFrame">查看评价单</a></li>
 					<li><a class="a" href="${ctxPath }/background/evaluation/addEvaluation.jsp" target="rightFrame">添加评价单</a></li>
-					<li><a class="a" href="${ctxPath }/background/evaluation/configEvaluationWeight.jsp" target="rightFrame">评价因素权重设置</a></li>
 				</ul>
 			</div>
 			<div class="div2">

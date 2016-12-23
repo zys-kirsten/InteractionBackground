@@ -66,14 +66,13 @@ onload=function(){
    links_len=links.length;
    setTab('one',1);
 }
-
 </script>
 </head>
 <body>
 
    <div class="menu" id="mytab">
 	  <ul>
-	   <li id="one1" onclick="setTab('one',1)">学生学习效果评价设置</li>
+	   <li id="one1" onclick="setTab('one',1);">学生学习效果评价设置</li>
 	   <li id="one2" onclick="setTab('one',2)">量化指标设置</li>
 	   <li id="one3" onclick="setTab('one',3)">非量化指标设置</li>
 	   <li id="one4" onclick="setTab('one',4)">学生自评设置</li>
@@ -84,8 +83,7 @@ onload=function(){
 	 <br>
 	 <form action="${ctxPath }/ComputeWeight.do"  method="post">
 		 <div class="menudiv">
-		 
-	   <!-- 学生学习效果评价设置  start -->
+	     <!-- 学生学习效果评价设置  start -->
 		  <div id="con_one_1">
 		    <table width="82%" border="0" cellpadding="0" cellspacing="0" class="CContent">
 				 <tr>
@@ -157,7 +155,7 @@ onload=function(){
 				        <td class="tableleft" style="text-align:center;">课堂练习题成绩</td>
 				        <td class="tableleft" style="text-align:center;">1</td>
 				        <td style="text-align:center;">
-					        <select name="quantizationIndex[0][1]" style="width:100%;">
+					        <select id="quantizationIndex[0][1]" name="quantizationIndex[0][1]" style="width:100%;">
 					          <option value ="1.0" >1</option>
 					          <option value ="2.0" >2</option>
 							  <option value ="3.0" >3</option>
@@ -178,7 +176,7 @@ onload=function(){
 							</select>
 						</td>
 				        <td style="text-align:center;">
-					        <select name="quantizationIndex[0][2]" style="width:100%;">
+					        <select id="quantizationIndex[0][2]" name="quantizationIndex[0][2]" style="width:100%;">
 					          <option value ="1.0" >1</option>
 					          <option value ="2.0" >2</option>
 							  <option value ="3.0" >3</option>
@@ -199,7 +197,7 @@ onload=function(){
 							</select>
 						</td>
 				        <td style="text-align:center;">
-					        <select name="quantizationIndex[0][3]" style="width:100%;">
+					        <select id="quantizationIndex[0][3]" name="quantizationIndex[0][3]" style="width:100%;">
 					          <option value ="1.0" >1</option>
 					          <option value ="2.0" >2</option>
 							  <option value ="3.0" selected="selected">3</option>
@@ -225,7 +223,7 @@ onload=function(){
 				        <td class="tableleft" style="text-align:center;">课堂抢答次数</td>
 				        <td class="tableleft" style="text-align:center;">1</td>
 				        <td style="text-align:center;">
-					        <select name="quantizationIndex[1][2]" style="width:100%;">
+					        <select id="quantizationIndex[1][2]" name="quantizationIndex[1][2]" style="width:100%;">
 					          <option value ="1.0" >1</option>
 					          <option value ="2.0" >2</option>
 							  <option value ="3.0" selected="selected">3</option>
@@ -246,7 +244,7 @@ onload=function(){
 							</select>
 						</td>
 				        <td style="text-align:center;">
-					        <select name="quantizationIndex[1][3]" style="width:100%;">
+					        <select id="quantizationIndex[1][3]" name="quantizationIndex[1][3]" style="width:100%;">
 					          <option value ="1.0" >1</option>
 					          <option value ="2.0" >2</option>
 							  <option value ="3.0" >3</option>
@@ -273,7 +271,7 @@ onload=function(){
 				        <td class="tableleft" style="text-align:center;">课堂投票题成绩</td>
 				        <td class="tableleft" style="text-align:center;">1</td>
 				        <td style="text-align:center;">
-					        <select name="quantizationIndex[2][3]" style="width:100%;">
+					        <select id="quantizationIndex[2][3]" name="quantizationIndex[2][3]" style="width:100%;">
 					          <option value ="1.0" >1</option>
 					          <option value ="2.0" >2</option>
 							  <option value ="3.0" >3</option>
@@ -304,6 +302,12 @@ onload=function(){
 				 	</table>
 				  </td>
 				 </tr>
+				 <tr align="center">
+					<td >
+					    <input type="submit" class="btn btn-primary" value="确定">&nbsp;&nbsp;
+					    <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-off"></span>取消</a>
+					</td>
+				</tr>
 			</table>
 		  </div>
 		<!-- 量化指标配置  end -->

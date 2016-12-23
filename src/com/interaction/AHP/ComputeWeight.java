@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class ComputeWeight {
 	
 	//可用！！
-	public static boolean calculWeight(Double[][] matrix, int N) {
+	public static Double[] calculWeight(Double[][] matrix, int N) {
 		 for(int i=0;i<N;i++){
 	            matrix[i][i]=1.0;
 	        }
@@ -59,14 +59,14 @@ public class ComputeWeight {
         System.out.println("CR= " + cr+"\n");        
         if(cr>=0.1){
             System.out.println("权重设置不合理");
-            return false;
+            return null;
         }else{
             //输出特征向量
             for(int i=0;i<N;i++){
             	w[i] = round(w[i],3);
                 System.out.println("特征"+i+"的权重："+w[i]);
             }
-            return true;
+            return w;
         }
 		
 	}
