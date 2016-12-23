@@ -5,30 +5,10 @@ import java.math.BigDecimal;
 public class ComputeWeight {
 	
 	//可用！！
-	 public static void main(String[] args) {
-	      int N = 5;		 
-		  Double[][] matrix=new Double[N][N];
-	        for(int i=0;i<N;i++){
+	public static boolean calculWeight(Double[][] matrix, int N) {
+		 for(int i=0;i<N;i++){
 	            matrix[i][i]=1.0;
 	        }
-	        //数组0,1 位置存放的是影响因素0相对于影响因素1的重要程度 。
-	        //0.25代表 影响因素0的重要程度为影响因素1的重要程度的4分之1。
-	        matrix[0][1]=3.0;            
-	        matrix[0][2]=3.0;
-	        matrix[0][3]=2.0;
-	        matrix[0][4]=4.0;
-	        matrix[1][2]=1.0;
-	        matrix[1][3]=(double)1/3;
-	        matrix[1][4]=3.0;
-	        matrix[2][3]=(double)1/3;
-	        matrix[2][4]=3.0;
-	        matrix[3][4]=4.0;
-	       calculWeight(matrix,N);
-//		 double a = (double)1/3;
-//		 System.out.println(a);
-	    }
-
-	private static void calculWeight(Double[][] matrix, int N) {
 		 //根据输入值填写矩阵剩余项
         for(int i=N-1;i>=0;i--){
             for(int j=N-1;j>=0;j--){
@@ -79,12 +59,14 @@ public class ComputeWeight {
         System.out.println("CR= " + cr+"\n");        
         if(cr>=0.1){
             System.out.println("权重设置不合理");
+            return false;
         }else{
             //输出特征向量
             for(int i=0;i<N;i++){
             	w[i] = round(w[i],3);
                 System.out.println("特征"+i+"的权重："+w[i]);
             }
+            return true;
         }
 		
 	}
@@ -116,4 +98,27 @@ public class ComputeWeight {
 		}
 		return 1.0;
 	}
+	
+	public static void main(String[] args) {
+	      int N = 5;		 
+		  Double[][] matrix=new Double[N][N];
+//	        for(int i=0;i<N;i++){
+//	            matrix[i][i]=1.0;
+//	        }
+	        //数组0,1 位置存放的是影响因素0相对于影响因素1的重要程度 。
+	        //0.25代表 影响因素0的重要程度为影响因素1的重要程度的4分之1。
+	        matrix[0][1]=3.0;            
+	        matrix[0][2]=3.0;
+	        matrix[0][3]=2.0;
+	        matrix[0][4]=4.0;
+	        matrix[1][2]=1.0;
+	        matrix[1][3]=(double)1/3;
+	        matrix[1][4]=3.0;
+	        matrix[2][3]=(double)1/3;
+	        matrix[2][4]=3.0;
+	        matrix[3][4]=4.0;
+	       calculWeight(matrix,N);
+//		 double a = (double)1/3;
+//		 System.out.println(a);
+	    }
 }

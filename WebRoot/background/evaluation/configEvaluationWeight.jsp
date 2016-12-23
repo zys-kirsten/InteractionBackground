@@ -82,10 +82,10 @@ onload=function(){
 	  </ul>
 	 </div>
 	 <br>
-	 <form action="${ctxPath }/addClassModule.do"  method="post">
+	 <form action="${ctxPath }/ComputeWeight.do"  method="post">
 		 <div class="menudiv">
 		 
-		  <!-- 学生学习效果评价设置  start -->
+	   <!-- 学生学习效果评价设置  start -->
 		  <div id="con_one_1">
 		    <table width="82%" border="0" cellpadding="0" cellspacing="0" class="CContent">
 				 <tr>
@@ -157,12 +157,12 @@ onload=function(){
 				        <td class="tableleft" style="text-align:center;">课堂练习题成绩</td>
 				        <td class="tableleft" style="text-align:center;">1</td>
 				        <td style="text-align:center;">
-					        <select id="proPerson" name="proPerson" style="width:100%;">
-					          <option value ="1.0" selected="selected">1</option>
+					        <select name="quantizationIndex[0][1]" style="width:100%;">
+					          <option value ="1.0" >1</option>
 					          <option value ="2.0" >2</option>
 							  <option value ="3.0" >3</option>
 							  <option value ="4.0" >4</option>
-							  <option value ="5.0" >5</option>
+							  <option value ="5.0" selected="selected">5</option>
 							  <option value ="6.0" >6</option>
 							  <option value ="7.0" >7</option>
 							  <option value= "8.0" >8</option>
@@ -178,14 +178,14 @@ onload=function(){
 							</select>
 						</td>
 				        <td style="text-align:center;">
-					        <select id="proPerson" name="proPerson" style="width:100%;">
-					          <option value ="1.0" selected="selected">1</option>
+					        <select name="quantizationIndex[0][2]" style="width:100%;">
+					          <option value ="1.0" >1</option>
 					          <option value ="2.0" >2</option>
 							  <option value ="3.0" >3</option>
 							  <option value ="4.0" >4</option>
 							  <option value ="5.0" >5</option>
 							  <option value ="6.0" >6</option>
-							  <option value ="7.0" >7</option>
+							  <option value ="7.0" selected="selected">7</option>
 							  <option value= "8.0" >8</option>
 							  <option value ="9.0" >9</option>
 							  <option value ="1.0/2.0" >1/2</option>
@@ -199,10 +199,10 @@ onload=function(){
 							</select>
 						</td>
 				        <td style="text-align:center;">
-					        <select id="proPerson" name="proPerson" style="width:100%;">
-					          <option value ="1.0" selected="selected">1</option>
+					        <select name="quantizationIndex[0][3]" style="width:100%;">
+					          <option value ="1.0" >1</option>
 					          <option value ="2.0" >2</option>
-							  <option value ="3.0" >3</option>
+							  <option value ="3.0" selected="selected">3</option>
 							  <option value ="4.0" >4</option>
 							  <option value ="5.0" >5</option>
 							  <option value ="6.0" >6</option>
@@ -225,10 +225,10 @@ onload=function(){
 				        <td class="tableleft" style="text-align:center;">课堂抢答次数</td>
 				        <td class="tableleft" style="text-align:center;">1</td>
 				        <td style="text-align:center;">
-					        <select id="proPerson" name="proPerson" style="width:100%;">
-					          <option value ="1.0" selected="selected">1</option>
+					        <select name="quantizationIndex[1][2]" style="width:100%;">
+					          <option value ="1.0" >1</option>
 					          <option value ="2.0" >2</option>
-							  <option value ="3.0" >3</option>
+							  <option value ="3.0" selected="selected">3</option>
 							  <option value ="4.0" >4</option>
 							  <option value ="5.0" >5</option>
 							  <option value ="6.0" >6</option>
@@ -246,8 +246,8 @@ onload=function(){
 							</select>
 						</td>
 				        <td style="text-align:center;">
-					        <select id="proPerson" name="proPerson" style="width:100%;">
-					          <option value ="1.0" selected="selected">1</option>
+					        <select name="quantizationIndex[1][3]" style="width:100%;">
+					          <option value ="1.0" >1</option>
 					          <option value ="2.0" >2</option>
 							  <option value ="3.0" >3</option>
 							  <option value ="4.0" >4</option>
@@ -258,7 +258,7 @@ onload=function(){
 							  <option value ="9.0" >9</option>
 							  <option value ="1.0/2.0" >1/2</option>
 							  <option value ="1.0/3.0" >1/3</option>
-							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/4.0" selected="selected">1/4</option>
 							  <option value ="1.0/5.0" >1/5</option>
 							  <option value ="1.0/6.0" >1/6</option>
 							  <option value ="1.0/7.0" >1/7</option>
@@ -273,8 +273,8 @@ onload=function(){
 				        <td class="tableleft" style="text-align:center;">课堂投票题成绩</td>
 				        <td class="tableleft" style="text-align:center;">1</td>
 				        <td style="text-align:center;">
-					        <select id="proPerson" name="proPerson" style="width:100%;">
-					          <option value ="1.0" selected="selected">1</option>
+					        <select name="quantizationIndex[2][3]" style="width:100%;">
+					          <option value ="1.0" >1</option>
 					          <option value ="2.0" >2</option>
 							  <option value ="3.0" >3</option>
 							  <option value ="4.0" >4</option>
@@ -286,7 +286,7 @@ onload=function(){
 							  <option value ="1.0/2.0" >1/2</option>
 							  <option value ="1.0/3.0" >1/3</option>
 							  <option value ="1.0/4.0" >1/4</option>
-							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/5.0" selected="selected">1/5</option>
 							  <option value ="1.0/6.0" >1/6</option>
 							  <option value ="1.0/7.0" >1/7</option>
 							  <option value= "1.0/8.0" >1/8</option>
@@ -313,15 +313,93 @@ onload=function(){
 				 <tr>
 				  <td>
 				    <table class="table table-bordered table-hover m10" style="margin-left:10px;margin-top:3px;">
-					  <tr>
-				        <td style="text-align:center;">评价名称</td>
-				        <td style="text-align:center;">
-				        <c:forEach items="${sessionScope.evaluationVos}" var="evos">
-				           <input type="checkbox" name="evalue" value="${evos.ename}"/>${evos.ename}<br> 
-				        </c:forEach>
-                        </td>
+				      <tr>
+				        <th style="text-align:center;"></th>
+				        <th style="text-align:center;">学生自评</th>
+				        <th style="text-align:center;">学生评价</th>
+				        <th style="text-align:center;">教师评价</th>
 				      </tr>
-				    </table>
+					  <tr>
+				        <td class="tableleft" style="text-align:center;">学生自评</td>
+				        <td class="tableleft" style="text-align:center;">1</td>
+				        <td style="text-align:center;">
+					        <select name="unquantizationIndex[0][1]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" selected="selected">1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				        <td style="text-align:center;">
+					        <select name="unquantizationIndex[0][2]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" selected="selected">1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				      </tr>
+				        <tr>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;">学生评价</td>
+				        <td class="tableleft" style="text-align:center;">1</td>
+				        <td style="text-align:center;">
+					        <select name="unquantizationIndex[1][2]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" selected="selected">3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				      </tr>
+				        <tr>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;">教师评价</td>
+				        <td class="tableleft" style="text-align:center;">1</td>
+				      </tr>
+				 	</table>
+				  </td>
+				 </tr>
 			</table>
 		  </div>
 		<!-- 非量化指标配置  end -->
@@ -330,26 +408,162 @@ onload=function(){
 		    <table width="82%" border="0" cellpadding="0" cellspacing="0" class="CContent">
 				 <tr>
 				  <td>
-				  <input type="hidden" id="cid" name="cid" value=""/>
 				    <table class="table table-bordered table-hover m10" style="margin-left:10px;margin-top:3px;">
-					  <tr>
-				        <td class="tableleft" style="text-align:center;">题目个数</td>
-				        <td style="text-align:center;"><input type="text" id="proNum" name="proNum" style="width:100%;"/></td>
-				        <td class="tableleft" style="text-align:center;">题目分值</td>
-				        <td style="text-align:center;"><input type="text" id="proScore" name="proScore" style="width:100%;"/></td>
-				      </tr>
 				      <tr>
-				        <td class="tableleft" style="text-align:center;">答题时长</td>
-				        <td style="text-align:center;"><input type="text" id="proTime" name="proTime" style="width:100%;"/></td>
-				        <td class="tableleft" style="text-align:center;">回答对象</td>
+				        <th style="text-align:center;"></th>
+				        <th style="text-align:center;">作业完成情况</th>
+				        <th style="text-align:center;">知识点掌握</th>
+				        <th style="text-align:center;">认真程度</th>
+				        <th style="text-align:center;">合作素质</th>
+				      </tr>
+					  <tr>
+				        <td class="tableleft" style="text-align:center;">作业完成情况</td>
+				        <td class="tableleft" style="text-align:center;">1</td>
 				        <td style="text-align:center;">
-					        <select id="proPerson" name="proPerson" style="width:100%;">
-					          <option value ="全部同学" selected="selected">全部同学</option>
-					          <option value="一个同学" >一个同学</option>
-							  <option value ="一组同学" >一组同学</option>
+					        <select name="selfIndex[0][1]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" selected="selected">2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
 							</select>
 						</td>
-				      </tr>		
+				        <td style="text-align:center;">
+					        <select name="selfIndex[0][2]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" selected="selected">3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				        <td style="text-align:center;">
+					        <select name="selfIndex[0][3]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" selected="selected">4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				      </tr>
+				        <tr>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;">知识点掌握</td>
+				        <td class="tableleft" style="text-align:center;">1</td>
+				        <td style="text-align:center;">
+					        <select name="selfIndex[1][2]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" selected="selected">2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				        <td style="text-align:center;">
+					        <select name="selfIndex[1][3]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" selected="selected">3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				      </tr>
+				        <tr>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;">认真程度</td>
+				        <td class="tableleft" style="text-align:center;">1</td>
+				        <td style="text-align:center;">
+					        <select name="selfIndex[2][3]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" selected="selected">3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				      </tr>
+				       <tr>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;">合作素质</td>
+				        <td class="tableleft" style="text-align:center;">1</td>
+				      </tr>
 				 	</table>
 				  </td>
 				 </tr>
@@ -361,23 +575,254 @@ onload=function(){
 		     <table width="82%" border="0" cellpadding="0" cellspacing="0" class="CContent">
 				 <tr>
 				  <td>
-				  <input type="hidden" id="cid" name="cid" value=""/>
 				    <table class="table table-bordered table-hover m10" style="margin-left:10px;margin-top:3px;">
-					  <tr>
-				        <td class="tableleft" style="text-align:center;">题目个数</td>
-				        <td style="text-align:center;"><input type="text" id="resNum" name="resNum" style="width:100%;"/></td>
-				        <td class="tableleft" style="text-align:center;">抢答分值</td>
-				        <td style="text-align:center;"><input type="text" id="resScore" name="resScore" style="width:100%;"/></td>
+				      <tr>
+				        <th style="text-align:center;"></th>
+				        <th style="text-align:center;">成果准备认真</th>
+				        <th style="text-align:center;">内容覆盖</th>
+				        <th style="text-align:center;">课堂活跃</th>
+				        <th style="text-align:center;">合作素质</th>
+				        <th style="text-align:center;">知识点掌握</th>
 				      </tr>
-				       <tr>
-				        <td class="tableleft" style="text-align:center;">统计方式</td>
+					  <tr>
+				        <td class="tableleft" style="text-align:center;">成果准备认真</td>
+				        <td class="tableleft" style="text-align:center;">1</td>
 				        <td style="text-align:center;">
-					        <select id="census" name="census" style="width:100%;">
-					          <option value="条形图" selected="selected">条形图</option>
-							  <option value ="饼图" >饼图</option>
-							  <option value ="折线图" >折线图</option>
+					        <select name="stuIndex[0][1]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" selected="selected">2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
 							</select>
 						</td>
+				        <td style="text-align:center;">
+					        <select name="stuIndex[0][2]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" selected="selected">4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				        <td style="text-align:center;">
+					        <select name="stuIndex[0][3]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" selected="selected">1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+						<td style="text-align:center;">
+					        <select name="stuIndex[0][4]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" selected="selected">3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				      </tr>
+				        <tr>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;">内容覆盖</td>
+				        <td class="tableleft" style="text-align:center;">1</td>
+				        <td style="text-align:center;">
+					        <select name="stuIndex[1][2]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" selected="selected">3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				        <td style="text-align:center;">
+					        <select name="stuIndex[1][3]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" selected="selected">1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+						<td style="text-align:center;">
+					        <select name="stuIndex[1][4]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" selected="selected">2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				      </tr>
+				        <tr>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;">课堂活跃</td>
+				        <td class="tableleft" style="text-align:center;">1</td>
+				        <td style="text-align:center;">
+					        <select name="stuIndex[2][3]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" selected="selected">1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+						<td style="text-align:center;">
+					        <select name="stuIndex[2][4]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0">5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0"  selected="selected">1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				      </tr>
+				       <tr>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;">合作素质</td>
+				        <td class="tableleft" style="text-align:center;">1</td>
+				        <td style="text-align:center;">
+					        <select name="stuIndex[3][4]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" selected="selected">4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				      </tr>
+				      <tr>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;">知识点掌握</td>
+				        <td class="tableleft" style="text-align:center;">1</td>
 				      </tr>
 				 	</table>
 				  </td>
@@ -391,15 +836,257 @@ onload=function(){
 				 <tr>
 				  <td>
 				    <table class="table table-bordered table-hover m10" style="margin-left:10px;margin-top:3px;">
-					  <tr>
-				        <td style="text-align:center;">本门课程的研讨课</td>
-				        <td style="text-align:center;">
-				        <c:forEach items="${sessionScope.seminarVos}" var="svos">
-				           <input type="checkbox" name="seminar" value="${svos.seName}"/>${svos.seName}<br> 
-				        </c:forEach>
-                        </td>
+				      <tr>
+				        <th style="text-align:center;"></th>
+				        <th style="text-align:center;">认真程度</th>
+				        <th style="text-align:center;">知识点广度</th>
+				        <th style="text-align:center;">知识点深度</th>
+				        <th style="text-align:center;">课堂积极性</th>
+				        <th style="text-align:center;">合作素质</th>
 				      </tr>
-				    </table>
+					  <tr>
+				        <td class="tableleft" style="text-align:center;">认真程度</td>
+				        <td class="tableleft" style="text-align:center;">1</td>
+				        <td style="text-align:center;">
+					        <select name="teacherIndex[0][1]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" selected="selected">3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+						<td style="text-align:center;">
+					        <select name="teacherIndex[0][2]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" selected="selected">3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				        <td style="text-align:center;">
+					        <select name="teacherIndex[0][3]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" selected="selected">2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				        <td style="text-align:center;">
+					        <select name="teacherIndex[0][4]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" selected="selected">4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				      </tr>
+				        <tr>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;">知识点广度</td>
+				        <td class="tableleft" style="text-align:center;">1</td>
+				        <td style="text-align:center;">
+					        <select name="teacherIndex[1][2]" style="width:100%;">
+					          <option value ="1.0" selected="selected">1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				        <td style="text-align:center;">
+					        <select  name="teacherIndex[1][3]"style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" selected="selected">1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				        <td style="text-align:center;">
+					        <select  name="teacherIndex[1][4]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" selected="selected">3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				      </tr>
+				        <tr>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;">知识点深度</td>
+				        <td class="tableleft" style="text-align:center;">1</td>
+				        <td style="text-align:center;">
+					        <select  name="teacherIndex[2][3]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" selected="selected">1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				        <td style="text-align:center;">
+					        <select  name="teacherIndex[2][4]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" selected="selected">3</option>
+							  <option value ="4.0" >4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				      </tr>
+				       <tr>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;">课堂积极性</td>
+				        <td class="tableleft" style="text-align:center;">1</td>
+				        <td style="text-align:center;">
+					        <select  name="teacherIndex[3][4]" style="width:100%;">
+					          <option value ="1.0" >1</option>
+					          <option value ="2.0" >2</option>
+							  <option value ="3.0" >3</option>
+							  <option value ="4.0" selected="selected">4</option>
+							  <option value ="5.0" >5</option>
+							  <option value ="6.0" >6</option>
+							  <option value ="7.0" >7</option>
+							  <option value= "8.0" >8</option>
+							  <option value ="9.0" >9</option>
+							  <option value ="1.0/2.0" >1/2</option>
+							  <option value ="1.0/3.0" >1/3</option>
+							  <option value ="1.0/4.0" >1/4</option>
+							  <option value ="1.0/5.0" >1/5</option>
+							  <option value ="1.0/6.0" >1/6</option>
+							  <option value ="1.0/7.0" >1/7</option>
+							  <option value= "1.0/8.0" >1/8</option>
+							  <option value ="1.0/9.0" >1/9</option>
+							</select>
+						</td>
+				      </tr>
+				      <tr>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;"></td>
+				        <td class="tableleft" style="text-align:center;">合作素质</td>
+				        <td class="tableleft" style="text-align:center;">1</td>
+				      </tr>
+				 	</table>
+				  </td>
+				 </tr>
 			</table>
 		  </div>
 		<!-- 教师评价设置  end -->
