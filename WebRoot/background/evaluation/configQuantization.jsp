@@ -46,168 +46,99 @@
 </head>
 <body>
 	 <br>
-	 <form action="${ctxPath }/CommitStudentAchieveWeight.do"  method="post">
+	 <form action="${ctxPath }/CommitQuantizationWeight.do"  method="post">
 		 <div class="menudiv">
 		 <!-- 量化指标设置  start -->
-	      <div id="con_one_2" style="display:none;">
+	      <div id="con_one_2">
 		     <table width="82%" border="0" cellpadding="0" cellspacing="0" class="CContent">
 				 <tr>
 				  <td>
 				    <table class="table table-bordered table-hover m10" style="margin-left:10px;margin-top:3px;">
 				      <tr>
-				        <th style="text-align:center;"></th>
-				        <th style="text-align:center;">课堂练习题成绩</th>
-				        <th style="text-align:center;">课堂抢答次数</th>
-				        <th style="text-align:center;">课堂投票题成绩</th>
-				        <th style="text-align:center;">教师额外加分</th>
+				      <th style="text-align:center;">
+				        <c:if test="${not empty sessionScope.elementsqws.get(0).evaluationelement.eeid}">
+				          <input type="hidden" name="fatherId" value="${sessionScope.elementsqws.get(0).evaluationelement.eeid}">
+				        </c:if>
+				      </th>
+				      <c:forEach items="${sessionScope.elementsqws}" var="es">
+				        <th style="text-align:center;">${es.eename}</th>
+				      </c:forEach>
 				      </tr>
+				      <c:forEach items="${sessionScope.elementsqws}" var="es">
 					  <tr>
-				        <td class="tableleft" style="text-align:center;">课堂练习题成绩</td>
-				        <td class="tableleft" style="text-align:center;">1</td>
-				        <td style="text-align:center;">
-					        <select id="quantizationIndex[0][1]" name="quantizationIndex[0][1]" style="width:100%;">
-					          <option value ="1.0" >1</option>
-					          <option value ="2.0" >2</option>
-							  <option value ="3.0" >3</option>
-							  <option value ="4.0" >4</option>
-							  <option value ="5.0" selected="selected">5</option>
-							  <option value ="6.0" >6</option>
-							  <option value ="7.0" >7</option>
-							  <option value= "8.0" >8</option>
-							  <option value ="9.0" >9</option>
-							  <option value ="1.0/2.0" >1/2</option>
-							  <option value ="1.0/3.0" >1/3</option>
-							  <option value ="1.0/4.0" >1/4</option>
-							  <option value ="1.0/5.0" >1/5</option>
-							  <option value ="1.0/6.0" >1/6</option>
-							  <option value ="1.0/7.0" >1/7</option>
-							  <option value= "1.0/8.0" >1/8</option>
-							  <option value ="1.0/9.0" >1/9</option>
-							</select>
-						</td>
-				        <td style="text-align:center;">
-					        <select id="quantizationIndex[0][2]" name="quantizationIndex[0][2]" style="width:100%;">
-					          <option value ="1.0" >1</option>
-					          <option value ="2.0" >2</option>
-							  <option value ="3.0" >3</option>
-							  <option value ="4.0" >4</option>
-							  <option value ="5.0" >5</option>
-							  <option value ="6.0" >6</option>
-							  <option value ="7.0" selected="selected">7</option>
-							  <option value= "8.0" >8</option>
-							  <option value ="9.0" >9</option>
-							  <option value ="1.0/2.0" >1/2</option>
-							  <option value ="1.0/3.0" >1/3</option>
-							  <option value ="1.0/4.0" >1/4</option>
-							  <option value ="1.0/5.0" >1/5</option>
-							  <option value ="1.0/6.0" >1/6</option>
-							  <option value ="1.0/7.0" >1/7</option>
-							  <option value= "1.0/8.0" >1/8</option>
-							  <option value ="1.0/9.0" >1/9</option>
-							</select>
-						</td>
-				        <td style="text-align:center;">
-					        <select id="quantizationIndex[0][3]" name="quantizationIndex[0][3]" style="width:100%;">
-					          <option value ="1.0" >1</option>
-					          <option value ="2.0" >2</option>
-							  <option value ="3.0" selected="selected">3</option>
-							  <option value ="4.0" >4</option>
-							  <option value ="5.0" >5</option>
-							  <option value ="6.0" >6</option>
-							  <option value ="7.0" >7</option>
-							  <option value= "8.0" >8</option>
-							  <option value ="9.0" >9</option>
-							  <option value ="1.0/2.0" >1/2</option>
-							  <option value ="1.0/3.0" >1/3</option>
-							  <option value ="1.0/4.0" >1/4</option>
-							  <option value ="1.0/5.0" >1/5</option>
-							  <option value ="1.0/6.0" >1/6</option>
-							  <option value ="1.0/7.0" >1/7</option>
-							  <option value= "1.0/8.0" >1/8</option>
-							  <option value ="1.0/9.0" >1/9</option>
-							</select>
-						</td>
+				        <td class="tableleft" style="text-align:center;">${es.eename}</td>
+				        <c:forEach items="${sessionScope.elementsqws}" var="e">
+				          <c:choose>
+				             <c:when test="${es.eeid == e.eeid}">
+					             <td style="text-align:center;">
+							        <select style="width:100%;" disabled="disabled">
+							          <option value ="1.0" selected="selected">1</option>
+							          <option value ="2.0" >2</option>
+									  <option value ="3.0" >3</option>
+									  <option value ="4.0" >4</option>
+									  <option value ="5.0" >5</option>
+									  <option value ="6.0" >6</option>
+									  <option value ="7.0" >7</option> 
+									  <option value= "8.0" >8</option>
+									  <option value ="9.0" >9</option>
+									  <option value ="1.0/2.0" >1/2</option>
+									  <option value ="1.0/3.0" >1/3</option>
+									  <option value ="1.0/4.0" >1/4</option>
+									  <option value ="1.0/5.0" >1/5</option>
+									  <option value ="1.0/6.0" >1/6</option>
+									  <option value ="1.0/7.0" >1/7</option>
+									  <option value= "1.0/8.0" >1/8</option>
+									  <option value ="1.0/9.0" >1/9</option>
+									</select>
+								</td>
+				             </c:when>
+				             <c:when test="${es.eeid >= e.eeid}">
+					             <td style="text-align:center;"></td>
+				             </c:when>
+				             <c:otherwise>
+				                <td style="text-align:center;">
+							        <select name="quantization" style="width:100%;">
+							          <option value ="1.0" selected="selected">1</option>
+							          <option value ="2.0" >2</option>
+									  <option value ="3.0" >3</option>
+									  <option value ="4.0" >4</option>
+									  <option value ="5.0" >5</option>
+									  <option value ="6.0" >6</option>
+									  <option value ="7.0" >7</option> 
+									  <option value= "8.0" >8</option>
+									  <option value ="9.0" >9</option>
+									  <option value ="1.0/2.0" >1/2</option>
+									  <option value ="1.0/3.0" >1/3</option>
+									  <option value ="1.0/4.0" >1/4</option>
+									  <option value ="1.0/5.0" >1/5</option>
+									  <option value ="1.0/6.0" >1/6</option>
+									  <option value ="1.0/7.0" >1/7</option>
+									  <option value= "1.0/8.0" >1/8</option>
+									  <option value ="1.0/9.0" >1/9</option>
+									</select>
+								</td>
+				             </c:otherwise>
+				          </c:choose>
+				        </c:forEach>
 				      </tr>
-				        <tr>
-				        <td class="tableleft" style="text-align:center;"></td>
-				        <td class="tableleft" style="text-align:center;">课堂抢答次数</td>
-				        <td class="tableleft" style="text-align:center;">1</td>
-				        <td style="text-align:center;">
-					        <select id="quantizationIndex[1][2]" name="quantizationIndex[1][2]" style="width:100%;">
-					          <option value ="1.0" >1</option>
-					          <option value ="2.0" >2</option>
-							  <option value ="3.0" selected="selected">3</option>
-							  <option value ="4.0" >4</option>
-							  <option value ="5.0" >5</option>
-							  <option value ="6.0" >6</option>
-							  <option value ="7.0" >7</option>
-							  <option value= "8.0" >8</option>
-							  <option value ="9.0" >9</option>
-							  <option value ="1.0/2.0" >1/2</option>
-							  <option value ="1.0/3.0" >1/3</option>
-							  <option value ="1.0/4.0" >1/4</option>
-							  <option value ="1.0/5.0" >1/5</option>
-							  <option value ="1.0/6.0" >1/6</option>
-							  <option value ="1.0/7.0" >1/7</option>
-							  <option value= "1.0/8.0" >1/8</option>
-							  <option value ="1.0/9.0" >1/9</option>
-							</select>
-						</td>
-				        <td style="text-align:center;">
-					        <select id="quantizationIndex[1][3]" name="quantizationIndex[1][3]" style="width:100%;">
-					          <option value ="1.0" >1</option>
-					          <option value ="2.0" >2</option>
-							  <option value ="3.0" >3</option>
-							  <option value ="4.0" >4</option>
-							  <option value ="5.0" >5</option>
-							  <option value ="6.0" >6</option>
-							  <option value ="7.0" >7</option>
-							  <option value= "8.0" >8</option>
-							  <option value ="9.0" >9</option>
-							  <option value ="1.0/2.0" >1/2</option>
-							  <option value ="1.0/3.0" >1/3</option>
-							  <option value ="1.0/4.0" selected="selected">1/4</option>
-							  <option value ="1.0/5.0" >1/5</option>
-							  <option value ="1.0/6.0" >1/6</option>
-							  <option value ="1.0/7.0" >1/7</option>
-							  <option value= "1.0/8.0" >1/8</option>
-							  <option value ="1.0/9.0" >1/9</option>
-							</select>
-						</td>
-				      </tr>
-				        <tr>
-				        <td class="tableleft" style="text-align:center;"></td>
-				        <td class="tableleft" style="text-align:center;"></td>
-				        <td class="tableleft" style="text-align:center;">课堂投票题成绩</td>
-				        <td class="tableleft" style="text-align:center;">1</td>
-				        <td style="text-align:center;">
-					        <select id="quantizationIndex[2][3]" name="quantizationIndex[2][3]" style="width:100%;">
-					          <option value ="1.0" >1</option>
-					          <option value ="2.0" >2</option>
-							  <option value ="3.0" >3</option>
-							  <option value ="4.0" >4</option>
-							  <option value ="5.0" >5</option>
-							  <option value ="6.0" >6</option>
-							  <option value ="7.0" >7</option>
-							  <option value= "8.0" >8</option>
-							  <option value ="9.0" >9</option>
-							  <option value ="1.0/2.0" >1/2</option>
-							  <option value ="1.0/3.0" >1/3</option>
-							  <option value ="1.0/4.0" >1/4</option>
-							  <option value ="1.0/5.0" selected="selected">1/5</option>
-							  <option value ="1.0/6.0" >1/6</option>
-							  <option value ="1.0/7.0" >1/7</option>
-							  <option value= "1.0/8.0" >1/8</option>
-							  <option value ="1.0/9.0" >1/9</option>
-							</select>
-						</td>
-				      </tr>
-				       <tr>
-				        <td class="tableleft" style="text-align:center;"></td>
-				        <td class="tableleft" style="text-align:center;"></td>
-				        <td class="tableleft" style="text-align:center;"></td>
-				        <td class="tableleft" style="text-align:center;">教师额外加分</td>
-				        <td class="tableleft" style="text-align:center;">1</td>
+				      </c:forEach>
+				      <tr>
+				        <c:choose>
+				          <c:when test="${not empty sessionScope.qmsg}">
+				            <td class="tableleft" style="text-align:center;" width="150px;">
+				               <c:out value="${sessionScope.qmsg}"></c:out>
+				            </td>
+				              <c:forEach items="${sessionScope.elementsqws}" var="es">
+				                <td style="text-align:center;">${es.weight }</td>
+						      </c:forEach>
+				          </c:when>
+				          <c:otherwise>
+				            <td class="tableleft" style="text-align:center;" >已设置权值</td>
+				              <c:forEach items="${sessionScope.elementsqws}" var="es">
+				                <td style="text-align:center;">${es.weight }</td>
+						      </c:forEach>
+				          </c:otherwise>
+				        </c:choose>
 				      </tr>
 				 	</table>
 				  </td>

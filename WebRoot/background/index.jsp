@@ -261,11 +261,11 @@ float:left;
 			<div class="div3">
 				<ul>
 					<li><a class="a" href="${ctxPath }/ShowStudentAchieveWeight.do?cid=${course.cid}" target="rightFrame">学生学习效果评价设置</a></li>
-					<li><a class="a" href="${ctxPath }/ShowUnquantizationWeight.do?eeid=2" target="rightFrame">非量化指标评价设置</a></li>
-					<li><a class="a" href="${ctxPath }/ShowWeight.do?cid=${course.cid}" target="rightFrame">量化指标评价设置</a></li>
-					<li><a class="a" href="${ctxPath }/ShowWeight.do?cid=${course.cid}" target="rightFrame">学生自评设置</a></li>
-					<li><a class="a" href="${ctxPath }/ShowWeight.do?cid=${course.cid}" target="rightFrame">学生评价设置</a></li>
-					<li><a class="a" href="${ctxPath }/ShowWeight.do?cid=${course.cid}" target="rightFrame">教师评价设置</a></li>
+					<li><a class="a" href="${ctxPath }/ShowUnquantizationWeight.do?eeid=1" target="rightFrame">非量化指标评价设置</a></li>
+					<li><a class="a" href="${ctxPath }/ShowQuantizationWeight.do?eeid=2" target="rightFrame">量化指标评价设置</a></li>
+					<li><a class="a" href="${ctxPath }/ShowSelfEvalWeight.do?eeid=3" target="rightFrame">学生自评设置</a></li>
+					<li><a class="a" href="${ctxPath }/ShowStuEvalWeight.do?eeid=4" target="rightFrame">学生评价设置</a></li>
+					<li><a class="a" href="${ctxPath }/ShowTeacherEvalWeight.do?eeid=5" target="rightFrame">教师评价设置</a></li>
 					<li><a class="a" href="${ctxPath }/listEvaluation.do?cid=${course.cid}" target="rightFrame">查看评价单</a></li>
 					<li><a class="a" href="${ctxPath }/background/evaluation/addEvaluation.jsp" target="rightFrame">添加评价单</a></li>
 				</ul>

@@ -45,7 +45,7 @@
 </head>
 <body>
 	 <br>
-	 <form action="${ctxPath }/CommitStudentAchieveWeight.do"  method="post">
+	 <form action="${ctxPath }/CommitUnquantizationWeight.do"  method="post">
 		 <div class="menudiv">
 	       <!-- 非量化指标配置  start -->
 		  <div id="con_one_3" >
@@ -54,7 +54,11 @@
 				  <td>
 				    <table class="table table-bordered table-hover m10" style="margin-left:10px;margin-top:3px;">
 				      <tr>
-				      <th style="text-align:center;"></th>
+				      <th style="text-align:center;">
+				        <c:if test="${not empty sessionScope.elementsuws.get(0).evaluationelement.eeid}">
+				          <input type="hidden" name="fatherId" value="${sessionScope.elementsuws.get(0).evaluationelement.eeid}">
+				        </c:if>
+				      </th>
 				      <c:forEach items="${sessionScope.elementsuws}" var="es">
 				        <th style="text-align:center;">${es.eename}</th>
 				      </c:forEach>
@@ -62,74 +66,88 @@
 				      <c:forEach items="${sessionScope.elementsuws}" var="es">
 					  <tr>
 				        <td class="tableleft" style="text-align:center;">${es.eename}</td>
-				        <td style="text-align:center;">
-					        <select name="uq_self[0]" style="width:100%;">
-					          <option value ="1.0" >1</option>
-					          <option value ="2.0" >2</option>
-							  <option value ="3.0" >3</option>
-							  <option value ="4.0" >4</option>
-							  <option value ="5.0" >5</option>
-							  <option value ="6.0" >6</option>
-							  <option value ="7.0" >7</option>
-							  <option value= "8.0" >8</option>
-							  <option value ="9.0" >9</option>
-							  <option value ="1.0/2.0" >1/2</option>
-							  <option value ="1.0/3.0" >1/3</option>
-							  <option value ="1.0/4.0" >1/4</option>
-							  <option value ="1.0/5.0" >1/5</option>
-							  <option value ="1.0/6.0" >1/6</option>
-							  <option value ="1.0/7.0" selected="selected">1/7</option>
-							  <option value= "1.0/8.0" >1/8</option>
-							  <option value ="1.0/9.0" >1/9</option>
-							</select>
-						</td>
-				        <td style="text-align:center;">
-					        <select name="uq_self[0]" style="width:100%;">
-					          <option value ="1.0" >1</option>
-					          <option value ="2.0" >2</option>
-							  <option value ="3.0" >3</option>
-							  <option value ="4.0" >4</option>
-							  <option value ="5.0" >5</option>
-							  <option value ="6.0" >6</option>
-							  <option value ="7.0" >7</option>
-							  <option value= "8.0" >8</option>
-							  <option value ="9.0" >9</option>
-							  <option value ="1.0/2.0" >1/2</option>
-							  <option value ="1.0/3.0" >1/3</option>
-							  <option value ="1.0/4.0" >1/4</option>
-							  <option value ="1.0/5.0" >1/5</option>
-							  <option value ="1.0/6.0" >1/6</option>
-							  <option value ="1.0/7.0" selected="selected">1/7</option>
-							  <option value= "1.0/8.0" >1/8</option>
-							  <option value ="1.0/9.0" >1/9</option>
-							</select>
-						</td>
-				        <td style="text-align:center;">
-					        <select name="uq_self[1]" style="width:100%;">
-					          <option value ="1.0" >1</option>
-					          <option value ="2.0" >2</option>
-							  <option value ="3.0" >3</option>
-							  <option value ="4.0" >4</option>
-							  <option value ="5.0" >5</option>
-							  <option value ="6.0" >6</option>
-							  <option value ="7.0" >7</option>
-							  <option value= "8.0" >8</option>
-							  <option value ="9.0" >9</option>
-							  <option value ="1.0/2.0" >1/2</option>
-							  <option value ="1.0/3.0" >1/3</option>
-							  <option value ="1.0/4.0" >1/4</option>
-							  <option value ="1.0/5.0" selected="selected">1/5</option>
-							  <option value ="1.0/6.0" >1/6</option>
-							  <option value ="1.0/7.0" >1/7</option>
-							  <option value= "1.0/8.0" >1/8</option>
-							  <option value ="1.0/9.0" >1/9</option>
-							</select>
-						</td>
+				        <c:forEach items="${sessionScope.elementsuws}" var="e">
+				          <c:choose>
+				             <c:when test="${es.eeid == e.eeid}">
+					             <td style="text-align:center;">
+							        <select style="width:100%;" disabled="disabled">
+							          <option value ="1.0" selected="selected">1</option>
+							          <option value ="2.0" >2</option>
+									  <option value ="3.0" >3</option>
+									  <option value ="4.0" >4</option>
+									  <option value ="5.0" >5</option>
+									  <option value ="6.0" >6</option>
+									  <option value ="7.0" >7</option> 
+									  <option value= "8.0" >8</option>
+									  <option value ="9.0" >9</option>
+									  <option value ="1.0/2.0" >1/2</option>
+									  <option value ="1.0/3.0" >1/3</option>
+									  <option value ="1.0/4.0" >1/4</option>
+									  <option value ="1.0/5.0" >1/5</option>
+									  <option value ="1.0/6.0" >1/6</option>
+									  <option value ="1.0/7.0" >1/7</option>
+									  <option value= "1.0/8.0" >1/8</option>
+									  <option value ="1.0/9.0" >1/9</option>
+									</select>
+								</td>
+				             </c:when>
+				             <c:when test="${es.eeid >= e.eeid}">
+					             <td style="text-align:center;"></td>
+				             </c:when>
+				             <c:otherwise>
+				                <td style="text-align:center;">
+							        <select name="unquantization" style="width:100%;">
+							          <option value ="1.0" selected="selected">1</option>
+							          <option value ="2.0" >2</option>
+									  <option value ="3.0" >3</option>
+									  <option value ="4.0" >4</option>
+									  <option value ="5.0" >5</option>
+									  <option value ="6.0" >6</option>
+									  <option value ="7.0" >7</option> 
+									  <option value= "8.0" >8</option>
+									  <option value ="9.0" >9</option>
+									  <option value ="1.0/2.0" >1/2</option>
+									  <option value ="1.0/3.0" >1/3</option>
+									  <option value ="1.0/4.0" >1/4</option>
+									  <option value ="1.0/5.0" >1/5</option>
+									  <option value ="1.0/6.0" >1/6</option>
+									  <option value ="1.0/7.0" >1/7</option>
+									  <option value= "1.0/8.0" >1/8</option>
+									  <option value ="1.0/9.0" >1/9</option>
+									</select>
+								</td>
+				             </c:otherwise>
+				          </c:choose>
+				        </c:forEach>
 				      </tr>
 				      </c:forEach>
+				      <tr>
+				        <c:choose>
+				          <c:when test="${not empty sessionScope.uqmsg}">
+				            <td class="tableleft" style="text-align:center;" width="150px;">
+				               <c:out value="${sessionScope.uqmsg}"></c:out>
+				            </td>
+				              <c:forEach items="${sessionScope.elementsuws}" var="es">
+				                <td style="text-align:center;">${es.weight }</td>
+						      </c:forEach>
+				          </c:when>
+				          <c:otherwise>
+				            <td class="tableleft" style="text-align:center;" >已设置权值</td>
+				              <c:forEach items="${sessionScope.elementsuws}" var="es">
+				                <td style="text-align:center;">${es.weight }</td>
+						      </c:forEach>
+				          </c:otherwise>
+				        </c:choose>
+				      </tr>
 				 	</table>
 				  </td>
 				 </tr>
+				 <tr align="center">
+					<td >
+					    <input type="submit" class="btn btn-primary" value="确定">&nbsp;&nbsp;
+					    <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-off"></span>取消</a>
+					</td>
+				</tr>
 			</table>
 		  </div>
 		<!-- 非量化指标配置  end -->

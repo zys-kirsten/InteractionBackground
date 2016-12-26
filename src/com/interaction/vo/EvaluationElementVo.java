@@ -1,6 +1,6 @@
 package com.interaction.vo;
 
-public class EvaluationElement {
+public class EvaluationElementVo {
 	private Integer cid;  //课程ID
 	private Integer eeid; //评价因素ID
 	private String eename; //评价因素名称
@@ -42,12 +42,12 @@ public class EvaluationElement {
 		return "EvaluationElement [cid=" + cid + ", eeid=" + eeid + ", eename=" + eename + ", weight=" + weight
 				+ ", fatherId=" + fatherId + "]";
 	}
-	public EvaluationElement(Integer eeid, String eename) {
+	public EvaluationElementVo(Integer eeid, String eename) {
 		super();
 		this.eeid = eeid;
 		this.eename = eename;
 	}
-	public EvaluationElement() {
+	public EvaluationElementVo() {
 		// TODO Auto-generated constructor stub
 	}
 	

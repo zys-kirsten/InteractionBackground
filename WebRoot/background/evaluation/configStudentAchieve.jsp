@@ -100,7 +100,7 @@ function selectCheck1(){
 				      </tr>
 				      <tr>
 				       <td class="tableleft" style="text-align:center;">已设置权值</td>
-				       <c:forEach items="${sessionScope.elementssaws}" var="es">
+				         <c:forEach items="${sessionScope.elementssaws}" var="es">
 				         <td style="text-align:center;">${es.weight }</td>
 						 </c:forEach>
 				      </tr>
