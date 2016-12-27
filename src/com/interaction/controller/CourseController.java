@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.interaction.pojo.Course;
 import com.interaction.pojo.Teacher;
 import com.interaction.service.CourseService;
+import com.interaction.service.EvaluationElementService;
 import com.interaction.utils.SessionUtil;
 import com.interaction.vo.CourseVo;
 
@@ -25,6 +26,8 @@ public class CourseController {
 
 	@Resource
 	private CourseService courseServiceImpl;
+	@Resource
+	private EvaluationElementService evaluationElementServiceImpl;
 	
 	
 	//教师添加（修改）课程信息
@@ -39,6 +42,12 @@ public class CourseController {
 
 		if (course.getCid() == null) {
 			result = courseServiceImpl.addCourse(course);//添加课程
+			//添加课程的同时添加该课程的五个评价因素
+			int re = evaluationElementServiceImpl.addFiveEvaluationElements(course);
+			if (re == -1) {
+				System.out.println("添加评价因素失败！");
+			}
+			
 		}else{
 			result = courseServiceImpl.updateCourse(course);//修改课程
 		}

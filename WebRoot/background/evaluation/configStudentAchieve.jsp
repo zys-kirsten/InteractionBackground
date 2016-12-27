@@ -68,6 +68,9 @@ function selectCheck1(){
 	       <!-- 学生学习效果评价设置  start -->
 		  <div id="con_one_1">
 		    <table width="82%" border="0" cellpadding="0" cellspacing="0" class="CContent">
+		         <tr>
+				  <td style="text-align:center;">学生学习效果评价设置</td>
+				 </tr>
 				 <tr>
 				  <td>
 				  <input type="hidden" id="cmid" name="cmid" value=""/>

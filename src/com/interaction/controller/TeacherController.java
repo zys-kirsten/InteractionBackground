@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.interaction.pojo.Course;
+import com.interaction.pojo.Evaluationelement;
 import com.interaction.pojo.Teacher;
 import com.interaction.service.CourseService;
+import com.interaction.service.EvaluationElementService;
 import com.interaction.service.TeacherService;
 import com.interaction.service.impl.CourseServiceImpl;
 import com.interaction.utils.SessionUtil;
@@ -27,6 +29,8 @@ public class TeacherController {
 	private TeacherService teacherServiceImpl;
 	@Resource
 	private CourseService courseServiceImpl;
+	@Resource
+	private EvaluationElementService evaluationElementServiceImpl;
 	
 	//研讨课登录前选择课程)
 	@RequestMapping("/chooseCourse")
@@ -84,9 +88,11 @@ public class TeacherController {
 		System.out.println("cname="+cname);
 		Teacher teacher = (Teacher) SessionUtil.getMySession().getAttribute("teacher");
 		Course course = courseServiceImpl.listCourseByName(teacher.getTid(),cname);
+		List<Evaluationelement> evaluationelements = evaluationElementServiceImpl.listCourseFiveEvaluationElements(course.getCid());
 		String msg = "fail";
 		if (course != null) {
 			SessionUtil.getMySession().setAttribute("course", course);
+			SessionUtil.getMySession().setAttribute("evaluationelements", evaluationelements);
 			msg = "success";
 		}
 		response.getWriter().print(msg);

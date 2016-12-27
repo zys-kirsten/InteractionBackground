@@ -52,6 +52,9 @@
 	      <div id="con_one_2">
 		     <table width="82%" border="0" cellpadding="0" cellspacing="0" class="CContent">
 				 <tr>
+				  <td style="text-align:center;">量化指标评价设置</td>
+				 </tr>
+				 <tr>
 				  <td>
 				    <table class="table table-bordered table-hover m10" style="margin-left:10px;margin-top:3px;">
 				      <tr>

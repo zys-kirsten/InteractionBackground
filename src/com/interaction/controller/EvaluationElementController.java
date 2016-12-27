@@ -16,15 +16,78 @@ import com.interaction.pojo.Course;
 import com.interaction.pojo.Evaluationelement;
 import com.interaction.service.EvaluationElementService;
 import com.interaction.utils.SessionUtil;
-import com.interaction.vo.EvaluationElementVo;
-import com.interaction.vo.EvaluationWeightVo;
 
 @Controller
 public class EvaluationElementController { 
 	
 	@Resource
 	private EvaluationElementService evaluationElementServiceImpl;
+	
+	
 
+	//删除某一评价因素
+	@RequestMapping("/deleteEvaluationElement")
+	public String deleteEvaluationElement(Integer fatherId,Integer eeid,HttpServletResponse response){
+		 evaluationElementServiceImpl.deleteEvaluationElement(eeid);
+		 return enterNextEvaluationElement(fatherId);
+	}
+	
+	//修改前显示某一评价信息
+	@RequestMapping("/editEvaluationElement")
+	public String editEvaluationElement(Integer eeid){
+		Evaluationelement evaluationelement = evaluationElementServiceImpl.findById(eeid);
+		SessionUtil.getMySession().setAttribute("ee", evaluationelement);
+		return "evaluation/editEvaluationElement";
+	}
+	
+	//添加(修改)某一评价等级下面的具体评价因素
+	@RequestMapping("/addEvaluationElement")
+	public String addEvaluationElement(Evaluationelement evaluationelement){
+		int result = -1;
+		evaluationelement.setCourse(getCourse());
+		if (evaluationelement.getEeid() == null) {
+		    result = evaluationElementServiceImpl.addEvaluationElement(evaluationelement);//添加评价因素
+		}else{
+			evaluationelement.setIsleaf(1);//修改评价因素
+			List<Evaluationelement> elements = new ArrayList<Evaluationelement>();
+			elements.add(evaluationelement);
+			result = evaluationElementServiceImpl.updateEvaluationElement(elements);
+		}
+		return enterNextEvaluationElement(evaluationelement.getEvaluationelement().getEeid());
+	}
+
+	//查看某一课程等级一评价因素
+	@RequestMapping("/listEvaluationElement")
+	public String listEvaluationElement(Integer cid){
+		List<Evaluationelement>  list = evaluationElementServiceImpl.listCourseBasicElement(cid);
+		SessionUtil.getMySession().setAttribute("list", list);
+		return "evaluation/listEvaluationElement";
+	}
+
+	//进入某一等级的下一个等级评价因素列表
+	@RequestMapping("/enterNextEvaluationElement")
+	public String enterNextEvaluationElement(Integer eeid){
+		List<Evaluationelement>  list = evaluationElementServiceImpl.listByFatherId(eeid);
+		SessionUtil.getMySession().setAttribute("list", list);
+		SessionUtil.getMySession().setAttribute("fatherId", eeid);
+		SessionUtil.getMySession().setAttribute("content", evaluationElementServiceImpl.findById(eeid).getEename());
+		return "evaluation/listEvaluationElement";
+	}
+	
+	//返回某一等级的上一个等级评价因素列表
+	@RequestMapping("/returnUpEvaluationElement")
+	public String returnUpEvaluationElement(Integer eeid){
+		Evaluationelement evaluationelement = evaluationElementServiceImpl.findById(eeid);
+		if (evaluationelement.getEvaluationelement() == null) {
+			List<Evaluationelement>  list = evaluationElementServiceImpl.listCourseBasicElement(getCourse().getCid());
+			SessionUtil.getMySession().setAttribute("list", list);
+			SessionUtil.getMySession().setAttribute("fatherId", eeid);
+			SessionUtil.getMySession().setAttribute("content", evaluationElementServiceImpl.findById(eeid).getEename());
+			return "evaluation/listEvaluationElement";
+		}
+		return enterNextEvaluationElement(evaluationelement.getEvaluationelement().getEeid());
+	}
+	
 //============================================学生学习效果评价设置======================================================	
 	//页面点击“学生学习效果评价设置”
 	@RequestMapping("/ShowStudentAchieveWeight")
@@ -273,85 +336,7 @@ public class EvaluationElementController {
 		}
 		return "evaluation/configTeacherEval";
 	}
-//=============================================================================================================
-
-	
-	//根据前台传递的包含配置数据的字符串数组长度计算一共有多少个评价因素（不用查询数据库，效率更高）
-//	private int getDimension(int length) {
-//		int number = 1;
-//		int sum = 0;
-//		while(sum < length){
-//			sum += number++;
-//		}
-//		return number;
-	
-	//实验数据
-//			EvaluationElementVo e1 = new EvaluationElementVo(1,"学生自评");
-//			e1.setWeight(1.0);
-//			e1.setFatherId(5);
-//			EvaluationElementVo e2 = new EvaluationElementVo(2, "学生评价");
-//			e2.setWeight(0.234);
-//			EvaluationElementVo e3 = new EvaluationElementVo(3, "教师评价");
-//			EvaluationElement e4 = new EvaluationElement(4, "教师评价");
-//			EvaluationElement e5 = new EvaluationElement(5, "教师评价");
-//			e3.setWeight(0.111);
-//			elements.add(e1);
-//			elements.add(e2);
-//			elements.add(e3);
-//			elements.add(e4);
-//			elements.add(e5);
-			//实验数据
-//	}
-
-	
-		
-		
-	//“量化指标评价设置”提交配置结果
-	@RequestMapping("/CommitShowQuantizationWeight")
-	public String CommitShowQuantizationWeight(EvaluationWeightVo evaluationWeightVo){
-		//量化指标设置是否合理
-		Double[][] quantizationIndexMatrix = new Double[evaluationWeightVo.getQuantizationIndex().length][evaluationWeightVo.getQuantizationIndex().length];
-		for (int i = 0; i < quantizationIndexMatrix.length; i++) {
-			for(int j = i+1; j < quantizationIndexMatrix.length; j++){
-				quantizationIndexMatrix[i][j] = stringToDouble(evaluationWeightVo.getQuantizationIndex()[i][j]);
-			}
-		}
-		Double[] result = ComputeWeight.calculWeight(quantizationIndexMatrix, quantizationIndexMatrix.length);
-		//1.如果result=null，页面返回提示信息，要求教师重新设置各个值
-		//2.如果result!=null，将权值结果更新到数据库 
-		//3.将权值结果放到session中，页面显示设置好的权值
-		return "evaluation/configStudentAchieve";
-		
-	}
-	
-	@RequestMapping("/ComputeWeight")
-	public void ComputeWeight(EvaluationWeightVo evaluationWeightVo){
-		//量化指标设置是否合理
-		Double[][] quantizationIndexMatrix = new Double[evaluationWeightVo.getQuantizationIndex().length][evaluationWeightVo.getQuantizationIndex().length];
-		for (int i = 0; i < quantizationIndexMatrix.length; i++) {
-			for(int j = i+1; j < quantizationIndexMatrix.length; j++){
-				quantizationIndexMatrix[i][j] = stringToDouble(evaluationWeightVo.getQuantizationIndex()[i][j]);
-			}
-		}
-		ComputeWeight.calculWeight(quantizationIndexMatrix, quantizationIndexMatrix.length);
-//		for (int i = 0; i < quantizationIndexMatrix.length; i++) {
-//			for(int j = 0; j < quantizationIndexMatrix.length; j++){
-//				System.out.println("quantization["+i+"]["+j+"]="+quantizationIndexMatrix[i][j]);;
-//			}
-//		}
-		
-	}
-	@RequestMapping("/ShowWeight")
-	public String ShowWeight(Integer cid){
-		System.out.println("showWeight  cid==>"+cid);
-		EvaluationWeightVo evaluationWeightVo = new EvaluationWeightVo();
-		evaluationWeightVo.setQuantization(0.9);
-		String[][] quantizationIndex = {{"1.0","1.0","1.0","1.0"},{"1.0","1.0","1.0","1.0"},{"1.0","1.0","1.0","1.0"}};
-		evaluationWeightVo.setQuantizationIndex(quantizationIndex);
-		SessionUtil.getMySession().setAttribute("evaluationWeightVo", evaluationWeightVo);
-		return "evaluation/configEvaluationWeight";
-		
-	}
+//=============================================================================================================		
 
 	//将接收到的String转换成double
 	private double stringToDouble(String string) {
@@ -393,24 +378,24 @@ public class EvaluationElementController {
 		}
 		return 0;
 	}
-	
-		//页面点击“量化指标评价设置”
-		@RequestMapping("/ShowQuantization")
-		public String ShowQuantization(Integer cid){
-			System.out.println("ShowStudentAchieveWeight  cid==>"+cid);
-			//1.根据cid
-			List<EvaluationElementVo> elementssaws = new ArrayList<EvaluationElementVo>();
-			EvaluationElementVo elementssaw = new EvaluationElementVo(1,"量化因素");
-			EvaluationElementVo element = new EvaluationElementVo(2, "非量化因素");
-			elementssaws.add(elementssaw);
-			elementssaws.add(element);
-			SessionUtil.getMySession().setAttribute("elementssaws", elementssaws);
-			return "evaluation/configStudentAchieve";
-			
-		}
 		
-		//获得session中的课程信息
-		private Course getCourse(){
-			return (Course) SessionUtil.getMySession().getAttribute("course");
-		}
+	//获得session中的课程信息
+	private Course getCourse(){
+		return (Course) SessionUtil.getMySession().getAttribute("course");
+	}
+//	//查看某一课程的所有等级评价因素(按等级显示)
+//	@RequestMapping("/listEvaluationElement")
+//	public String listEvaluationElement(Integer cid){
+//		List<List<Evaluationelement>>  lists = evaluationElementServiceImpl.listCourseElements(cid);
+//		for (int i = 0; i < lists.size(); i++) {
+//			System.out.println("000000000000000000");
+//			for (int j = 0; j < lists.get(i).size(); j++) {
+//				System.out.println(lists.get(i).get(j).getEename());
+//			}
+//			System.out.println("000000000000000000");
+//		}
+//		SessionUtil.getMySession().setAttribute("lists", lists);
+//		return "evaluation/listEvaluationElement";
+//	}
+	
 }  
