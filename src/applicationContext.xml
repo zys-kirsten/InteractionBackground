@@ -69,7 +69,9 @@ default-lazy-init="true" default-init-method="init" default-destroy-method="dest
 				<value>com/interaction/pojo/Classmodule.hbm.xml</value>
 				<value>com/interaction/pojo/Classmoduleevaluation.hbm.xml</value>
 				<value>com/interaction/pojo/Classmoduleseminar.hbm.xml</value>
-			    <value>com/interaction/pojo/Evaluationelement.hbm.xml</value>	
+			    <value>com/interaction/pojo/Evaluationelement.hbm.xml</value>
+			    <value>com/interaction/pojo/Quantizationfuzzyevaluation.hbm.xml</value>
+			    <value>com/interaction/pojo/Unquantizationfuzzyevaluation.hbm.xml</value>	
 			</list>
 		</property>
 	</bean>
