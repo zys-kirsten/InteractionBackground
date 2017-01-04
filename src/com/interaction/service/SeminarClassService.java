@@ -18,4 +18,7 @@ public interface SeminarClassService {
 
 	//对已登录的学生进行分组
 	public List<GroupVo> divideGroup(int seId);
+
+	//教师确认分组结果
+	public void confirmGroup(int seId);
 }

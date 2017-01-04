@@ -9,5 +9,7 @@ public interface SeminarclassDAO {
 	public List<Seminarclass> listBySeminar(Integer seid);
 
 	public List<Seminarclass> listLoginStudents(Integer seId);
+
+	public int updateSeminarclass(Seminarclass seminarclass);
 	
 }

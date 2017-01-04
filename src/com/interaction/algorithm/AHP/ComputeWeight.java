@@ -100,23 +100,30 @@ public class ComputeWeight {
 	}
 	
 	public static void main(String[] args) {
-	      int N = 5;		 
+	      int N = 4;		 
 		  Double[][] matrix=new Double[N][N];
 //	        for(int i=0;i<N;i++){
 //	            matrix[i][i]=1.0;
 //	        }
 	        //数组0,1 位置存放的是影响因素0相对于影响因素1的重要程度 。
 	        //0.25代表 影响因素0的重要程度为影响因素1的重要程度的4分之1。
-	        matrix[0][1]=3.0;            
-	        matrix[0][2]=3.0;
-	        matrix[0][3]=2.0;
-	        matrix[0][4]=4.0;
-	        matrix[1][2]=1.0;
-	        matrix[1][3]=(double)1/3;
-	        matrix[1][4]=3.0;
-	        matrix[2][3]=(double)1/3;
-	        matrix[2][4]=3.0;
-	        matrix[3][4]=4.0;
+//	        matrix[0][1]=3.0;            
+//	        matrix[0][2]=3.0;
+//	        matrix[0][3]=2.0;
+//	        matrix[0][4]=4.0;
+//	        matrix[1][2]=1.0;
+//	        matrix[1][3]=(double)1/3;
+//	        matrix[1][4]=3.0;
+//	        matrix[2][3]=(double)1/3;
+//	        matrix[2][4]=3.0;
+//	        matrix[3][4]=4.0;
+		    matrix[0][1]=1.0/8.0;            
+	        matrix[0][2]=1.0/5.0;
+	        matrix[0][3]=1.0/3.0;
+	        matrix[1][2]=4.0;
+	        matrix[1][3]=6.0;
+	        matrix[2][3]=3.0;
+	       
 	       calculWeight(matrix,N);
 //		 double a = (double)1/3;
 //		 System.out.println(a);

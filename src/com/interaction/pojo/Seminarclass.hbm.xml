@@ -8,7 +8,7 @@
     <class name="com.interaction.pojo.Seminarclass" table="seminarclass" catalog="interaction">
         <id name="scid" type="java.lang.Integer">
             <column name="SCId" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <many-to-one name="student" class="com.interaction.pojo.Student" fetch="select">
             <column name="SId" not-null="true" />
@@ -30,6 +30,9 @@
         </property>
         <property name="isLogin" type="java.lang.Integer">
             <column name="IsLogin" />
+        </property>
+        <property name="confirmGroup" type="java.lang.Integer">
+            <column name="ConfirmGroup" />
         </property>
     </class>
 </hibernate-mapping>

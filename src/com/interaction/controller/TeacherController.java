@@ -138,7 +138,7 @@ public class TeacherController {
 	 * @param request
 	 * @param response
 	 * @throws IOException
-	 * 分组方法
+	 * 分组方法(finished! test success!)
 	 * 返回数据List<GroupVo> groups
 	 */
 	@RequestMapping("grouping")
@@ -162,6 +162,8 @@ public class TeacherController {
 		//忽略该行，system.out用于测试，实际编码中不需要实现
 		System.out.println("grouping.do  "+gps);
 	}
+	
+	
 	/**
 	 * 
 	 * @param seId
@@ -169,7 +171,7 @@ public class TeacherController {
 	 * @param response
 	 * @throws IOException
 	 * 
-	 * 分组结果确认，教师进行分组之后如果对结果满意则进行确定，这时调用该方法
+	 * 分组结果确认，教师进行分组之后如果对结果满意则进行确定，这时调用该方法(finished)
 	 * 有可能需要添加标志位
 	 * 无返回值
 	 */
@@ -179,7 +181,7 @@ public class TeacherController {
 		 * 需要实现
 		 * 在这里实现自己的代码，调用service层的分组结果确认的方法，传入参数seId。
 		 */
-		
+		seminarClassServiceImpl.confirmGroup(Integer.parseInt(seId));
 		//忽略该行，system.out用于测试，实际编码中不需要实现
 		System.out.println("groupsubmit.do  "+seId);
 	}

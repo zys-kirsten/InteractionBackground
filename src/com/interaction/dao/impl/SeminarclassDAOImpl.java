@@ -36,5 +36,15 @@ public class SeminarclassDAOImpl extends HibernateDaoSupport implements Seminarc
 		return seminar;
 	}
 
+	@Override
+	public int updateSeminarclass(Seminarclass seminarclass) {
+		try {
+			getHibernateTemplate().update(seminarclass);
+			return 1;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return -1;
+	}
 	
 }

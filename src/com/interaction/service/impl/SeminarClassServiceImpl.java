@@ -8,10 +8,13 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.interaction.algorithm.group.GroupDivide;
+import com.interaction.dao.ClassModuleDAO;
 import com.interaction.dao.CourseDAO;
 import com.interaction.dao.SeminarDAO;
 import com.interaction.dao.SeminarclassDAO;
 import com.interaction.dao.StudentDAO;
+import com.interaction.pojo.Classmodule;
 import com.interaction.pojo.Seminar;
 import com.interaction.pojo.Seminarclass;
 import com.interaction.pojo.Student;
@@ -29,6 +32,8 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 	private StudentDAO studentDAOImpl;
 	@Resource
 	private SeminarDAO seminarDAOImpl;
+	@Resource
+	private ClassModuleDAO classModuleDAOImpl;
 	
 	//列出某一研讨课的研讨班选课信息
 	@Override
@@ -105,10 +110,56 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 	//对已登录的学生进行分组
 	@Override
 	public List<GroupVo> divideGroup(int seId) {
-		return null;
+		boolean flag = true;
+		List<Seminarclass> ltpo = seminarclassDAOImpl.listLoginStudents(seId);
+		
+		//读取配置模式，获得分组的个数
+	//	Classmodule classmodule = classModuleDAOImpl.listBySeId(seId);
+		Integer grpNum = 3;
+				
+		List<List<Seminarclass>> lists = GroupDivide.divideGroup(ltpo,grpNum);
+		if (lists == null || lists.size() == 0) {
+			return null;
+		}
+		
+		List<GroupVo> groupVos = new ArrayList<>();
+		Integer grNum = 1;
+		for (List<Seminarclass> list:lists) {
+			GroupVo groupVo = new GroupVo();
+			String grNames = "";
+			Integer inGroupNum = 1;
+			for(Seminarclass seminarclass:list){
+				seminarclass.setGroupNum(grNum);
+				seminarclass.setInGroupNum(inGroupNum++);
+				seminarclass.setConfirmGroup(0);
+				int result = seminarclassDAOImpl.updateSeminarclass(seminarclass);  //更新研讨课学生
+				if (result == -1) {
+					flag = false;
+				}
+				Student student = studentDAOImpl.findById(seminarclass.getStudent().getSid()); //为了页面返回显示
+				grNames += student.getSname()+" ";
+			}
+			groupVo.setGrName((grNum++).toString());
+			groupVo.setStNames(grNames);
+			
+			groupVos.add(groupVo);
+		}
+		
+		if (flag == false) {
+			return null;
+		}
+		return groupVos;
 	}
 
-	
+	//教师确认分组结果
+	@Override
+	public void confirmGroup(int seId) {
+		List<Seminarclass> ltpo = seminarclassDAOImpl.listLoginStudents(seId);
+		for (Seminarclass seminarclass:ltpo) {
+			seminarclass.setConfirmGroup(1);
+			seminarclassDAOImpl.updateSeminarclass(seminarclass);  //将确认分组结果置为可查看
+		}
+	}
 	
 	
 

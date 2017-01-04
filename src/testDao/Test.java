@@ -1,17 +1,46 @@
 package testDao;
 
-import java.io.FileOutputStream;
-
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.dom4j.io.OutputFormat;
-import org.dom4j.io.XMLWriter;
+import java.util.Random;
 
 public class Test {
 
+	private static int[] getRandomIndex(int number) {
+		int[] result = new int[number];
+		while ((number--) > 0) {
+			int temp = getNum(result.length);
+			while (true && number >= 0) {
+				if (check(temp, result)) {
+					temp = getNum(result.length);
+				} else {
+					result[number] = temp;
+					break;
+				}
+			}
+		}
+		return result;
+	}
+
+	private static boolean check(int t, int[] result) {
+		boolean flag = false;
+		for (int i = 0; i < result.length; i++) {
+			if (t == result[i]) {
+				flag = true;
+				break;
+			}
+		}
+		return flag;
+	}
+
+	private static int getNum(int number) {
+		Random random = new Random();
+		return random.nextInt(number)+1;
+	}
+	
 	public static void main(String[] args) throws Exception {  
         
-      System.out.println(1.0/3.0);
+      int[] result = getRandomIndex(12);
+      for (int i = 0; i < result.length; i++) {
+		System.out.println((result[i]-1)+" ");
+	}
     }  
 }
