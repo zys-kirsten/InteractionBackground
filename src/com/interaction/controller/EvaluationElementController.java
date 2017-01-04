@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.interaction.AHP.ComputeWeight;
+import com.interaction.algorithm.AHP.ComputeWeight;
 import com.interaction.pojo.Course;
 import com.interaction.pojo.Evaluationelement;
 import com.interaction.service.EvaluationElementService;

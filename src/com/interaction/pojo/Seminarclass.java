@@ -15,6 +15,7 @@ public class Seminarclass implements java.io.Serializable {
 	private Integer groupNum;
 	private Integer inGroupNum;
 	private Double seScore;
+	private Integer isLogin;//标识学生是否登录。1：登录，0：未登录
 
 	// Constructors
 
@@ -34,7 +35,7 @@ public class Seminarclass implements java.io.Serializable {
 	/** full constructor */
 	public Seminarclass(Integer scid, Student student, Course course,
 			Seminar seminar, Integer groupNum, Integer inGroupNum,
-			Double seScore) {
+			Double seScore, Integer isLogin) {
 		this.scid = scid;
 		this.student = student;
 		this.course = course;
@@ -42,6 +43,7 @@ public class Seminarclass implements java.io.Serializable {
 		this.groupNum = groupNum;
 		this.inGroupNum = inGroupNum;
 		this.seScore = seScore;
+		this.isLogin = isLogin;
 	}
 
 	// Property accessors
@@ -100,6 +102,14 @@ public class Seminarclass implements java.io.Serializable {
 
 	public void setSeScore(Double seScore) {
 		this.seScore = seScore;
+	}
+
+	public Integer getIsLogin() {
+		return this.isLogin;
+	}
+
+	public void setIsLogin(Integer isLogin) {
+		this.isLogin = isLogin;
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.interaction.AHP;
+package com.interaction.algorithm.AHP;
 
 import java.math.BigDecimal;
 

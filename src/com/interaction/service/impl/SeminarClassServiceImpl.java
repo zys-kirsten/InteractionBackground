@@ -17,6 +17,7 @@ import com.interaction.pojo.Seminarclass;
 import com.interaction.pojo.Student;
 import com.interaction.service.SeminarClassService;
 import com.interaction.utils.DateUtil;
+import com.interaction.vo.GroupVo;
 import com.interaction.vo.SeminarClassVo;
 
 @Service
@@ -92,6 +93,19 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 		scvo.setSeTime(DateUtil.d2s(seminar.getSeTime()));
 		
 		return scvo;
+	}
+
+	//列车该门研讨课已经登录的学生
+	@Override
+	public List<SeminarClassVo> listLoginStudents(Integer seId) {
+		List<Seminarclass> ltpo = seminarclassDAOImpl.listLoginStudents(seId); 
+		return p2v(ltpo);
+	}
+
+	//对已登录的学生进行分组
+	@Override
+	public List<GroupVo> divideGroup(int seId) {
+		return null;
 	}
 
 	

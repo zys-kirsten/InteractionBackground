@@ -14,12 +14,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.interaction.pojo.Course;
 import com.interaction.pojo.Evaluationelement;
+import com.interaction.pojo.Seminar;
 import com.interaction.pojo.Teacher;
 import com.interaction.service.CourseService;
 import com.interaction.service.EvaluationElementService;
+import com.interaction.service.SeminarClassService;
+import com.interaction.service.SeminarService;
 import com.interaction.service.TeacherService;
 import com.interaction.utils.SessionUtil;
 import com.interaction.vo.CourseVo;
+import com.interaction.vo.GroupVo;
+import com.interaction.vo.SeminarClassVo;
+import com.interaction.vo.SeminarVo;
 
 import net.sf.json.JSONObject;
 
@@ -30,6 +36,10 @@ public class TeacherController {
 	private TeacherService teacherServiceImpl;
 	@Resource
 	private CourseService courseServiceImpl;
+	@Resource  
+	private SeminarService seminarServiceImpl;
+	@Resource
+	private SeminarClassService seminarClassServiceImpl;
 	@Resource
 	private EvaluationElementService evaluationElementServiceImpl;
 	
@@ -44,7 +54,7 @@ public class TeacherController {
 		System.out.println("teacherlogin.do  SAccount : "+tAccount+"   SPwd : "+tPwd);
 	}
 	
-	//教师查询自己的课程列表
+	//教师查询自己的课程列表(finished)
 	@RequestMapping("findcoursebytid")
 	public void findcoursebytid(@RequestParam("TId")String TId,HttpServletRequest request,HttpServletResponse response) throws IOException{
 
@@ -68,7 +78,7 @@ public class TeacherController {
 	 * @param response
 	 * @throws IOException
 	 * 
-	 * 查找某课程下的研讨课列表
+	 * 查找某课程下的研讨课列表(finished)
 	 * 返回数据 List<Seminar> seminars
 	 * 
 	 */
@@ -79,21 +89,12 @@ public class TeacherController {
 		 * 需要实现
 		 * 在这里实现自己的代码，调用service层，查找CId的课程下的所有研讨课。
 		 */
+		List<SeminarVo> seminars = seminarServiceImpl.listByCourse(Integer.parseInt(CId));
 		
 		//定义response的各种参数
 		response.setContentType("application/json");  
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		List<Seminar> seminars = new ArrayList<Seminar>();
-		
-		//需要实现
-	    //该处将查找出的Seminar添加到List中
-		Seminar seminar = new Seminar(1,1,"数据仓库研讨课1","第一课时",new Date(),20,30);
-		seminars.add(seminar);
-	    seminar = new Seminar(2,1,"数据仓库研讨课2","第二课时",new Date(),30,40);
-		seminars.add(seminar);
-		seminar = new Seminar(3,1,"数据仓库研讨课3","第三课时",new Date(),40,50);
-		seminars.add(seminar);
 		
 		//转化成JsonString
 		String opts = createJsonString("seminars",seminars);
@@ -110,40 +111,17 @@ public class TeacherController {
 	 * @param response
 	 * @throws IOException
 	 * 
-	 * 查根据研讨课id查找已签到的学生列表
+	 * 查根据研讨课id查找已签到的学生列表(finished)
 	 * 返回数据 List<Seminar> seminars
 	 * 
 	 */
 	@RequestMapping("findsigninstudentsbyseid")
 	public void findsigninstudentsbyseid(@RequestParam("seId")String seId,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		/**
-		 * 需要实现
-		 * 在这里实现自己的代码，调用service层，查找seId的课程下的已签到的学生列表。
-		 */
-		
+		List<SeminarClassVo> students = seminarClassServiceImpl.listLoginStudents(Integer.parseInt(seId));
 		//定义response的各种参数
 		response.setContentType("application/json");  
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		
-		//需要实现
-	    //该处将查找出的Student添加到List中
-		List<Student> students = new ArrayList<Student>();
-		Student student = new Student(1,"123@126.com","123pwd","张全蛋","15040302010");
-		students.add(student);
-		student = new Student(2,"123@126.com","123pwd","李全蛋","15040302010");
-		students.add(student);
-		student = new Student(3,"123@126.com","123pwd","王全蛋","15040302010");
-		students.add(student);
-		student = new Student(3,"123@126.com","123pwd","王全蛋","15040302010");
-		students.add(student);
-		student = new Student(3,"123@126.com","123pwd","王全蛋","15040302010");
-		students.add(student);
-		student = new Student(3,"123@126.com","123pwd","王全蛋","15040302010");
-		students.add(student);
-		student = new Student(3,"123@126.com","123pwd","王全蛋","15040302010");
-		students.add(student);
-		
 		
 		//转化成JsonString
 		String opts = createJsonString("students",students);
@@ -169,21 +147,12 @@ public class TeacherController {
 		 * 需要实现
 		 * 在这里实现自己的代码，调用service层，对seId研讨课中的学生进行分组，并返回分组结果。
 		 */
+		List<GroupVo> groups = seminarClassServiceImpl.divideGroup(Integer.parseInt(seId));
 		
 		//定义response的各种参数
 		response.setContentType("application/json");  
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		List<GroupVo> groups = new ArrayList<GroupVo>();
-		
-		//需要实现
-	    //该处将查找出的GroupVo添加到List中
-		GroupVo group = new GroupVo("1组","张三，王五，李四，赵六");
-		groups.add(group);
-		group = new GroupVo("2组","李四，王五，张三，赵六");
-		groups.add(group);
-		group = new GroupVo("3组","王五，张三，李四，赵六");
-		groups.add(group);
 		
 		//转化成JsonString
 		String gps = createJsonString("groups",groups);
@@ -276,7 +245,7 @@ public class TeacherController {
 		 */
 		
 		//忽略该行，system.out用于测试，实际编码中不需要实现
-		System.out.println("startoutgroupevaluate.do  "+seId);
+		System.out.println("startoutgroupevaluate.do  "+seId);   
 	}
 	/**
 	 * 
