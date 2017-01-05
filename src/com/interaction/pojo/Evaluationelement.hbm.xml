@@ -25,6 +25,9 @@
          <property name="isleaf" type="java.lang.Integer">
             <column name="IsLeaf"/>
         </property>
+         <property name="bevisited" type="java.lang.Integer">
+            <column name="BeVisited"/>
+        </property>
         <set name="evaluationelements" inverse="true">
             <key>
                 <column name="FatherId" />

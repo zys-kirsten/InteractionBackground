@@ -25,5 +25,7 @@ public interface EvaluationElementService {
 
 	void deleteEvaluationElement(Integer eeid);
 
+	void executeEvaluation(int seid, String fatherName, String condition);
+
 
 }

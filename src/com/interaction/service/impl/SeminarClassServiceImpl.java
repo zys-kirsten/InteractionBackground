@@ -34,7 +34,9 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 	private SeminarDAO seminarDAOImpl;
 	@Resource
 	private ClassModuleDAO classModuleDAOImpl;
+
 	
+//====================================PC======================================================
 	//列出某一研讨课的研讨班选课信息
 	@Override
 	public List<SeminarClassVo> listOneSeminarClass(Integer seid) {
@@ -100,6 +102,8 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 		return scvo;
 	}
 
+	
+//====================================Android========================================================
 	//列车该门研讨课已经登录的学生
 	@Override
 	public List<SeminarClassVo> listLoginStudents(Integer seId) {

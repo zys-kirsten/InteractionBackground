@@ -17,6 +17,7 @@ public class Evaluationelement implements java.io.Serializable {
 	private String eename;
 	private Double weight;
 	private Integer isleaf;
+	private Integer bevisited;
 	private Set evaluationelements = new HashSet(0);
 
 	// Constructors
@@ -34,7 +35,7 @@ public class Evaluationelement implements java.io.Serializable {
 	/** full constructor */
 	public Evaluationelement(Integer eeid, Course course,
 			Evaluationelement evaluationelement, String eename, Double weight,
-			Set evaluationelements,Integer isleaf) {
+			Set evaluationelements,Integer isleaf,Integer bevisited) {
 		this.eeid = eeid;
 		this.course = course;
 		this.evaluationelement = evaluationelement;
@@ -42,12 +43,22 @@ public class Evaluationelement implements java.io.Serializable {
 		this.weight = weight;
 		this.evaluationelements = evaluationelements;
 		this.isleaf = isleaf;
+		this.bevisited = bevisited;
 	}
 
 	// Property accessors
 
+	
 	public Integer getEeid() {
 		return this.eeid;
+	}
+
+	public Integer getBevisited() {
+		return bevisited;
+	}
+
+	public void setBevisited(Integer bevisited) {
+		this.bevisited = bevisited;
 	}
 
 	public void setEeid(Integer eeid) {

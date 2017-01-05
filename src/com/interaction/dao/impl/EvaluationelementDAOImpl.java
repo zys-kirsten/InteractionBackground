@@ -92,4 +92,13 @@ public class EvaluationelementDAOImpl extends HibernateDaoSupport implements Eva
 			return null;
 		return evaluationelements;
 	}
+	
+	@Override
+	public List<Evaluationelement> listByCourseAndFatherName(Integer cid, String condition) {
+		String hql = "from Evaluationelement e where e.course.cid=? and evaluationelement.eename=?";
+		List<Evaluationelement> evaluationelements = getHibernateTemplate().find(hql, cid,condition);
+		if(evaluationelements == null || evaluationelements.size() == 0)
+			return null;
+		return evaluationelements;
+	}
 }

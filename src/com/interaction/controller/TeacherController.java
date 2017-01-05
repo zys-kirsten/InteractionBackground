@@ -16,6 +16,7 @@ import com.interaction.pojo.Course;
 import com.interaction.pojo.Evaluationelement;
 import com.interaction.pojo.Seminar;
 import com.interaction.pojo.Teacher;
+import com.interaction.pojo.Votedata;
 import com.interaction.service.CourseService;
 import com.interaction.service.EvaluationElementService;
 import com.interaction.service.SeminarClassService;
@@ -138,7 +139,7 @@ public class TeacherController {
 	 * @param request
 	 * @param response
 	 * @throws IOException
-	 * 分组方法(finished! test success!)
+	 * 分组方法(finished! test success! 配置文件读取分组个数还未实现)
 	 * 返回数据List<GroupVo> groups
 	 */
 	@RequestMapping("grouping")
@@ -191,7 +192,7 @@ public class TeacherController {
 	 * @param request
 	 * @param response
 	 * @throws IOException
-	 * 组内评价开始，教师点击开始组内评价按钮时调用该方法
+	 * 组内评价开始，教师点击开始组内评价按钮时调用该方法(finished!)
 	 * 
 	 * 有可能需要添加标志位
 	 * 无返回值
@@ -202,7 +203,7 @@ public class TeacherController {
 		 * 需要实现
 		 * 在这里实现自己的代码，调用service层
 		 */
-		
+		evaluationElementServiceImpl.executeEvaluation(Integer.parseInt(seId),"组内评价","start");
 		//忽略该行，system.out用于测试，实际编码中不需要实现
 		System.out.println("startingroupevaluate.do  "+seId);
 	}
@@ -212,7 +213,7 @@ public class TeacherController {
 	 * @param request
 	 * @param response
 	 * @throws IOException
-	 * 组内评价结束，组内评价倒计时结束时调用该方法 教师重置评价时间时调用该方法
+	 * 组内评价结束，组内评价倒计时结束时调用该方法 教师重置评价时间时调用该方法（finished!）
 	 * 
 	 * 有可能需要添加标志位
 	 * 无返回值
@@ -223,7 +224,7 @@ public class TeacherController {
 		 * 需要实现
 		 * 在这里实现自己的代码，调用service层
 		 */
-		
+		evaluationElementServiceImpl.executeEvaluation(Integer.parseInt(seId),"组内评价","end");
 		//忽略该行，system.out用于测试，实际编码中不需要实现
 		System.out.println("endingroupevaluate.do  "+seId);
 	}
@@ -234,7 +235,7 @@ public class TeacherController {
 	 * @param response
 	 * @throws IOException
 	 * 
-	 * 组间评价开始，教师点击开始组间评价按钮时调用该方法
+	 * 组间评价开始，教师点击开始组间评价按钮时调用该方法（finished）
 	 * 
 	 * 有可能需要添加标志位
 	 * 无返回值
@@ -245,7 +246,7 @@ public class TeacherController {
 		 * 需要实现
 		 * 在这里实现自己的代码，调用service层
 		 */
-		
+		evaluationElementServiceImpl.executeEvaluation(Integer.parseInt(seId),"组间评价","start");
 		//忽略该行，system.out用于测试，实际编码中不需要实现
 		System.out.println("startoutgroupevaluate.do  "+seId);   
 	}
@@ -255,7 +256,7 @@ public class TeacherController {
 	 * @param request
 	 * @param response
 	 * @throws IOException
-	 * 组间评价结束，组间评价倒计时结束时调用该方法 教师重置评价时间时调用该方法
+	 * 组间评价结束，组间评价倒计时结束时调用该方法 教师重置评价时间时调用该方法(finished)
 	 */
 	@RequestMapping("endoutgroupevaluate")
 	public void endoutgroupevaluate(@RequestParam("seId")String seId,HttpServletRequest request,HttpServletResponse response) throws IOException{
@@ -263,7 +264,7 @@ public class TeacherController {
 		 * 需要实现
 		 * 在这里实现自己的代码，调用service层
 		 */
-		
+		evaluationElementServiceImpl.executeEvaluation(Integer.parseInt(seId),"组间评价","end");
 		//忽略该行，system.out用于测试，实际编码中不需要实现
 		System.out.println("endoutgroupevaluate.do  "+seId);
 	}
@@ -284,6 +285,7 @@ public class TeacherController {
 		 * 需要实现
 		 * 在这里实现自己的代码，调用service层，查询当前投票题投票数据。
 		 */
+		List<List<Votedata>> votedatas = 
 		
 		//定义response的各种参数
 		response.setContentType("application/json");  
