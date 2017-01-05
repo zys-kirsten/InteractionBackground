@@ -45,31 +45,31 @@
 </head>
 <body>
 	 <br>
-	 <form action="${ctxPath }/CommitStuEvalWeight.do"  method="post">
+	 <form action="${ctxPath }/CommitOutEvalWeight.do"  method="post">
 		 <div class="menudiv">
 	       <!-- 学生评价设置 start -->
 		  <div id="con_one_5">
 		     <table width="82%" border="0" cellpadding="0" cellspacing="0" class="CContent">
 		         <tr>
-				  <td style="text-align:center;">学生评价设置</td>
+				  <td style="text-align:center;">组间评价设置</td>
 				 </tr>
 				 <tr>
 				  <td>
 				    <table class="table table-bordered table-hover m10" style="margin-left:10px;margin-top:3px;">
 				      <tr>
 				      <th style="text-align:center;">
-				        <c:if test="${not empty sessionScope.elementsstuews.get(0).evaluationelement.eeid}">
-				          <input type="hidden" name="fatherId" value="${sessionScope.elementsstuews.get(0).evaluationelement.eeid}">
+				        <c:if test="${not empty sessionScope.elementsoutews.get(0).evaluationelement.eeid}">
+				          <input type="hidden" name="fatherId" value="${sessionScope.elementsoutews.get(0).evaluationelement.eeid}">
 				        </c:if>
 				      </th>
-				      <c:forEach items="${sessionScope.elementsstuews}" var="es">
+				      <c:forEach items="${sessionScope.elementsoutews}" var="es">
 				        <th style="text-align:center;">${es.eename}</th>
 				      </c:forEach>
 				      </tr>
-				      <c:forEach items="${sessionScope.elementsstuews}" var="es">
+				      <c:forEach items="${sessionScope.elementsoutews}" var="es">
 					  <tr>
 				        <td class="tableleft" style="text-align:center;">${es.eename}</td>
-				        <c:forEach items="${sessionScope.elementsstuews}" var="e">
+				        <c:forEach items="${sessionScope.elementsoutews}" var="e">
 				          <c:choose>
 				             <c:when test="${es.eeid == e.eeid}">
 					             <td style="text-align:center;">
@@ -99,7 +99,7 @@
 				             </c:when>
 				             <c:otherwise>
 				                <td style="text-align:center;">
-							        <select name="stuEval" style="width:100%;">
+							        <select name="outEval" style="width:100%;">
 							          <option value ="1.0" selected="selected">1</option>
 							          <option value ="2.0" >2</option>
 									  <option value ="3.0" >3</option>
@@ -126,17 +126,17 @@
 				      </c:forEach>
 				      <tr>
 				        <c:choose>
-				          <c:when test="${not empty sessionScope.stumsg}">
+				          <c:when test="${not empty sessionScope.outmsg}">
 				            <td class="tableleft" style="text-align:center;" width="150px;">
-				               <c:out value="${sessionScope.stumsg}"></c:out>
+				               <c:out value="${sessionScope.outmsg}"></c:out>
 				            </td>
-				              <c:forEach items="${sessionScope.elementsstuews}" var="es">
+				              <c:forEach items="${sessionScope.elementsoutews}" var="es">
 				                <td style="text-align:center;">${es.weight }</td>
 						      </c:forEach>
 				          </c:when>
 				          <c:otherwise>
 				            <td class="tableleft" style="text-align:center;" >已设置权值</td>
-				              <c:forEach items="${sessionScope.elementsstuews}" var="es">
+				              <c:forEach items="${sessionScope.elementsoutews}" var="es">
 				                <td style="text-align:center;">${es.weight }</td>
 						      </c:forEach>
 				          </c:otherwise>

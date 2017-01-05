@@ -647,7 +647,7 @@ public class TeacherController {
 		System.out.println("cname="+cname);
 		Teacher teacher = (Teacher) SessionUtil.getMySession().getAttribute("teacher");
 		Course course = courseServiceImpl.listCourseByName(teacher.getTid(),cname);
-		List<Evaluationelement> evaluationelements = evaluationElementServiceImpl.listCourseFiveEvaluationElements(course.getCid());
+		List<Evaluationelement> evaluationelements = evaluationElementServiceImpl.listCourseSixEvaluationElements(course.getCid());
 		String msg = "fail";
 		if (course != null) {
 			SessionUtil.getMySession().setAttribute("course", course);

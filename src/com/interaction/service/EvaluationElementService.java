@@ -15,9 +15,9 @@ public interface EvaluationElementService {
 
 	List<List<Evaluationelement>> listCourseElements(Integer cid);
 
-	List<Evaluationelement> listCourseFiveEvaluationElements(Integer cid);
+	List<Evaluationelement> listCourseSixEvaluationElements(Integer cid);
 
-	int addFiveEvaluationElements(Course course);
+	int addSixEvaluationElements(Course course);
 	
 	Evaluationelement findById(Integer eeid);
 

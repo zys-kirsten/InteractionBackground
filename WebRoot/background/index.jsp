@@ -264,8 +264,9 @@ float:left;
 					<li><a class="a" href="${ctxPath }/ShowUnquantizationWeight.do?eeid=${evaluationelements.get(0).eeid}" target="rightFrame">非量化指标评价设置</a></li>
 					<li><a class="a" href="${ctxPath }/ShowQuantizationWeight.do?eeid=${evaluationelements.get(1).eeid}" target="rightFrame">量化指标评价设置</a></li>
 					<li><a class="a" href="${ctxPath }/ShowSelfEvalWeight.do?eeid=${evaluationelements.get(2).eeid}" target="rightFrame">学生自评设置</a></li>
-					<li><a class="a" href="${ctxPath }/ShowStuEvalWeight.do?eeid=${evaluationelements.get(3).eeid}" target="rightFrame">学生评价设置</a></li>
-					<li><a class="a" href="${ctxPath }/ShowTeacherEvalWeight.do?eeid=${evaluationelements.get(4).eeid}" target="rightFrame">教师评价设置</a></li>
+					<li><a class="a" href="${ctxPath }/ShowInEvalWeight.do?eeid=${evaluationelements.get(3).eeid}" target="rightFrame">组内评价设置</a></li>
+					<li><a class="a" href="${ctxPath }/ShowOutEvalWeight.do?eeid=${evaluationelements.get(4).eeid}" target="rightFrame">组间评价设置</a></li>
+					<li><a class="a" href="${ctxPath }/ShowTeacherEvalWeight.do?eeid=${evaluationelements.get(5).eeid}" target="rightFrame">教师评价设置</a></li>
 					<li><a class="a" href="${ctxPath }/listEvaluationElement.do?cid=${course.cid}" target="rightFrame">评价因素管理</a></li>
 					<%-- <li><a class="a" href="${ctxPath }/background/evaluation/addEvaluationElement.jsp" target="rightFrame">添加评价因素</a></li>
 					<li><a class="a" href="${ctxPath }/listEvaluation.do?cid=${course.cid}" target="rightFrame">查看评价单</a></li>

@@ -249,48 +249,92 @@ public class EvaluationElementController {
 	}
 //=============================================================================================================
 
-//====================================学生评价设置===========================================================
-	//页面点击“学生评价设置”
-	@RequestMapping("/ShowStuEvalWeight")
-	public String ShowStuEvalWeight(Integer eeid){
-		System.out.println("ShowStuEvalWeight  eeid==>"+eeid);
+//====================================组内评价设置===========================================================
+	//页面点击“组内评价设置”
+	@RequestMapping("/ShowInEvalWeight")
+	public String ShowInEvalWeight(Integer eeid){
+		System.out.println("ShowInEvalWeight  eeid==>"+eeid);
 		List<Evaluationelement> elements = evaluationElementServiceImpl.listByFatherId(eeid);
-		SessionUtil.getMySession().setAttribute("stumsg", "");
-		SessionUtil.getMySession().setAttribute("elementsstuews", elements);
-		return "evaluation/configStuEval";
+		SessionUtil.getMySession().setAttribute("inmsg", "");
+		SessionUtil.getMySession().setAttribute("elementsinews", elements);
+		return "evaluation/configInEval";
 	}
 	
-	//“学生评价设置”提交配置结果
-	@RequestMapping("/CommitStuEvalWeight")
-	public String CommitStuEvalWeight(HttpServletRequest request,HttpServletResponse response) throws IOException{
-		//学生评价设置是否合理
-		String[] stuEval = request.getParameterValues("stuEval");
+	//“组内评价设置”提交配置结果
+	@RequestMapping("/CommitInEvalWeight")
+	public String CommitInEvalWeight(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		//组内评价设置是否合理
+		String[] inEval = request.getParameterValues("inEval");
 		
 		Integer fatherId = Integer.parseInt(request.getParameter("fatherId"));
 		List<Evaluationelement> elements = evaluationElementServiceImpl.listByFatherId(fatherId);
 		int dimension = elements.size(); 
-		int stuEvalIndex = 0;
+		int inEvalIndex = 0;
 		
-		Double[][] stuEvalIndexMatrix = new Double[dimension][dimension];
+		Double[][] inEvalIndexMatrix = new Double[dimension][dimension];
 		for (int i = 0; i < dimension; i++) {
 			for(int j = i+1; j < dimension; j++){
-				stuEvalIndexMatrix[i][j] = stringToDouble(stuEval[stuEvalIndex++]);
+				inEvalIndexMatrix[i][j] = stringToDouble(inEval[inEvalIndex++]);
 			}
 		}
 		
-		Double[] result = ComputeWeight.calculWeight(stuEvalIndexMatrix, dimension);
+		Double[] result = ComputeWeight.calculWeight(inEvalIndexMatrix, dimension);
 		if (result == null || result.length == 0) {
-			SessionUtil.getMySession().setAttribute("stumsg", "权重设置不合理，原权重为:");
-			SessionUtil.getMySession().setAttribute("elementsstuews", elements);
+			SessionUtil.getMySession().setAttribute("inmsg", "权重设置不合理，原权重为:");
+			SessionUtil.getMySession().setAttribute("elementsinews", elements);
 		}else {
 			for (int i = 0; i < result.length; i++) {
 				elements.get(i).setWeight(result[i]);
 			}
 			evaluationElementServiceImpl.updateEvaluationElement(elements);
-			SessionUtil.getMySession().setAttribute("stumsg", "");	
-			SessionUtil.getMySession().setAttribute("elementsstuews", elements);	
+			SessionUtil.getMySession().setAttribute("inmsg", "");	
+			SessionUtil.getMySession().setAttribute("elementsinews", elements);	
 		}
-		return "evaluation/configStuEval";
+		return "evaluation/configInEval";
+	}
+//=============================================================================================================
+//====================================组间评价设置===========================================================
+	//页面点击“组间评价设置”
+	@RequestMapping("/ShowOutEvalWeight")
+	public String ShowOutEvalWeight(Integer eeid){
+		System.out.println("ShowOutEvalWeight  eeid==>"+eeid);
+		List<Evaluationelement> elements = evaluationElementServiceImpl.listByFatherId(eeid);
+		SessionUtil.getMySession().setAttribute("outmsg", "");
+		SessionUtil.getMySession().setAttribute("elementsoutews", elements);
+		return "evaluation/configOutEval";
+	}
+	
+	//“组间评价设置”提交配置结果
+	@RequestMapping("/CommitOutEvalWeight")
+	public String CommitOutEvalWeight(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		//组间评价设置是否合理
+		String[] outEval = request.getParameterValues("outEval");
+		
+		Integer fatherId = Integer.parseInt(request.getParameter("fatherId"));
+		List<Evaluationelement> elements = evaluationElementServiceImpl.listByFatherId(fatherId);
+		int dimension = elements.size(); 
+		int outEvalIndex = 0;
+		
+		Double[][] outEvalIndexMatrix = new Double[dimension][dimension];
+		for (int i = 0; i < dimension; i++) {
+			for(int j = i+1; j < dimension; j++){
+				outEvalIndexMatrix[i][j] = stringToDouble(outEval[outEvalIndex++]);
+			}
+		}
+		
+		Double[] result = ComputeWeight.calculWeight(outEvalIndexMatrix, dimension);
+		if (result == null || result.length == 0) {
+			SessionUtil.getMySession().setAttribute("outmsg", "权重设置不合理，原权重为:");
+			SessionUtil.getMySession().setAttribute("elementsoutews", elements);
+		}else {
+			for (int i = 0; i < result.length; i++) {
+				elements.get(i).setWeight(result[i]);
+			}
+			evaluationElementServiceImpl.updateEvaluationElement(elements);
+			SessionUtil.getMySession().setAttribute("outmsg", "");	
+			SessionUtil.getMySession().setAttribute("elementsoutews", elements);	
+		}
+		return "evaluation/configOutEval";
 	}
 //=============================================================================================================
 //====================================教师评价设置===========================================================

@@ -12,7 +12,6 @@ import com.interaction.dao.EvaluationElementDAO;
 import com.interaction.pojo.Course;
 import com.interaction.pojo.Evaluationelement;
 import com.interaction.service.EvaluationElementService;
-import com.interaction.utils.SessionUtil;
 
 @Service
 public class EvaluationElementServiceImpl implements EvaluationElementService{
@@ -34,7 +33,7 @@ public class EvaluationElementServiceImpl implements EvaluationElementService{
 		return evaluationElementDAOImpl.updateEvaluationElements(elements);
 	}
 
-	//显示某门课顶层评价因素(量化因素，非量化因素)
+	//显示某门课顶层评价因素(非量化因素，量化因素)
 	@Override
 	public List<Evaluationelement> listCourseBasicElement(Integer cid) {
 		return evaluationElementDAOImpl.listCourseBasicElement(cid) ;
@@ -48,21 +47,21 @@ public class EvaluationElementServiceImpl implements EvaluationElementService{
 		lists.add(list);//添加非量化指标与量化指标
 		
 		List<Evaluationelement> list1 = evaluationElementDAOImpl.listByFatherId(list.get(0).getEeid());
-		lists.add(list1);//添加学生自评、学生评价、教师评价
+		lists.add(list1);//添加学生自评、组内评价、组间评价、教师评价
 		
 		list = evaluationElementDAOImpl.listByFatherId(list.get(1).getEeid());
 		lists.add(list);//添加量化指标的面的各个因素
 		
 		for (int i = 0; i < list1.size(); i++) {
 			List<Evaluationelement> temp = evaluationElementDAOImpl.listByFatherId(list1.get(i).getEeid());
-			lists.add(temp);//添加学生自评、学生评价、教师评价下面的个各评价因素
+			lists.add(temp);//添加学生自评、组内评价、组间评价、教师评价下面的个各评价因素
 		}
 		return lists;
 	}
 
-	//显示某门课的五个评价指标（量化因素、非量化因素、自评、他评、师评）
+	//显示某门课的六个评价指标（非量化因素、量化因素、自评、组内评价、组间评价、师评）
 	@Override
-	public List<Evaluationelement> listCourseFiveEvaluationElements(Integer cid) {
+	public List<Evaluationelement> listCourseSixEvaluationElements(Integer cid) {
 		List<Evaluationelement> list = new ArrayList<Evaluationelement>();
 		List<Evaluationelement> list2 = evaluationElementDAOImpl.listCourseBasicElement(cid);
 		list.addAll(list2);
@@ -71,26 +70,29 @@ public class EvaluationElementServiceImpl implements EvaluationElementService{
 		return list;
 	}
 
-	//添加某门课的五个评价指标（非量化因素、量化因素、自评、他评、师评）
+	//添加某门课的六个评价指标（非量化因素、量化因素、自评、组内评价、组间评价、师评）
 	@Override
-	public int addFiveEvaluationElements(Course course) {
+	public int addSixEvaluationElements(Course course) {
 		int result = 0;
 		int unquantizationId = 0;
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 6; i++) {
 			Evaluationelement evaluationelement = new Evaluationelement();
 			evaluationelement.setCourse(course);
+			evaluationelement.setIsleaf(0);
 			
 			if (i == 0) {
-				evaluationelement.setEename("非量化因素");
+				evaluationelement.setEename("非量化指标");
 			}else if (i == 1) {
-				evaluationelement.setEename("量化因素");
+				evaluationelement.setEename("量化指标");
 			}else{
 				Evaluationelement unquantization = evaluationElementDAOImpl.findById(unquantizationId);
 				evaluationelement.setEvaluationelement(unquantization);
 				if (i == 2) {
 				    evaluationelement.setEename("学生自评");
 				}else if (i == 3) {
-					evaluationelement.setEename("学生评价");
+					evaluationelement.setEename("组内评价");
+				}else if (i == 4) {
+					evaluationelement.setEename("组间评价");
 				}else{
 					evaluationelement.setEename("教师评价");
 				}

@@ -44,8 +44,8 @@
     </style>
 <script type="text/javascript">
 function selectCheck1(){
-	var quantization = document.getElementById("1").options;
-	var unquantization = document.getElementById("2").options;
+	var quantization = document.getElementById("非量化指标").options;
+	var unquantization = document.getElementById("量化指标").options;
 	for (var i=0; i<quantization.length; i++) {  
 		 if (quantization[i].selected==true) {
 			 var temp = parseFloat((1.0-quantization[i].value).toPrecision(12));
@@ -85,7 +85,7 @@ function selectCheck1(){
 				       <td class="tableleft" style="text-align:center;"></td>
 				       <c:forEach items="${sessionScope.elementssaws}" var="es">
 				         <td style="text-align:center;">
-					        <select id="${es.eeid}" name="${es.eename}" style="width:100%;" onblur="selectCheck1();">
+					        <select id="${es.eename}" name="${es.eename}" style="width:100%;" onblur="selectCheck1();">
 					          <option value ="0.0" selected="selected">0.0</option>
 					          <option value="0.1" >0.1</option>
 							  <option value ="0.2" >0.2</option>

@@ -42,8 +42,8 @@ public class CourseController {
 
 		if (course.getCid() == null) {
 			result = courseServiceImpl.addCourse(course);//添加课程
-			//添加课程的同时添加该课程的五个评价因素
-			int re = evaluationElementServiceImpl.addFiveEvaluationElements(course);
+			//添加课程的同时添加该课程的六个评价因素
+			int re = evaluationElementServiceImpl.addSixEvaluationElements(course);
 			if (re == -1) {
 				System.out.println("添加评价因素失败！");
 			}
