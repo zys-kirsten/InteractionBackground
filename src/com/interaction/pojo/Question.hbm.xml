@@ -11,13 +11,16 @@
             <generator class="increment" />
         </id>
         <many-to-one name="course" class="com.interaction.pojo.Course" fetch="select">
-            <column name="CId" not-null="true" />
+            <column name="CId" />
         </many-to-one>
-        <property name="chapter" type="java.lang.Integer">
-            <column name="Chapter" not-null="true" />
-        </property>
+        <many-to-one name="seminar" class="com.interaction.pojo.Seminar" fetch="select">
+            <column name="SeId" />
+        </many-to-one>
         <property name="content" type="java.lang.String">
-            <column name="Content" length="100" not-null="true" />
+            <column name="Content" length="100" />
+        </property>
+        <property name="beVisited" type="java.lang.Integer">
+            <column name="BeVisited" />
         </property>
         <set name="answers" inverse="true">
             <key>

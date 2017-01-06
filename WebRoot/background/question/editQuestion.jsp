@@ -21,9 +21,9 @@
  <script type="text/javascript">
  $(document).ready(function(){
 //select设定选中
- var kk = document.getElementById("chapter").options;  
+ var kk = document.getElementById("seId").options;  
  for (var j=0; j<kk.length; j++) {  
-	 if (kk[j].value=='${questionVo.chapter}') {  
+	 if (kk[j].value=='${questionVo.seId}') {  
 		 kk[j].selected=true;  
 		 break;  
 	 }  
@@ -93,7 +93,7 @@
 				      <input type="hidden" id="qid" name="qid" value="${questionVo.qid}">
 				      <tr>
 				        <th style="text-align:center;width:25%;">题目内容</th>
-				        <th style="text-align:center;width:25%;">所属章节</th>
+				        <th style="text-align:center;width:25%;">所属研讨课</th>
 				        <th style="text-align:center;width:50%;">答案</th>
 				      </tr>
 					  <tr>
@@ -101,10 +101,10 @@
 				          <textArea id="content" name="content" style="width:100%;">${questionVo.content }</textArea>
 				        </td>
 				        <td style="text-align:center;">
-                          <select id="chapter" name="chapter" style="width:100%;">
-					          <option value="1">第一章</option>
-							  <option value ="2" >第二章</option>
-							  <option value ="3" >第三章</option>
+                            <select  id="seId" name="seId" style="width:100%;">
+					          <c:forEach items="${seminarVos}" var="svo">
+					            <option value="${svo.seId }">${svo.seName }</option>
+					          </c:forEach>
 							</select>
                         </td>
 				        <td style="text-align:center;">

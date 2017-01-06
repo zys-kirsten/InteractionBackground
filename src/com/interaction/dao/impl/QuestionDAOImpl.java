@@ -42,16 +42,6 @@ public class QuestionDAOImpl extends HibernateDaoSupport implements QuestionDAO 
 		return questions.get(0);
 	}
 
-	@Override
-	public List<Question> listByChapter(Integer cid, Integer chapter) {
-
-		String hql = "from Question q where q.course.cid=? and q.chapter=?";
-		List<Question> questions = getHibernateTemplate().find(hql,cid,chapter);
-		if(questions == null || questions.size() == 0)
-			return null;
-		
-		return questions;
-	}
 
 	@Override
 	public List<Question> listByCourse(Integer cid) {
@@ -95,4 +85,14 @@ public class QuestionDAOImpl extends HibernateDaoSupport implements QuestionDAO 
 		return question.list();
 	}
 	
+	@Override
+	public List<Question> listByseName(Integer cid, String seName) {
+		String hql = "from Question q where q.course.cid=? and q.seminar.seName like ?";
+		Session session = getSession();
+		Query question = session.createQuery(hql);
+		question.setInteger(0, cid);
+		question.setString(1, "%"+seName+"%");
+		session.clear();
+		return question.list();
+	}
 }

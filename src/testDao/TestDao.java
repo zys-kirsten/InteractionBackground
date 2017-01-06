@@ -1,6 +1,5 @@
 package testDao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -17,14 +16,9 @@ import com.interaction.dao.ScoreshowDAO;
 import com.interaction.dao.SeminarDAO;
 import com.interaction.dao.SeminarclassDAO;
 import com.interaction.dao.TeacherDAO;
+import com.interaction.dao.VotedataDAO;
 import com.interaction.dao.impl.StudentDAOImpl;
-import com.interaction.pojo.Answer;
-import com.interaction.pojo.Classmodule;
-import com.interaction.pojo.Classmoduleevaluation;
-import com.interaction.pojo.Course;
-import com.interaction.pojo.Evaluation;
-import com.interaction.pojo.Question;
-import com.interaction.pojo.Scoreshow;
+import com.interaction.pojo.Votedata;
 
 
 public class TestDao {
@@ -42,21 +36,23 @@ public class TestDao {
 	private ScoreshowDAO scoreshowDAOImpl;
 	private ClassModuleDAO classModuleDAOImpl;
 	private ClassModuleEvaluationDAO classModuleEvaluationDAOImpl;
+	private VotedataDAO votedataDAOImpl;
 	
 	public void getDao(){
 		
 		beanFactory =new ClassPathXmlApplicationContext("applicationContext.xml");
 		//studentDAOImpl =(StudentDAOImpl)beanFactory.getBean("studentDAOImpl");
 		//teacherDAOImpl = (TeacherDAO) beanFactory.getBean("teacherDAOImpl");
-		courseDAOImpl = (CourseDAO) beanFactory.getBean("courseDAOImpl");
+		//courseDAOImpl = (CourseDAO) beanFactory.getBean("courseDAOImpl");
 		//seminarDAOImpl = (SeminarDAO) beanFactory.getBean("seminarDAOImpl");
 		//seminarclassDAOImpl = (SeminarclassDAO) beanFactory.getBean("seminarclassDAOImpl");
 	   // questionDAOImpl = (QuestionDAO) beanFactory.getBean("questionDAOImpl");
 	   // answerDAOImpl = (AnswerDAO) beanFactory.getBean("answerDAOImpl");
-		evaluationDAOImpl = (EvaluationDAO) beanFactory.getBean("evaluationDAOImpl");
+		//evaluationDAOImpl = (EvaluationDAO) beanFactory.getBean("evaluationDAOImpl");
 	   // scoreshowDAOImpl = (ScoreshowDAO) beanFactory.getBean("scoreshowDAOImpl");
-		classModuleDAOImpl = (ClassModuleDAO) beanFactory.getBean("classModuleDAOImpl");
-		classModuleEvaluationDAOImpl = (ClassModuleEvaluationDAO) beanFactory.getBean("classModuleEvaluationDAOImpl");
+		//classModuleDAOImpl = (ClassModuleDAO) beanFactory.getBean("classModuleDAOImpl");
+		//classModuleEvaluationDAOImpl = (ClassModuleEvaluationDAO) beanFactory.getBean("classModuleEvaluationDAOImpl");
+		votedataDAOImpl = (VotedataDAO) beanFactory.getBean("votedataDAOImpl");
 		
 	}
 
@@ -64,6 +60,11 @@ public class TestDao {
 	@Test
 	public void test(){
 		getDao();
+		
+		List<Votedata> votedataVos = votedataDAOImpl.listCurrentVotedataBySeidAndVqid(1, 1);
+		for (int i = 0; i < votedataVos.size(); i++) {
+			System.out.println(votedataVos.get(i).getStuAnswer());
+		}
 //		Student student = new Student("12", "tom", "10850866", "123");
 //		studentDAOImpl.addStudent(student);
 //		Student student = studentDAOImpl.findById("12");
@@ -79,13 +80,13 @@ public class TestDao {
 //		classModuleDAOImpl.addClassModule(classmodule);
 	//	courseDAOImpl.addCourse(course);
 		
-		Classmodule classmodule = classModuleDAOImpl.findById(1);
-		List<Evaluation> evaluations = new ArrayList<>();
-		Evaluation evaluation = evaluationDAOImpl.findById(2);
-		Classmoduleevaluation classmoduleevaluation = new Classmoduleevaluation();
-		classmoduleevaluation.setClassmodule(classmodule);
-		classmoduleevaluation.setEvaluation(evaluation);
-		classModuleEvaluationDAOImpl.addClassModuleEvaluation(classmoduleevaluation);
+//		Classmodule classmodule = classModuleDAOImpl.findById(1);
+//		List<Evaluation> evaluations = new ArrayList<>();
+//		Evaluation evaluation = evaluationDAOImpl.findById(2);
+//		Classmoduleevaluation classmoduleevaluation = new Classmoduleevaluation();
+//		classmoduleevaluation.setClassmodule(classmodule);
+//		classmoduleevaluation.setEvaluation(evaluation);
+//		classModuleEvaluationDAOImpl.addClassModuleEvaluation(classmoduleevaluation);
 //		List<Course> courses = courseDAOImpl.listCourse(2);
 //		for(Course c:courses){
 //			System.out.println(c.getCname());

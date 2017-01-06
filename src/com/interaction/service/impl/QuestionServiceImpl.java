@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import com.interaction.dao.AnswerDAO;
 import com.interaction.dao.CourseDAO;
 import com.interaction.dao.QuestionDAO;
+import com.interaction.dao.SeminarDAO;
 import com.interaction.pojo.Answer;
 import com.interaction.pojo.Course;
 import com.interaction.pojo.Question;
+import com.interaction.pojo.Seminar;
 import com.interaction.service.QuestionService;
 import com.interaction.vo.QuestionVo;
 
@@ -26,6 +28,8 @@ public class QuestionServiceImpl implements QuestionService{
 	private AnswerDAO answerDAOImpl;
 	@Resource
 	private CourseDAO courseDAOImpl;
+	@Resource
+	private SeminarDAO seminarDAOImpl;
 	
 	//修改测试题
 	@Override
@@ -77,10 +81,6 @@ public class QuestionServiceImpl implements QuestionService{
 			
 			if(questionResult != -1){
 				List<Answer> answers = v2lap(questionVo,questionResult);
-//				for(Answer answer:answers){
-//				   System.out.println(answer.getAcontent());
-//				}
-				
 				if(answers != null && answers.size() != 0){
 					for(Answer answer:answers){
 						   answerResult = answerDAOImpl.addAnswer(answer);
@@ -100,16 +100,6 @@ public class QuestionServiceImpl implements QuestionService{
 		}else {
 			return 1;
 		}
-	}
-
-	//列出某一章节的测试题
-	@Override
-	public List<QuestionVo> listQuestionByChapter(Integer cid, Integer chapter) {
-		List<QuestionVo> ltqv = new ArrayList<QuestionVo>();
-		List<Question> ltqp = questionDAOImpl.listByChapter(cid,chapter);
-		
-		ltqv = p2v(ltqp);
-		return ltqv;
 	}
 
 	//列出某一门课的测试题
@@ -145,8 +135,10 @@ public class QuestionServiceImpl implements QuestionService{
 		
 		QuestionVo qv = new QuestionVo();
 		Course course = courseDAOImpl.findById(qp.getCourse().getCid());
+		Seminar seminar = seminarDAOImpl.findById(qp.getSeminar().getSeId());
 		List<Answer> answers = answerDAOImpl.listByQid(qp.getQid());
-		qv.setChapter(qp.getChapter());
+		qv.setSeId(seminar.getSeId());
+		qv.setSeName(seminar.getSeName());
 		qv.setCid(course.getCid());
 		qv.setCname(course.getCname());
 		qv.setContent(qp.getContent());
@@ -165,9 +157,9 @@ public class QuestionServiceImpl implements QuestionService{
 		
 		Question question = new Question();
 		Course course = courseDAOImpl.findById(questionVo.getCid());
-		
+		Seminar seminar = seminarDAOImpl.findById(questionVo.getSeId());
 		question.setQid(questionVo.getQid());
-		question.setChapter(questionVo.getChapter());
+		question.setSeminar(seminar);
 		question.setContent(questionVo.getContent());
 		question.setCourse(course);
 		
@@ -226,8 +218,8 @@ public class QuestionServiceImpl implements QuestionService{
 	@Override
 	public List<QuestionVo> findByCondition(Integer cid, String condition, String inputValue) {
 		List<QuestionVo> questionVos = null;
-		if(condition.equals("chapter")){
-			questionVos = listQuestionByChapter(cid,Integer.parseInt(inputValue));
+		if(condition.equals("seName")){
+			questionVos = p2v(questionDAOImpl.listByseName(cid,inputValue));
 		}
 		if(condition.equals("content")){
 			questionVos = p2v(questionDAOImpl.listByContent(cid,inputValue));

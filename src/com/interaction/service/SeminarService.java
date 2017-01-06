@@ -16,5 +16,6 @@ public interface SeminarService {
 	public int deleteSeminarById(Integer seId);
 	public int updateSeminar(SeminarVo seminarVo);
 	public Seminar findBySeName(Integer cid, String string);
+	public void executeCourseSelect(int parseInt, String string);
 
 }

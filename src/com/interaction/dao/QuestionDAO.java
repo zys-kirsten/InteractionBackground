@@ -10,8 +10,6 @@ public interface QuestionDAO {
 
 	public Question findById(Integer qid);
 
-	public List<Question> listByChapter(Integer cid, Integer chapter);
-
 	public List<Question> listByCourse(Integer cid);
 
 	public int deleteQuestion(Question question);
@@ -19,5 +17,7 @@ public interface QuestionDAO {
 	public int updateQuestion(Question question);
 
 	public List<Question> listByContent(Integer cid, String inputValue);
+
+	public List<Question> listByseName(Integer cid, String inputValue);
 	
 }

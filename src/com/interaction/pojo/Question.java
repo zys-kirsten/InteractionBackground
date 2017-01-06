@@ -13,8 +13,9 @@ public class Question implements java.io.Serializable {
 
 	private Integer qid;
 	private Course course;
-	private Integer chapter;
+	private Seminar seminar;
 	private String content;
+	private Integer beVisited;
 	private Set answers = new HashSet(0);
 	private Set semclatests = new HashSet(0);
 
@@ -25,20 +26,18 @@ public class Question implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Question(Course course, Integer chapter, String content) {
+	public Question(Integer qid) {
 		this.qid = qid;
-		this.course = course;
-		this.chapter = chapter;
-		this.content = content;
 	}
 
 	/** full constructor */
-	public Question(Integer qid, Course course, Integer chapter,
-			String content, Set answers, Set semclatests) {
+	public Question(Integer qid, Course course, Seminar seminar,
+			String content, Integer beVisited, Set answers, Set semclatests) {
 		this.qid = qid;
 		this.course = course;
-		this.chapter = chapter;
+		this.seminar = seminar;
 		this.content = content;
+		this.beVisited = beVisited;
 		this.answers = answers;
 		this.semclatests = semclatests;
 	}
@@ -61,12 +60,12 @@ public class Question implements java.io.Serializable {
 		this.course = course;
 	}
 
-	public Integer getChapter() {
-		return this.chapter;
+	public Seminar getSeminar() {
+		return this.seminar;
 	}
 
-	public void setChapter(Integer chapter) {
-		this.chapter = chapter;
+	public void setSeminar(Seminar seminar) {
+		this.seminar = seminar;
 	}
 
 	public String getContent() {
@@ -75,6 +74,14 @@ public class Question implements java.io.Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Integer getBeVisited() {
+		return this.beVisited;
+	}
+
+	public void setBeVisited(Integer beVisited) {
+		this.beVisited = beVisited;
 	}
 
 	public Set getAnswers() {

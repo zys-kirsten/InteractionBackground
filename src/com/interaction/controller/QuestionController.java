@@ -18,15 +18,26 @@ import com.interaction.pojo.Course;
 import com.interaction.pojo.Seminar;
 import com.interaction.pojo.Teacher;
 import com.interaction.service.QuestionService;
+import com.interaction.service.SeminarService;
 import com.interaction.utils.SessionUtil;
 import com.interaction.vo.QuestionVo;
+import com.interaction.vo.SeminarVo;
 
 @Controller
 public class QuestionController {
 	
 	@Resource
 	private QuestionService questionServiceImpl;
+	@Resource
+	private SeminarService seminarServiceImpl;
 	
+	//添加测试题前先查看本门课有哪些研讨课
+	@RequestMapping("/listSeminarBeforeAddQuestion")
+	public String listSeminarBeforeAddQuestion(@RequestParam(value="cid") Integer cid){
+		List<SeminarVo> seminarVos = seminarServiceImpl.listByCourse(cid);
+		SessionUtil.getMySession().setAttribute("seminarVos", seminarVos);
+		return "question/addQuestion";
+	}
 	
 	//删除测试题
 	@RequestMapping("/deleteQuestion")
@@ -39,9 +50,10 @@ public class QuestionController {
 	//回显修改研讨课信息
 	@RequestMapping("/editQuestion")
 	public String editQuestion(@RequestParam(value="qid") Integer qid){
-		System.out.println("listQuestion qid = "+qid);
 		QuestionVo questionVo = questionServiceImpl.findById(qid);
-		System.out.println(questionVo);
+		List<SeminarVo> seminarVos = seminarServiceImpl.listByCourse(getCourse().getCid());
+		System.out.println(seminarVos.size());
+		SessionUtil.getMySession().setAttribute("seminarVos", seminarVos);
 		SessionUtil.getMySession().setAttribute("questionVo", questionVo);
 		return "question/editQuestion";
 	}
@@ -62,11 +74,6 @@ public class QuestionController {
 			}
 		}
 		
-//		System.out.println("*******************");
-//		for(int i=0;i<questionVo.getAnswers().size();i++){
-//			System.out.println(questionVo.getAnswers().get(i).getCorrect());
-//		}
-//		System.out.println("*******************");
 		questionVo.setCid(getCourse().getCid());
 
 		int result = -1;
@@ -88,8 +95,6 @@ public class QuestionController {
 	//列出符合某一查询条件的所有课程
 		@RequestMapping("/searchQuestion")
 		public void searchQuestion(String condition,String inputValue,HttpServletResponse response) throws IOException{
-			System.out.println(condition);
-	    	System.out.println(inputValue);
 	    	String msg="fail";
 	    	List<QuestionVo> questionVos = questionServiceImpl.findByCondition(getCourse().getCid(),condition,inputValue);
 	    	SessionUtil.getMySession().setAttribute("questionVos",questionVos);
@@ -107,27 +112,6 @@ public class QuestionController {
 				
 	}
 
-	//列出某一门课中某一章节的所有测试题
-	@RequestMapping("/listChapterQuestion")
-	public ModelAndView listChapterQuestion(@RequestParam(value = "cid")Integer cid,
-			@RequestParam(value = "chapter")Integer chapter){
-		ModelAndView modelAndView = new ModelAndView();
-		
-		if (cid == null || chapter == null) {
-			modelAndView.setViewName("error");
-		}else{
-			List<QuestionVo> questionVos = questionServiceImpl.listQuestionByChapter(cid,chapter);
-			
-			if(questionVos == null || questionVos.size()==0){
-				modelAndView.setViewName("error");
-			}else{
-				modelAndView.addObject("questionVos", questionVos);
-				modelAndView.setViewName("questionDisplay");
-			}
-		}
-		return modelAndView;
-	}
-	
 	//列出某一门课的所有章节的测试题
 	@RequestMapping("/listCourseQuestion")
 	public String listCourseQuestion(@RequestParam(value = "cid")Integer cid){

@@ -2,6 +2,7 @@ package com.interaction.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -14,19 +15,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.interaction.pojo.Course;
 import com.interaction.pojo.Evaluationelement;
-import com.interaction.pojo.Seminar;
 import com.interaction.pojo.Teacher;
-import com.interaction.pojo.Votedata;
+import com.interaction.pojo.Votequestion;
 import com.interaction.service.CourseService;
 import com.interaction.service.EvaluationElementService;
 import com.interaction.service.SeminarClassService;
 import com.interaction.service.SeminarService;
 import com.interaction.service.TeacherService;
+import com.interaction.service.VotedataService;
+import com.interaction.service.VotequestionService;
 import com.interaction.utils.SessionUtil;
 import com.interaction.vo.CourseVo;
 import com.interaction.vo.GroupVo;
 import com.interaction.vo.SeminarClassVo;
+import com.interaction.vo.SeminarStudentNo;
 import com.interaction.vo.SeminarVo;
+import com.interaction.vo.VotedataVo;
 
 import net.sf.json.JSONObject;
 
@@ -43,7 +47,10 @@ public class TeacherController {
 	private SeminarClassService seminarClassServiceImpl;
 	@Resource
 	private EvaluationElementService evaluationElementServiceImpl;
-	
+	@Resource
+	private VotedataService votedataServiceImpl;
+	@Resource
+	private VotequestionService votequestionServiceImpl;
 	
 //=====================================教师Android端===================================================================	
 	@RequestMapping("teacherlogin")
@@ -274,19 +281,18 @@ public class TeacherController {
 	 * @param response
 	 * @throws IOException
 	 * 
-	 * 没有传入参数，有可能需要改变
+	 * 没有传入参数，有可能需要改变(finished!)(需要传参数：研讨课ID，投票题目ID)
 	 * 
 	 * 查询当前投票题投票数据
 	 * 
 	 */
 	@RequestMapping("getvotedata")
-	public void getvotedata(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void getvotedata(@RequestParam("seId")String seId,@RequestParam("vqid")String vqid,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		/**
 		 * 需要实现
 		 * 在这里实现自己的代码，调用service层，查询当前投票题投票数据。
 		 */
-		List<List<Votedata>> votedatas = 
-		
+		List<VotedataVo> votedatas = votedataServiceImpl.listCurrentVotedataBySeidAndVqid(Integer.parseInt(seId),Integer.parseInt(vqid));
 		//定义response的各种参数
 		response.setContentType("application/json");  
 		response.setCharacterEncoding("UTF-8");
@@ -295,12 +301,9 @@ public class TeacherController {
 		//需要实现
 	    //该处将查找出的投票数据添加到jsonObject中
 		JSONObject jsonObject=new JSONObject();  
-		jsonObject.put("A", 10); 
-		jsonObject.put("B", 15); 
-		jsonObject.put("C", 1); 
-		jsonObject.put("D", 15); 
-
-
+		for (VotedataVo vv :votedatas) {
+			jsonObject.put(vv.getStuAnswer(), vv.getStuNum());
+		}
 
 		out.print(jsonObject.toString());
 		out.flush();
@@ -313,20 +316,39 @@ public class TeacherController {
 	 * @param request
 	 * @param response
 	 * @throws IOException
-	 * 投票开始，教师点击开始投票按钮时调用该方法
+	 * 投票开始，教师点击开始投票按钮时调用该方法(需测试)
 	 * 
 	 * 有可能需要添加标志位
 	 * 无返回值
 	 */
 	@RequestMapping("startvote")
-	public void startvote(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void startvote(Votequestion votequestion,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		/**
 		 * 需要实现
 		 * 在这里实现自己的代码，调用service层
 		 */
+		votequestionServiceImpl.startVote(votequestion);
 		
 		//忽略该行，system.out用于测试，实际编码中不需要实现
 		System.out.println("startvote.do  ");
+	}
+	
+	/**
+	 * 新添加的方法！！！！！
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * 投票结束，教师点击投票结束按钮或时间到了时调用该方法(需测试)
+	 * 
+	 * 无返回值
+	 */
+	@RequestMapping("endvote")
+	public void endvote(@RequestParam("vqid")String vqid,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		
+		votequestionServiceImpl.endVote(Integer.parseInt(vqid));
+		
+		//忽略该行，system.out用于测试，实际编码中不需要实现
+		System.out.println("endvote.do  ");
 	}
 	/**
 	 * 
@@ -334,19 +356,40 @@ public class TeacherController {
 	 * @param response
 	 * @throws IOException
 	 * 
-	 * 选课开始
+	 * 选课开始(需要传递课程ID)(finished!)
 	 * 有可能需要添加标志位
 	 * 无返回值
 	 */
 	@RequestMapping("startcourseselect")
-	public void startcourseselect(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void startcourseselect(@RequestParam("cid")String cid,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		/**
 		 * 需要实现
 		 * 在这里实现自己的代码，调用service层
 		 */
-		
+		seminarServiceImpl.executeCourseSelect(Integer.parseInt(cid),"start");
 		//忽略该行，system.out用于测试，实际编码中不需要实现
 		System.out.println("startcourseselect.do  ");
+	}
+	
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * 
+	 * 选课结束(需要传递课程ID)(finished!)
+	 * 有可能需要添加标志位
+	 * 无返回值
+	 */
+	@RequestMapping("endcourseselect")
+	public void endcourseselect(@RequestParam("cid")String cid,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		/**
+		 * 需要实现
+		 * 在这里实现自己的代码，调用service层
+		 */
+		seminarServiceImpl.executeCourseSelect(Integer.parseInt(cid),"end");
+		//忽略该行，system.out用于测试，实际编码中不需要实现
+		System.out.println("endcourseselect.do  ");
 	}
 	/**
 	 * 
@@ -355,30 +398,24 @@ public class TeacherController {
 	 * @param response
 	 * @throws IOException
 	 * 
-	 * 查询研讨课选中的人数
+	 * 查询研讨课选中的人数(finished!)
 	 * 
 	 * 返回人数数据
 	 */
 	@RequestMapping("findseminarstudentsnumberbycid")
-	public void findseminarstudentsnumberbycid(@RequestParam("cId")String cId,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void findseminarstudentsnumberbycid(@RequestParam("cid")String cId,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		/**
 		 * 需要实现
 		 * 在这里实现自己的代码，调用service层查找出选课的学生数
 		 */
+		
+		List<SeminarStudentNo> nos = seminarClassServiceImpl.listCurrentSelectSeminarStuNumber(Integer.parseInt(cId));
+		
 		//定义response的各种参数
 		response.setContentType("application/json");  
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		//需要实现
-	    //该处将查找出的学生数添加到List<SeminarStudentNo>中
-		List<SeminarStudentNo> nos = new ArrayList<SeminarStudentNo>();
-		SeminarStudentNo number = new SeminarStudentNo("数据仓库研讨课1",10);
-		nos.add(number);
-		number = new SeminarStudentNo("数据仓库研讨课2",20);
-		nos.add(number);
-		number = new SeminarStudentNo("数据仓库研讨课3",30);
-		nos.add(number);
-		
+
 		//转化成JsonString
 		String opts = createJsonString("numbers",nos);
 		out.print(opts);
@@ -388,7 +425,7 @@ public class TeacherController {
 		System.out.println("findseminarstudentsnumberbycid.do  "+opts);
 	}
 	/**
-	 * 
+	 * (配置需要完成的)
 	 * @param seId
 	 * @param request
 	 * @param response

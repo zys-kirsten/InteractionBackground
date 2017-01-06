@@ -19,6 +19,7 @@ public class Seminar implements java.io.Serializable {
 	private Date seTime;
 	private Integer seUp;
 	private Integer seDown;
+	private Integer bevisited;
 	private Set seminarclasses = new HashSet(0);
 	private Set semclatests = new HashSet(0);
 	private Set outgroupevals = new HashSet(0);
@@ -58,7 +59,16 @@ public class Seminar implements java.io.Serializable {
 		this.ingroupevals = ingroupevals;
 	}
 
+	
 	// Property accessors
+
+	public Integer getBevisited() {
+		return bevisited;
+	}
+
+	public void setBevisited(Integer bevisited) {
+		this.bevisited = bevisited;
+	}
 
 	public Integer getSeId() {
 		return this.seId;

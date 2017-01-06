@@ -22,6 +22,7 @@ import com.interaction.service.SeminarClassService;
 import com.interaction.utils.DateUtil;
 import com.interaction.vo.GroupVo;
 import com.interaction.vo.SeminarClassVo;
+import com.interaction.vo.SeminarStudentNo;
 
 @Service
 public class SeminarClassServiceImpl implements SeminarClassService{
@@ -163,6 +164,25 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 			seminarclass.setConfirmGroup(1);
 			seminarclassDAOImpl.updateSeminarclass(seminarclass);  //将确认分组结果置为可查看
 		}
+	}
+
+	//查询当前选择研讨课的情况
+	@Override
+	public List<SeminarStudentNo> listCurrentSelectSeminarStuNumber(int cid) {
+		List<SeminarStudentNo> studentNos = new ArrayList<SeminarStudentNo>();
+		List<Seminar> seminars = seminarDAOImpl.listByCourse(cid);
+		if (seminars != null && seminars.size() != 0) {
+			for(Seminar seminar:seminars){
+				SeminarStudentNo seminarStudentNo = new SeminarStudentNo();
+				seminarStudentNo.setSeName(seminar.getSeName());
+				List<Seminarclass> seminarclasses = seminarclassDAOImpl.listBySeminar(seminar.getSeId());
+				if (seminarclasses != null && seminarclasses.size() != 0) {
+					seminarStudentNo.setStudentNo(seminarclasses.size());
+				}
+				studentNos.add(seminarStudentNo);
+			}
+		}
+		return studentNos;
 	}
 	
 	

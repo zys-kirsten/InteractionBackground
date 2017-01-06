@@ -28,6 +28,9 @@
         <property name="seDown" type="java.lang.Integer">
             <column name="SeDown" not-null="true" />
         </property>
+        <property name="bevisited" type="java.lang.Integer">
+            <column name="BeVisited"/>
+        </property>
         <set name="seminarclasses" inverse="true">
             <key>
                 <column name="SeId" not-null="true" />

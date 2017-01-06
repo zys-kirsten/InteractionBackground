@@ -45,11 +45,7 @@ public class SeminarDAOImpl extends HibernateDaoSupport implements SeminarDAO {
 	
 	@Override
 	public Seminar findById(Integer seid) {
-		String hql="from Seminar s where s.seId = ?";
-		List<Seminar> seminar = getHibernateTemplate().find(hql,seid);
-		if(seminar==null)
-			return null;
-		return seminar.get(0);
+		return getHibernateTemplate().get(Seminar.class, seid);
 	}
 
 	@Override

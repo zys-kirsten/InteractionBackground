@@ -47,7 +47,7 @@
 <input type="hidden" id="currentUrl" value="${ctxPath }">
     <font color="#777777"><strong>查询测试题:</strong></font>
     <select name="condition" style = "width:105px;">
-      <option value="chapter" selected="true">按章节查询</option>
+      <option value="seName" selected="true">按研讨课查询</option>
       <option value="content" >按内容查询</option>
     </select>
     <input type="text" name="inputValue" id="inputValue" class="abc input-default">&nbsp;&nbsp; 
@@ -56,8 +56,8 @@
 <table class="table table-bordered table-hover definewidth m10">
     <thead>
     <tr>
-        <th>所属章节</th>
-        <th>测试题内容</th>
+        <th>所属研讨课</th>
+        <th>内容</th>
         <th>正确答案</th>
         <th>操作</th>
     </tr>
@@ -65,7 +65,7 @@
 	 <tbody>     
          <c:forEach items="${sessionScope.questionVos}" var="qvs">
                     <tr>
-                        <td>${qvs.chapter}</td>
+                        <td>${qvs.seName}</td>
                         <td>${qvs.content}</td>
                         <td>
                         <c:forEach items="${qvs.answers}" var="answer">

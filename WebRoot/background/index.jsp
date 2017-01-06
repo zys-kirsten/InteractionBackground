@@ -250,7 +250,7 @@ float:left;
 			<div class="div3">
 				<ul>
 					<li><a class="a" href="${ctxPath }/listCourseQuestion.do?cid=${course.cid}" target="rightFrame">查看测试题</a></li>
-					<li><a class="a" href="${ctxPath }/background/question/addQuestion.jsp" target="rightFrame">添加测试题</a></li>
+					<li><a class="a" href="${ctxPath }/listSeminarBeforeAddQuestion.do?cid=${course.cid}" target="rightFrame">添加测试题</a></li>
 				</ul>
 			</div>
 			<div class="div2">

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.interaction.vo.GroupVo;
 import com.interaction.vo.SeminarClassVo;
+import com.interaction.vo.SeminarStudentNo;
 
 public interface SeminarClassService {
 
@@ -21,4 +22,7 @@ public interface SeminarClassService {
 
 	//教师确认分组结果
 	public void confirmGroup(int seId);
+
+	//查询当前选择研讨课的情况
+	public List<SeminarStudentNo> listCurrentSelectSeminarStuNumber(int cid);
 }

@@ -54,7 +54,7 @@
 				    <table class="table table-bordered table-hover m10" style="margin-left:10px;margin-top:3px;">
 				      <tr>
 				        <th style="text-align:center;width:25%;">题目内容</th>
-				        <th style="text-align:center;width:25%;">所属章节</th>
+				        <th style="text-align:center;width:25%;">所属研讨课</th>
 				        <th style="text-align:center;width:50%;">答案</th>
 				      </tr>
 					  <tr>
@@ -62,10 +62,10 @@
 				          <textArea id="content" name="content" style="width:100%;"></textArea>
 				        </td>
 				        <td style="text-align:center;">
-                          <select id="chapter" name="chapter" style="width:100%;">
-					          <option value="1" selected="selected">第一章</option>
-							  <option value ="2" >第二章</option>
-							  <option value ="3" >第三章</option>
+                            <select  id="seId" name="seId" style="width:100%;">
+					          <c:forEach items="${seminarVos}" var="svo">
+					            <option value="${svo.seId }">${svo.seName }</option>
+					          </c:forEach>
 							</select>
                         </td>
 				        <td style="text-align:center;">
@@ -176,7 +176,6 @@
 				     </table>
 				 <tr align="center">
 					<td >
-					  <%--   <a href="${ctxPath }/addQuestion.do" class="btn btn-primary"><span class="glyphicon glyphicon-off"></span>确定</a>&nbsp;&nbsp;  --%>
 					   <input type="submit" value="确定" class="btn btn-primary">
 					    <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-off"></span>取消</a>
 					</td>

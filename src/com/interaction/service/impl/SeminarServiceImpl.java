@@ -196,4 +196,21 @@ public class SeminarServiceImpl implements SeminarService{
 	public Seminar findBySeName(Integer cid, String seName) {
 		return seminarDAOImpl.findBySeName(cid, seName).get(0);
 	}
+//======================================Android====================================================
+	//执行选课，包括开始选课和结束选课
+	@Override
+	public void executeCourseSelect(int cid,String condition) {
+		List<Seminar> seminars = seminarDAOImpl.listByCourse(cid);
+		if (condition.equals("start")) {
+			for(Seminar seminar:seminars){
+				seminar.setBevisited(1);
+				seminarDAOImpl.updateSeminar(seminar);
+			}
+		}else {
+			for(Seminar seminar:seminars){
+				seminar.setBevisited(0);
+				seminarDAOImpl.updateSeminar(seminar);
+			}
+		}
+	}
 }

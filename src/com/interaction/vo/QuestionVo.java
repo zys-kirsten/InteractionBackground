@@ -8,7 +8,9 @@ import com.interaction.pojo.Answer;
 public class QuestionVo {
 
 	private Integer qid;
-	private Integer chapter;
+	
+	private Integer seId;
+	private String seName;
 	private String content;
 	
 	private Integer cid;
@@ -19,16 +21,6 @@ public class QuestionVo {
 	
 	public QuestionVo(){}
 
-	public QuestionVo(Integer qid, Integer chapter, String content,
-			Integer cid,  List<Answer> answers) {
-		super();
-		this.qid = qid;
-		this.chapter = chapter;
-		this.content = content;
-		this.cid = cid;
-		this.answers = answers;
-	}
-
 	public Integer getQid() {
 		return qid;
 	}
@@ -37,12 +29,22 @@ public class QuestionVo {
 		this.qid = qid;
 	}
 
-	public Integer getChapter() {
-		return chapter;
+	
+
+	public Integer getSeId() {
+		return seId;
 	}
 
-	public void setChapter(Integer chapter) {
-		this.chapter = chapter;
+	public void setSeId(Integer seId) {
+		this.seId = seId;
+	}
+
+	public String getSeName() {
+		return seName;
+	}
+
+	public void setSeName(String seName) {
+		this.seName = seName;
 	}
 
 	public String getContent() {
@@ -77,11 +79,4 @@ public class QuestionVo {
 		this.answers = answers;
 	}
 
-	@Override
-	public String toString() {
-		return "QuestionVo [qid=" + qid + ", chapter=" + chapter + ", content=" + content + ", cid=" + cid + ", cname="
-				+ cname + ", answers=" + answers + "]";
-	}
-
-	
 }
