@@ -95,4 +95,22 @@ public class QuestionDAOImpl extends HibernateDaoSupport implements QuestionDAO 
 		session.clear();
 		return question.list();
 	}
+	@Override
+	public List<Question> listBySeId(Integer seId) {
+		String hql = "from Question q where q.seminar.seId=?";
+		List<Question> questions = getHibernateTemplate().find(hql,seId);
+		if(questions == null || questions.size() == 0)
+			return null;
+		
+		return questions;
+	}
+	@Override
+	public void updateQuestions(List<Question> questions) {
+		try {
+			getHibernateTemplate().saveOrUpdateAll(questions);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
 }

@@ -27,5 +27,7 @@ public interface EvaluationElementService {
 
 	void executeEvaluation(int seid, String fatherName, String condition);
 
+	List<Evaluationelement> listByFatherName(int cid, String fatherName);
+
 
 }

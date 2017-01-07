@@ -28,7 +28,7 @@ public class EvaluationElementServiceImpl implements EvaluationElementService{
 
 	
 //================================================ Android端 ======================================================================
-	//执行各项评价（包括启动与结束）
+	//执行组内评价和组间评价（包括启动与结束）
 	@Override
 	public void executeEvaluation(int seid,String fatherName,String condition) {
 		Seminar seminar = seminarDAOImpl.findById(seid);
@@ -47,6 +47,11 @@ public class EvaluationElementServiceImpl implements EvaluationElementService{
 		}
 	}
 	
+	//启动教师评价
+	@Override
+	public List<Evaluationelement> listByFatherName(int cid, String fatherName) {
+		return evaluationElementDAOImpl.listByCourseAndFatherName(cid,fatherName);
+	}
 	
 //================================================PC端============================================================================
 	

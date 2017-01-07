@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.interaction.algorithm.group.GroupDivide;
 import com.interaction.dao.AnswerDAO;
 import com.interaction.dao.CourseDAO;
 import com.interaction.dao.QuestionDAO;
@@ -226,6 +227,38 @@ public class QuestionServiceImpl implements QuestionService{
 		}
 		return questionVos;
 	}
-
+//========================================Android端=======================================================================
+	//开展限时测试题
+	@Override
+	public void startTimeLimitExercise(Integer seId, Integer number) {
+		List<Question> questions = questionDAOImpl.listBySeId(seId);
+		if (questions != null && questions.size() != 0 && number > 0) {
+			if (questions.size() <= number) {
+				for(Question question:questions){
+					question.setBeVisited(1);
+				}
+				questionDAOImpl.updateQuestions(questions);
+			} else {
+                int[] index = GroupDivide.getRandomIndex(questions.size());
+                for (int i = 0; i < number; i++) {
+					Question question = questions.get(--index[i]);
+					question.setBeVisited(1);
+					questionDAOImpl.updateQuestion(question);
+				}
+			}
+		}
+		
+	}
+	//结束限时测试题
+	@Override
+	public void endTimeLimitExercise(int seId) {
+		List<Question> questions = questionDAOImpl.listBySeId(seId);
+		if (questions != null && questions.size() != 0) {
+			for(Question question:questions){
+				question.setBeVisited(0);
+			}
+			questionDAOImpl.updateQuestions(questions);
+		}
+	}
 	
 }

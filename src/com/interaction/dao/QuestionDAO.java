@@ -19,5 +19,9 @@ public interface QuestionDAO {
 	public List<Question> listByContent(Integer cid, String inputValue);
 
 	public List<Question> listByseName(Integer cid, String inputValue);
+
+	public List<Question> listBySeId(Integer seId);
+
+	public void updateQuestions(List<Question> questions);
 	
 }

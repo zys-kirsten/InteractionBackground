@@ -13,5 +13,7 @@ public interface QuestionService {
 	public QuestionVo findById(Integer qid);
 	public int updateQuestion(QuestionVo questionVo);
 	public List<QuestionVo> findByCondition(Integer cid, String condition, String inputValue);
+	public void startTimeLimitExercise(Integer seId, Integer number);
+	public void endTimeLimitExercise(int seId);
 
 }
