@@ -2,6 +2,7 @@ package com.interaction.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -29,6 +30,7 @@ import com.interaction.service.VotedataService;
 import com.interaction.service.VotequestionService;
 import com.interaction.utils.SessionUtil;
 import com.interaction.vo.CourseVo;
+import com.interaction.vo.EvaluateKeys;
 import com.interaction.vo.GroupVo;
 import com.interaction.vo.SeminarClassVo;
 import com.interaction.vo.SeminarStudentNo;
@@ -63,15 +65,20 @@ public class TeacherController {
 //=====================================教师Android端===================================================================	
 	@RequestMapping("teacherlogin")
 	public void Login(@RequestParam("tAccount")String tAccount,@RequestParam("tPwd")String tPwd,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		response.setContentType("application/json");  
+		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
+
+		Integer tId = -1;
 		Teacher teacher = teacherServiceImpl.listByAccount(tAccount);
 		if (teacher != null) {
 			if (teacher.getTpwd().equals(tPwd)) {
-				
+				tId = teacher.getTid();
 			}
 		}
 		//返回tId
-		out.print(tAccount);
+		String opts = createJsonString("tId",tId);
+		out.print(opts);
 		out.flush();
 		out.close();
 		System.out.println("teacherlogin.do  SAccount : "+tAccount+"   SPwd : "+tPwd);
@@ -323,11 +330,17 @@ public class TeacherController {
 	 */
 	@RequestMapping("startvote")
 	public void startvote(@RequestParam("seId")String seId,@RequestParam("correctAnswer")String correctAnswer,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		/**
-		 * 需要实现
-		 * 在这里实现自己的代码，调用service层
-		 */
 		Integer vqid = votequestionServiceImpl.startVote(Integer.parseInt(seId),correctAnswer);
+		
+		response.setContentType("application/json");  
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		//转化成JsonString
+		String opts = createJsonString("vqid",vqid);
+		out.print(opts);
+		out.flush();
+		out.close();
 		
 		//忽略该行，system.out用于测试，实际编码中不需要实现
 		System.out.println("startvote.do  ");
@@ -383,10 +396,6 @@ public class TeacherController {
 	 */
 	@RequestMapping("endcourseselect")
 	public void endcourseselect(@RequestParam("cId")String cid,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		/**
-		 * 需要实现
-		 * 在这里实现自己的代码，调用service层
-		 */
 		seminarServiceImpl.executeCourseSelect(Integer.parseInt(cid),"end");
 		//忽略该行，system.out用于测试，实际编码中不需要实现
 		System.out.println("endcourseselect.do  ");
@@ -399,16 +408,10 @@ public class TeacherController {
 	 * @throws IOException
 	 * 
 	 * 查询研讨课选中的人数(finished!)
-	 * 
 	 * 返回人数数据
 	 */
 	@RequestMapping("findseminarstudentsnumberbycid")
 	public void findseminarstudentsnumberbycid(@RequestParam("cId")String cId,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		/**
-		 * 需要实现
-		 * 在这里实现自己的代码，调用service层查找出选课的学生数
-		 */
-		
 		List<SeminarStudentNo> nos = seminarClassServiceImpl.listCurrentSelectSeminarStuNumber(Integer.parseInt(cId));
 		
 		//定义response的各种参数
@@ -471,10 +474,6 @@ public class TeacherController {
 	 */
 	@RequestMapping("starttimelimitexercise")
 	public void starttimelimitexercise(@RequestParam("seId")String seId,@RequestParam("number")String number,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		/**
-		 * 需要实现
-		 * 在这里实现自己的代码，调用service层
-		 */
 		questionServiceImpl.startTimeLimitExercise(Integer.parseInt(seId),Integer.parseInt(number));
 		
 		//忽略该行，system.out用于测试，实际编码中不需要实现
@@ -491,10 +490,6 @@ public class TeacherController {
 	 */
 	@RequestMapping("endtimelimitexercise")
 	public void endtimelimitexercise(@RequestParam("seId")String seId,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		/**
-		 * 需要实现
-		 * 在这里实现自己的代码，调用service层
-		 */
 		questionServiceImpl.endTimeLimitExercise(Integer.parseInt(seId));
 		//忽略该行，system.out用于测试，实际编码中不需要实现
 		System.out.println("endtimelimitexercise.do  "+"seId:"+seId);
@@ -514,16 +509,16 @@ public class TeacherController {
 //		System.out.println("beginexerciserush.do  ");
 //	}
 	/**
-	 * 重写！
 	 * @param seId
 	 * @param request
 	 * @param response
 	 * @throws IOException
 	 * 开始抢答
 	 * 有可能需要标志位
+	 * @throws InterruptedException 
 	 */
 	@RequestMapping("startexerciserush")
-	public void startexerciserush(@RequestParam("seId")String seId,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void startexerciserush(@RequestParam("seId")String seId,HttpServletRequest request,HttpServletResponse response) throws IOException, InterruptedException{
 		/**
 		 * 需要实现
 		 * 在这里实现自己的代码，调用service层开始抢答，返回学生信息
@@ -531,27 +526,31 @@ public class TeacherController {
 		 * 
 		 */
 		Integer rdid = responderdataServiceImpl.startResponder(Integer.parseInt(seId));
+		Student student = null;
 		
-		Student student = responderdataServiceImpl.listDoneStudent(rdid);
-		if (student != null) {
-			//定义response的各种参数
-			response.setContentType("application/json");  
-			response.setCharacterEncoding("UTF-8");
-			PrintWriter out = response.getWriter();
-			
-			//需要实现
-			//该处将查找出的学生信息添加到jsonObject
-			JSONObject jsonObject=new JSONObject();  
-			jsonObject.put("name","张三");  //jsonObject中的key不能改变只能修改value
-			jsonObject.put("sId","16161616"); 
-			jsonObject.put("rushId","666"); 
-			out.print(jsonObject.toString());
-			out.flush();
-			out.close();
-			//忽略该行，system.out用于测试，实际编码中不需要实现
-			System.out.println("startexerciserush.do  "+jsonObject.toString());
+		while(student == null){
+			System.out.println("还没有抢答成功的学生");
+			Thread.sleep(500);
+			student = responderdataServiceImpl.listDoneStudent(rdid);
 		}
-		System.out.println("还没有抢答成功的学生");
+	
+		//定义response的各种参数
+		response.setContentType("application/json");  
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		//需要实现
+		//该处将查找出的学生信息添加到jsonObject
+		JSONObject jsonObject=new JSONObject();  
+		jsonObject.put("name",student.getSname());  //jsonObject中的key不能改变只能修改value
+		jsonObject.put("sId",student.getSid()); 
+		jsonObject.put("rushId",rdid); 
+		out.print(jsonObject.toString());
+		out.flush();
+		out.close();
+		//忽略该行，system.out用于测试，实际编码中不需要实现
+		System.out.println("startexerciserush.do  "+jsonObject.toString());
+		
 	}
 	/**(finished!)
 	 * 参数需要改变，需要传递抢答题目的ID
@@ -577,7 +576,6 @@ public class TeacherController {
 	}
 	
 	/**
-	 * 重写（不断访问数据库）
 	 * @param seId
 	 * @param sId
 	 * @param request
@@ -585,16 +583,39 @@ public class TeacherController {
 	 * @throws IOException
 	 * 
 	 * 抢答题，不满意当前抢答学生的人选，重新确定答题学生
+	 * @throws InterruptedException 
 	 * 
 	 */
 	
 	@RequestMapping("reexerciserushsubmit")
-	public void reexerciserushsubmit(@RequestParam("rushId")String rdid,@RequestParam("seId")String seId,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void reexerciserushsubmit(@RequestParam("rushId")String rdid,@RequestParam("seId")String seId,HttpServletRequest request,HttpServletResponse response) throws IOException, InterruptedException{
 		/**
 		 * 需要实现
 		 * 在这里实现自己的代码，调用service层
 		 */
 		responderdataServiceImpl.resetResponder(Integer.parseInt(rdid));
+        Student student = null;
+		
+		while(student == null){
+			System.out.println("还没有抢答成功的学生");
+			Thread.sleep(500);
+			student = responderdataServiceImpl.listDoneStudent(Integer.parseInt(rdid));
+		}
+	
+		//定义response的各种参数
+		response.setContentType("application/json");  
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		//需要实现
+		//该处将查找出的学生信息添加到jsonObject
+		JSONObject jsonObject=new JSONObject();  
+		jsonObject.put("name",student.getSname());  //jsonObject中的key不能改变只能修改value
+		jsonObject.put("sId",student.getSid()); 
+		jsonObject.put("rushId",rdid); 
+		out.print(jsonObject.toString());
+		out.flush();
+		out.close();
 		//忽略该行，system.out用于测试，实际编码中不需要实现
 		System.out.println("reexerciserushsubmit.do  ");
 	}
@@ -610,11 +631,6 @@ public class TeacherController {
 	 */
 	@RequestMapping("findstudentsbyseid")
 	public void findstudentsbyseid(@RequestParam("seId")String seId,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		/**
-		 * 需要实现
-		 * 在这里实现自己的代码，调用service层查找教师对学生的评价信息
-		 * 
-		 */
 		List<SeminarClassVo> students = seminarClassServiceImpl.listLoginStudents(Integer.parseInt(seId));
 		
 		//定义response的各种参数
@@ -673,24 +689,22 @@ public class TeacherController {
 		 * 
 		 */
 		
-		List<Evaluationelement> evaluationelements = evaluationElementServiceImpl.listByFatherName(Integer.parseInt(cId),eeName);
+		List<Evaluationelement> evaluationelements = evaluationElementServiceImpl.listByFatherName(Integer.parseInt(cId),"教师评价");
 		//定义response的各种参数
 		response.setContentType("application/json");  
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
 		//将查询到的信息添加到List<EvaluateKeys> students
-//		List<EvaluateKeys> keys = new ArrayList<EvaluateKeys>();
-//		EvaluateKeys key = new EvaluateKeys(1,"学习能力","");
-//		keys.add(key);
-//		key = new EvaluateKeys(2,"协作能力","");
-//		keys.add(key);
-//		key = new EvaluateKeys(3,"课堂积极性","");
-//		keys.add(key);
+		List<EvaluateKeys> keys = new ArrayList<EvaluateKeys>();
+		for(Evaluationelement ee : evaluationelements){
+			EvaluateKeys key = new EvaluateKeys(ee.getEeid(), ee.getEename(), "");
+			keys.add(key);
+		}
 
 		//转化成JsonString
-	//	String opts = createJsonString("keys",keys);
-	//	out.print(opts);
+		String opts = createJsonString("keys",keys);
+		out.print(opts);
 		out.flush();
 		out.close();
 
