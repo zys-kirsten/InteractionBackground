@@ -8,4 +8,6 @@ public interface UnquantizationFuzzyEvaluationDAO {
 
 	List<Unquantizationfuzzyevaluation> listUnquantizationFuzzyEvaluationBySSE(Integer seid, Integer sid, Integer eeid);
 
+	int addUnquantizationFuzzyEvaluation(Unquantizationfuzzyevaluation ufe);
+
 }

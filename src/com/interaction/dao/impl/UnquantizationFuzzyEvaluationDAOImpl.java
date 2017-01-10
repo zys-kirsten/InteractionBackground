@@ -1,5 +1,6 @@
 package com.interaction.dao.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -26,5 +27,14 @@ public class UnquantizationFuzzyEvaluationDAOImpl extends HibernateDaoSupport im
 		if(unquantizationfuzzyevaluations==null || unquantizationfuzzyevaluations.size() == 0)
 			return null;
 		return unquantizationfuzzyevaluations;
+	}
+
+	@Override
+	public int addUnquantizationFuzzyEvaluation(Unquantizationfuzzyevaluation ufe) {
+		Serializable id = getHibernateTemplate().save(ufe);
+		if (id == null || id.toString().length() == 0) {
+			return -1;
+		}
+		return Integer.parseInt(id.toString());
 	}
 }

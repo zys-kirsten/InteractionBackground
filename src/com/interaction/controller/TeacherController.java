@@ -26,9 +26,11 @@ import com.interaction.service.SeminarClassService;
 import com.interaction.service.SeminarService;
 import com.interaction.service.StudentService;
 import com.interaction.service.TeacherService;
+import com.interaction.service.UnquantizationFuzzyEvaluationService;
 import com.interaction.service.VotedataService;
 import com.interaction.service.VotequestionService;
 import com.interaction.utils.SessionUtil;
+import com.interaction.vo.AndroidEvaluationVo;
 import com.interaction.vo.CourseVo;
 import com.interaction.vo.EvaluateKeys;
 import com.interaction.vo.GroupVo;
@@ -37,6 +39,7 @@ import com.interaction.vo.SeminarStudentNo;
 import com.interaction.vo.SeminarVo;
 import com.interaction.vo.VotedataVo;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -60,6 +63,8 @@ public class TeacherController {
 	private QuestionService questionServiceImpl;
 	@Resource
 	private ResponderdataService responderdataServiceImpl;
+	@Resource
+	private UnquantizationFuzzyEvaluationService unquantizationFuzzyEvaluationServiceImpl;
 	
 	
 //=====================================教师Android端===================================================================	
@@ -662,12 +667,18 @@ public class TeacherController {
 	public void teacherevaluatesubmit(
 			@RequestParam("evaluations")String evaluations,
 			HttpServletRequest request,HttpServletResponse response) throws IOException{
-		/**
-		 * 需要实现
-		 * 在这里实现自己的代码，调用service层submit教师评价信息
-		 * 
-		 */
+		
+		List<AndroidEvaluationVo> list = new ArrayList<AndroidEvaluationVo>();
+		AndroidEvaluationVo evaluation;
+		JSONObject jsonObject= JSONObject.fromObject(evaluations);
+		JSONArray jsonArray = jsonObject.getJSONArray("evaluations");
+		for (int i = 0; i < jsonArray.size(); i++) {  
+			JSONObject jsonObject2 = jsonArray.getJSONObject(i);
+			evaluation = new AndroidEvaluationVo(jsonObject2.getInt("seId"),jsonObject2.getInt("sId"),jsonObject2.getInt("eeId"),jsonObject2.getString("evalRank"));
+			list.add(evaluation);
+		}
 
+		int flag = unquantizationFuzzyEvaluationServiceImpl.submitEvaluations(list);
 		//忽略该行，system.out用于测试，实际编码中不需要实现
 		System.out.println("teacherevaluatesubmit.do  "+evaluations);
 	}
