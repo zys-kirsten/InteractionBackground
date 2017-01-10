@@ -29,6 +29,7 @@ import com.interaction.service.TeacherService;
 import com.interaction.service.UnquantizationFuzzyEvaluationService;
 import com.interaction.service.VotedataService;
 import com.interaction.service.VotequestionService;
+import com.interaction.utils.JsonUtils;
 import com.interaction.utils.SessionUtil;
 import com.interaction.vo.AndroidEvaluationVo;
 import com.interaction.vo.CourseVo;
@@ -72,22 +73,16 @@ public class TeacherController {
 	//测试不通过，android端没修改
 	@RequestMapping("teacherlogin")
 	public void Login(@RequestParam("tAccount")String tAccount,@RequestParam("tPwd")String tPwd,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		response.setContentType("application/json");  
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
-
 		Integer tId = -1;
 		Teacher teacher = teacherServiceImpl.listByAccount(tAccount);
+		System.out.println("teacher="+teacher);
 		if (teacher != null) {
 			if (teacher.getTpwd().equals(tPwd)) {
 				tId = teacher.getTid();
 			}
 		}
 		//返回tId
-		String opts = createJsonString("tId",tId);
-		out.print(opts);
-		out.flush();
-		out.close();
+		JsonUtils.toJson(response, "tId",tId);
 		System.out.println("teacherlogin.do  SAccount : "+tAccount+"   SPwd : "+tPwd);
 	}
 	
@@ -97,16 +92,8 @@ public class TeacherController {
 	public void findcoursebytid(@RequestParam("TId")String TId,HttpServletRequest request,HttpServletResponse response) throws IOException{
 
 		List<CourseVo> myclass = courseServiceImpl.listCourse(Integer.parseInt(TId));
-		response.setContentType("application/json");  
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
-
-		String opts = createJsonString("classes",myclass);
-		out.print(opts);
-
-		out.flush();
-		out.close();
-		System.out.println("findcoursebytid.do  "+opts);
+		JsonUtils.toJson(response, "classes",myclass);
+		System.out.println("findcoursebytid.do  ");
 	}
 	
 	/**
@@ -123,18 +110,9 @@ public class TeacherController {
 	public void findseminarbycid(@RequestParam("CId")String CId,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		
 		List<SeminarVo> seminars = seminarServiceImpl.listByCourse(Integer.parseInt(CId));
-		//定义response的各种参数
-		response.setContentType("application/json");  
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
-		
-		//转化成JsonString
-		String opts = createJsonString("seminars",seminars);
-		out.print(opts);
-		out.flush();
-		out.close();
+		JsonUtils.toJson(response, "seminars",seminars);
 		//忽略该行，system.out用于测试，实际编码中不需要实现
-		System.out.println("findseminarbycid.do  "+opts);
+		System.out.println("findseminarbycid.do  ");
 	}
 	/**
 	 * Android端没有实现此功能，没有对应的查看签到学生列表的按钮
@@ -149,18 +127,11 @@ public class TeacherController {
 	@RequestMapping("findsigninstudentsbyseid")
 	public void findsigninstudentsbyseid(@RequestParam("seId")String seId,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		List<SeminarClassVo> students = seminarClassServiceImpl.listLoginStudents(Integer.parseInt(seId));
-		//定义response的各种参数
-		response.setContentType("application/json");  
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
+
+		JsonUtils.toJson(response, "students",students);
 		
-		//转化成JsonString
-		String opts = createJsonString("students",students);
-		out.print(opts);
-		out.flush();
-		out.close();
 		//忽略该行，system.out用于测试，实际编码中不需要实现
-		System.out.println("findsigninstudentsbyseid.do  "+opts);
+		System.out.println("findsigninstudentsbyseid.do  ");
 	}
 	
 	/**
@@ -177,18 +148,9 @@ public class TeacherController {
 		
 		List<GroupVo> groups = seminarClassServiceImpl.divideGroup(Integer.parseInt(seId));
 		
-		//定义response的各种参数
-		response.setContentType("application/json");  
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
-		
-		//转化成JsonString
-		String gps = createJsonString("groups",groups);
-		out.print(gps);
-		out.flush();
-		out.close();
+		JsonUtils.toJson(response, "groups",groups);
 		//忽略该行，system.out用于测试，实际编码中不需要实现
-		System.out.println("grouping.do  "+gps);
+		System.out.println("grouping.do  ");
 	}
 	
 	
@@ -320,16 +282,7 @@ public class TeacherController {
 	public void startvote(@RequestParam("seId")String seId,@RequestParam("correctAnswer")String correctAnswer,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		Integer vqid = votequestionServiceImpl.startVote(Integer.parseInt(seId),correctAnswer);
 		
-		response.setContentType("application/json");  
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
-		
-		//转化成JsonString
-		String opts = createJsonString("vqid",vqid);
-		out.print(opts);
-		out.flush();
-		out.close();
-		
+		JsonUtils.toJson(response, "vqid",vqid);
 		//忽略该行，system.out用于测试，实际编码中不需要实现
 		System.out.println("startvote.do  ");
 	}
@@ -391,18 +344,9 @@ public class TeacherController {
 	public void findseminarstudentsnumberbycid(@RequestParam("cId")String cId,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		List<SeminarStudentNo> nos = seminarClassServiceImpl.listCurrentSelectSeminarStuNumber(Integer.parseInt(cId));
 		
-		//定义response的各种参数
-		response.setContentType("application/json");  
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
-
-		//转化成JsonString
-		String opts = createJsonString("numbers",nos);
-		out.print(opts);
-		out.flush();
-		out.close();
+		JsonUtils.toJson(response, "numbers",nos);
 		//忽略该行，system.out用于测试，实际编码中不需要实现
-		System.out.println("findseminarstudentsnumberbycid.do  "+opts);
+		System.out.println("findseminarstudentsnumberbycid.do  ");
 	}
 	/**测试通过。但配置部分还需自己写。
 	 * @param seId
@@ -580,18 +524,9 @@ public class TeacherController {
 	public void findstudentsbyseid(@RequestParam("seId")String seId,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		List<SeminarClassVo> students = seminarClassServiceImpl.listLoginStudents(Integer.parseInt(seId));
 		
-		//定义response的各种参数
-		response.setContentType("application/json");  
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
-		
-		//转化成JsonString
-		String opts = createJsonString("students",students);
-		out.print(opts);
-		out.flush();
-		out.close();
+		JsonUtils.toJson(response, "students",students);
 		//忽略该行，system.out用于测试，实际编码中不需要实现
-		//System.out.println("findstudentsbyseid.do  "+opts);
+		System.out.println("findstudentsbyseid.do  ");
 	}
 	/**
 	 * 未测试。
@@ -637,36 +572,27 @@ public class TeacherController {
 			@RequestParam("cId")String cId,@RequestParam("eeName")String eeName,
 			HttpServletRequest request,HttpServletResponse response) throws IOException{
 		
+		System.out.println("eeName="+eeName);
 		List<Evaluationelement> evaluationelements = evaluationElementServiceImpl.listByFatherName(Integer.parseInt(cId),"教师评价");
-		//定义response的各种参数
-		response.setContentType("application/json");  
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
 
 		//将查询到的信息添加到List<EvaluateKeys> students
-		List<EvaluateKeys> keys = new ArrayList<EvaluateKeys>();
-		for(Evaluationelement ee : evaluationelements){
-			EvaluateKeys key = new EvaluateKeys(ee.getEeid(), ee.getEename(), "");
-			keys.add(key);
+		if (evaluationelements != null && evaluationelements.size() != 0) {
+			List<EvaluateKeys> keys = new ArrayList<EvaluateKeys>();
+			for(Evaluationelement ee : evaluationelements){
+				EvaluateKeys key = new EvaluateKeys(ee.getEeid(), ee.getEename(), "");
+				keys.add(key);
+			}
+
+			JsonUtils.toJson(response, "keys",keys);
+			for(EvaluateKeys e: keys){
+				System.out.println(e.getKey());
+			}
+			//忽略该行，system.out用于测试，实际编码中不需要实现
+			System.out.println("teacherevaluatesubmit.do  ");
 		}
-
-		//转化成JsonString
-		String opts = createJsonString("keys",keys);
-		out.print(opts);
-		out.flush();
-		out.close();
-
-		//忽略该行，system.out用于测试，实际编码中不需要实现
-		System.out.println("teacherevaluatesubmit.do  ");
 	}
 
-	public static String  createJsonString(String key,Object value){  
-
-		JSONObject jsonObject=new JSONObject();  
-		jsonObject.put(key, value);  
-		return jsonObject.toString();  
-
-	} 
+	
 //=====================================教师PC端========================================================================	
 	//研讨课登录前选择课程
 	@RequestMapping("/chooseCourse")
