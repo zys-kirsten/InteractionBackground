@@ -43,6 +43,15 @@ public class StudentDAOImpl extends HibernateDaoSupport implements StudentDAO {
 		return getHibernateTemplate().find(hql);
 	}
 
+	@Override
+	public Student findBySaccount(String saccount) {
+		String hql="from Student s where s.saccount = ?";
+		List<Student> student = getHibernateTemplate().find(hql,saccount);
+		if(student==null)
+			return null;
+		return student.get(0);
+	}
+
 	
 	
 }

@@ -82,7 +82,7 @@ public class TeacherController {
 			}
 		}
 		//返回tId
-		JsonUtils.toJson(response, "tId",tId);
+		JsonUtils.toJson(response, "tId",tId.toString());
 		System.out.println("teacherlogin.do  SAccount : "+tAccount+"   SPwd : "+tPwd);
 	}
 	

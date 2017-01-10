@@ -46,5 +46,14 @@ public class SeminarclassDAOImpl extends HibernateDaoSupport implements Seminarc
 		}
 		return -1;
 	}
+
+	@Override
+	public Seminarclass findByCEE(int cid, int seid, int sid) {
+		String hql="from Seminarclass sc where sc.course.cid=? and sc.seminar.seId = ? and sc.student.sid=?";
+		List<Seminarclass> seminar = getHibernateTemplate().find(hql,cid,seid,sid);
+		if(seminar==null || seminar.size() == 0)
+			return null;
+		return seminar.get(0);
+	}
 	
 }

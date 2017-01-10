@@ -8,8 +8,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.interaction.dao.ClassDAO;
 import com.interaction.dao.CourseDAO;
 import com.interaction.dao.TeacherDAO;
+import com.interaction.pojo.Class;
 import com.interaction.pojo.Course;
 import com.interaction.pojo.Teacher;
 import com.interaction.service.CourseService;
@@ -23,6 +25,8 @@ public class CourseServiceImpl implements CourseService{
 	private CourseDAO courseDAOImpl;
 	@Resource
 	private TeacherDAO teacherDAOImpl;
+	@Resource
+	private ClassDAO classDAOImpl;
 	
 	@Override
 	public int addCourse(Course course) {
@@ -118,5 +122,21 @@ public class CourseServiceImpl implements CourseService{
 	@Override
 	public Course listCourseByName(Integer tid,String cname) {
 		return courseDAOImpl.listCourseByCname(tid, cname).get(0);
+	}
+
+	@Override
+	public List<CourseVo> listCourseByStudent(int sid) {
+     
+		List<Class> classes = classDAOImpl.listClassBySid(sid);
+		if (classes == null || classes.size() == 0) {
+			return null;
+		}
+		
+		List<CourseVo> courseVos = new ArrayList<CourseVo>();
+		for(Class c : classes){
+			CourseVo courseVo = p2v(courseDAOImpl.findById(c.getCourse().getCid()));
+			courseVos.add(courseVo);
+		}
+		return courseVos;
 	}
 }

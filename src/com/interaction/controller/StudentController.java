@@ -1,31 +1,31 @@
 package com.interaction.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.interaction.pojo.Student;
+import com.interaction.service.CourseService;
 import com.interaction.service.StudentService;
+import com.interaction.utils.JsonUtils;
+import com.interaction.vo.CourseVo;
 
 @Controller   
 public class StudentController {
 	@Resource
 	private StudentService studentServiceImpl;
+	@Resource
+	private CourseService courseServiceImpl;
 	
+	//学生登录
 	@RequestMapping("/stuLogin")
 	public void stuLogin(@RequestParam("saccount")String saccount,@RequestParam("spwd")String spwd,HttpServletResponse response) throws IOException{
-		response.setContentType("application/json");  
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
 		
 		Integer sid = -1;
 		Student student = studentServiceImpl.findBySaccount(saccount);
@@ -34,12 +34,22 @@ public class StudentController {
 				sid = student.getSid();
 			}
 		}
-		
-		String opts = createJsonString("sid",sid);
-		out.print(opts);
-		out.flush();
-		out.close();
-		System.out.println("teacherlogin.do  SAccount : "+tAccount+"   SPwd : "+tPwd);
+		JsonUtils.toJson(response, "sid", sid);
+	}
+	
+	//学生签到
+	@RequestMapping("/stuSignIn")
+	public void stuSignIn(@RequestParam("cid")String cid,@RequestParam("seid")String seid,@RequestParam("sid")String sid,HttpServletResponse response) throws IOException{
+		int flag = -1;
+		flag = studentServiceImpl.stuSignIn(Integer.parseInt(cid),Integer.parseInt(seid),Integer.parseInt(sid));
+		JsonUtils.toJson(response, "flag", flag);
+	}
+	
+	//学生查看我的课程
+	@RequestMapping("/stuListCourse")
+	public void stuListCourse(@RequestParam("sid")String sid,HttpServletResponse response) throws IOException{
+		List<CourseVo> courses = courseServiceImpl.listCourseByStudent(Integer.parseInt(sid));
+		JsonUtils.toJson(response, "courses", courses);
 	}
 
 }

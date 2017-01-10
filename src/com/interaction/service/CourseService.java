@@ -14,4 +14,5 @@ public interface CourseService {
 	public int deleteCourseById(Integer cid);
 	public List<Course> findByCondition(Integer tid, String condition, String inputValue);
 	public Course listCourseByName(Integer integer, String cname);
+	public List<CourseVo> listCourseByStudent(int sid);
 }
