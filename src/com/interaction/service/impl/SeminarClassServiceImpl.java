@@ -104,7 +104,7 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 	}
 
 	
-//====================================Android========================================================
+//====================================教师Android========================================================
 	//列车该门研讨课已经登录的学生
 	@Override
 	public List<SeminarClassVo> listLoginStudents(Integer seId) {
@@ -184,7 +184,13 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 		}
 		return studentNos;
 	}
-	
-	
+//=========================================学生Android端==================================================	
+	//学生选课
+	@Override
+	public int stuSelectSeminar(int cid, int seid, int sid) {
+
+
+		return 0;
+	}
 
 }

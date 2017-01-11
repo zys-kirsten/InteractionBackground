@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.interaction.pojo.Student;
 import com.interaction.service.CourseService;
+import com.interaction.service.SeminarClassService;
 import com.interaction.service.StudentService;
 import com.interaction.utils.JsonUtils;
 import com.interaction.vo.CourseVo;
@@ -22,6 +23,8 @@ public class StudentController {
 	private StudentService studentServiceImpl;
 	@Resource
 	private CourseService courseServiceImpl;
+	@Resource
+	private SeminarClassService seminarClassServiceImpl;
 	
 	//学生登录
 	@RequestMapping("/stuLogin")
@@ -52,4 +55,12 @@ public class StudentController {
 		JsonUtils.toJson(response, "courses", courses);
 	}
 
+	//学生选课
+	@RequestMapping("/stuSelectSeminar")
+	public void stuSelectSeminar(@RequestParam("cid")String cid,@RequestParam("seid")String seid,@RequestParam("sid")String sid,HttpServletResponse response) throws IOException{
+		int flag = -1;
+		flag = seminarClassServiceImpl.stuSelectSeminar(Integer.parseInt(cid),Integer.parseInt(seid),Integer.parseInt(sid));
+		JsonUtils.toJson(response, "flag", flag);
+	}
+	
 }

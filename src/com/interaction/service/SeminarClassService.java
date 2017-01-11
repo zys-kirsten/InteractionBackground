@@ -25,4 +25,7 @@ public interface SeminarClassService {
 
 	//查询当前选择研讨课的情况
 	public List<SeminarStudentNo> listCurrentSelectSeminarStuNumber(int cid);
+
+	//学生选课
+	public int stuSelectSeminar(int cid, int seid, int sid);
 }
