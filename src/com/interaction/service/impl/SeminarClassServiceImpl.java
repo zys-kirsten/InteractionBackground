@@ -21,6 +21,7 @@ import com.interaction.pojo.Seminarclass;
 import com.interaction.pojo.Student;
 import com.interaction.service.SeminarClassService;
 import com.interaction.utils.DateUtil;
+import com.interaction.vo.GroupNumsVo;
 import com.interaction.vo.GroupVo;
 import com.interaction.vo.SeminarClassVo;
 import com.interaction.vo.SeminarStudentNo;
@@ -203,4 +204,54 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 		return seminarclassDAOImpl.addSeminarclass(seminarclass);
 	}
 
+	//学生查看课堂分组
+	@Override
+	public List<GroupVo> listGroup(int seid) {
+		List<Seminarclass> seminarclasses = seminarclassDAOImpl.listGroup(seid);
+		if (seminarclasses == null || seminarclasses.size() == 0) {
+			return null;
+		}
+		
+		List<GroupVo> groupVos = new ArrayList<>();
+		GroupVo groupVo = new GroupVo();
+		Integer grNum = 1;
+		String  grNames = "";
+		for(Seminarclass sc:seminarclasses){
+			Student student = studentDAOImpl.findById(sc.getStudent().getSid());
+			if (student != null) {
+				if (sc.getGroupNum() == grNum) {
+					grNames += student.getSname()+" ";
+				}else{
+					groupVo.setGrName(grNum.toString());
+					groupVo.setStNames(grNames);
+					groupVos.add(groupVo);
+					
+					groupVo = new GroupVo();
+					grNum++;
+					grNames = student.getSname()+" ";
+				}
+			}
+		}
+		groupVo.setGrName(grNum.toString());
+		groupVo.setStNames(grNames);
+		groupVos.add(groupVo);
+		return groupVos;
+	}
+
+	//找到某个学生自己的分组
+	@Override
+	public Integer findMyGroupNum(Integer seid,int sid) {
+		Seminarclass seminarclass = seminarclassDAOImpl.findMyGroupNum(seid,sid);
+		if (seminarclass == null ) {
+			return -1;
+		}
+		return seminarclass.getGroupNum();
+	}
+	
+	//查找除了自己组以外的其他组的组号
+	@Override
+	public List<GroupNumsVo> listOtherGroupNums(int seid, int groupNum) {
+		List<Seminarclass> seminarclasses = seminarclassDAOImpl.listOtherGroupNums(int seid, int groupNum);
+		return null;
+	}
 }

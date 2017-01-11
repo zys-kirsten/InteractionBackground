@@ -1,6 +1,7 @@
 package com.interaction.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -17,7 +18,11 @@ import com.interaction.service.SeminarService;
 import com.interaction.service.StudentService;
 import com.interaction.utils.JsonUtils;
 import com.interaction.vo.CourseVo;
+import com.interaction.vo.GroupNumsVo;
+import com.interaction.vo.GroupVo;
 import com.interaction.vo.SeminarVo;
+
+import net.sf.json.JSONObject;
 
 @Controller   
 public class StudentController {
@@ -59,6 +64,9 @@ public class StudentController {
 		JsonUtils.toJson(response, "courses", courses);
 	}
 
+	//学生查看选课列表（需要判断标志位）
+	
+	
 	//学生选课
 	@RequestMapping("/stuSelectSeminar")
 	public void stuSelectSeminar(@RequestParam("cid")String cid,@RequestParam("seid")String seid,@RequestParam("sid")String sid,HttpServletResponse response) throws IOException{
@@ -76,8 +84,30 @@ public class StudentController {
 	
 	//学生查看自己的课堂分组
 	@RequestMapping("/stuGrouping")
-	public void stuGrouping(){
+	public void stuGrouping(@RequestParam("seid")String seid,@RequestParam("sid")String sid,HttpServletResponse response) throws IOException{
+
+		List<GroupVo> groups = seminarClassServiceImpl.listGroup(Integer.parseInt(seid));
+		Integer groupNum = seminarClassServiceImpl.findMyGroupNum(Integer.parseInt(seid),Integer.parseInt(sid));
 		
+		response.setContentType("application/json");  
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		JSONObject jsonObject=new JSONObject();  
+		jsonObject.put("groups", groups); 
+		jsonObject.put("groupNum", groupNum); 
+
+		out.print(jsonObject.toString());
+		out.flush();
+		out.close();
+		
+	}
+	
+	//学生在组间评价前查询需要评价的组
+	@RequestMapping("/stuListOutGroupEvaluation")
+	public void stuListOutGroupEvaluation(@RequestParam("seid")String seid,@RequestParam("groupNum")String groupNum,HttpServletResponse response) throws IOException{
+		List<GroupNumsVo>  groupnumsVo = seminarClassServiceImpl.listOtherGroupNums(Integer.parseInt(seid),Integer.parseInt(groupNum));
+		JsonUtils.toJson(response, "groupnumsVo", groupnumsVo);
 	}
 	
 }

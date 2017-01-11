@@ -17,5 +17,9 @@ public interface SeminarclassDAO {
 	public int addSeminarclass(Seminarclass seminarclass);
 
 	public List<Seminarclass> listByCidAndSid(int cid, int sid);
+
+	public List<Seminarclass> listGroup(int seid);
+
+	public Seminarclass findMyGroupNum(Integer seid, int sid);
 	
 }

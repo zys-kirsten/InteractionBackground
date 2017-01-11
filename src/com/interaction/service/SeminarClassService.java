@@ -2,6 +2,7 @@ package com.interaction.service;
 
 import java.util.List;
 
+import com.interaction.vo.GroupNumsVo;
 import com.interaction.vo.GroupVo;
 import com.interaction.vo.SeminarClassVo;
 import com.interaction.vo.SeminarStudentNo;
@@ -28,4 +29,13 @@ public interface SeminarClassService {
 
 	//学生选课
 	public int stuSelectSeminar(int cid, int seid, int sid);
+
+	//列出所有已经分好的组
+	public List<GroupVo> listGroup(int seid);
+
+	//找到某个学生自己的分组
+	public Integer findMyGroupNum(Integer seid,int sid);
+
+	//查找除了自己组以外的其他组的组号
+	public List<GroupNumsVo> listOtherGroupNums(int seid, int groupNum);
 }

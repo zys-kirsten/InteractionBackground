@@ -22,6 +22,7 @@ import com.interaction.dao.VotedataDAO;
 import com.interaction.dao.impl.StudentDAOImpl;
 import com.interaction.pojo.Evaluationelement;
 import com.interaction.pojo.Seminar;
+import com.interaction.pojo.Seminarclass;
 import com.interaction.pojo.Student;
 import com.interaction.pojo.Unquantizationfuzzyevaluation;
 import com.interaction.pojo.Votedata;
@@ -52,7 +53,7 @@ public class TestDao {
 		//teacherDAOImpl = (TeacherDAO) beanFactory.getBean("teacherDAOImpl");
 		//courseDAOImpl = (CourseDAO) beanFactory.getBean("courseDAOImpl");
 		//seminarDAOImpl = (SeminarDAO) beanFactory.getBean("seminarDAOImpl");
-		//seminarclassDAOImpl = (SeminarclassDAO) beanFactory.getBean("seminarclassDAOImpl");
+		seminarclassDAOImpl = (SeminarclassDAO) beanFactory.getBean("seminarclassDAOImpl");
 	   // questionDAOImpl = (QuestionDAO) beanFactory.getBean("questionDAOImpl");
 	   // answerDAOImpl = (AnswerDAO) beanFactory.getBean("answerDAOImpl");
 		//evaluationDAOImpl = (EvaluationDAO) beanFactory.getBean("evaluationDAOImpl");
@@ -68,31 +69,43 @@ public class TestDao {
 	public void test(){
 		getDao();
 		
-		Student student = new Student();
-		student.setSid(2);
-		Seminar seminar = new Seminar();
-		seminar.setSeId(12);
-		Evaluationelement evaluationelement = new Evaluationelement();
-		evaluationelement.setEeid(11);
-		List<Unquantizationfuzzyevaluation> ufes = new ArrayList<>();
-		Unquantizationfuzzyevaluation u1 = new Unquantizationfuzzyevaluation();
-		u1.setEvalRank("优秀");
-		u1.setEvaluationelement(evaluationelement);
-		u1.setSeminar(seminar);
-		u1.setStudent(student);
-		ufes.add(u1);
 		
-		Evaluationelement evaluationelement2 = new Evaluationelement();
-		evaluationelement.setEeid(12);
-		Unquantizationfuzzyevaluation u2 = new Unquantizationfuzzyevaluation();
-		u2.setEvalRank("优秀");
-		u2.setEvaluationelement(evaluationelement2);
-		u2.setSeminar(seminar);
-		u2.setStudent(student);
-		ufes.add(u2);
+		List<Seminarclass> seminarclasses = seminarclassDAOImpl.listGroup(1);
+		if (seminarclasses != null && seminarclasses.size() != 0) {
+			for(int i = 0;i<seminarclasses.size();i++){
+				System.out.println(seminarclasses.get(i).getGroupNum());
+//				System.out.println("第"+list.get(0).getGroupNum()+"组：");
+//				for(Seminarclass sc:list){
+//					System.out.print(sc.getStudent().getSid()+",");
+//				}
+			}
+		}
 		
-		
-		unquantizationFuzzyEvaluationDAOImpl.addUnquantizationFuzzyEvaluation(u1);
+//		Student student = new Student();
+//		student.setSid(2);
+//		Seminar seminar = new Seminar();
+//		seminar.setSeId(12);
+//		Evaluationelement evaluationelement = new Evaluationelement();
+//		evaluationelement.setEeid(11);
+//		List<Unquantizationfuzzyevaluation> ufes = new ArrayList<>();
+//		Unquantizationfuzzyevaluation u1 = new Unquantizationfuzzyevaluation();
+//		u1.setEvalRank("优秀");
+//		u1.setEvaluationelement(evaluationelement);
+//		u1.setSeminar(seminar);
+//		u1.setStudent(student);
+//		ufes.add(u1);
+//		
+//		Evaluationelement evaluationelement2 = new Evaluationelement();
+//		evaluationelement.setEeid(12);
+//		Unquantizationfuzzyevaluation u2 = new Unquantizationfuzzyevaluation();
+//		u2.setEvalRank("优秀");
+//		u2.setEvaluationelement(evaluationelement2);
+//		u2.setSeminar(seminar);
+//		u2.setStudent(student);
+//		ufes.add(u2);
+//		
+//		
+//		unquantizationFuzzyEvaluationDAOImpl.addUnquantizationFuzzyEvaluation(u1);
 //		List<Votedata> votedataVos = votedataDAOImpl.listCurrentVotedataBySeidAndVqid(1, 1);
 //		for (int i = 0; i < votedataVos.size(); i++) {
 //			System.out.println(votedataVos.get(i).getStuAnswer());

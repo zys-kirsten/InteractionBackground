@@ -17,14 +17,12 @@ import com.interaction.pojo.Course;
 import com.interaction.pojo.Evaluationelement;
 import com.interaction.pojo.Student;
 import com.interaction.pojo.Teacher;
-import com.interaction.pojo.Votequestion;
 import com.interaction.service.CourseService;
 import com.interaction.service.EvaluationElementService;
 import com.interaction.service.QuestionService;
 import com.interaction.service.ResponderdataService;
 import com.interaction.service.SeminarClassService;
 import com.interaction.service.SeminarService;
-import com.interaction.service.StudentService;
 import com.interaction.service.TeacherService;
 import com.interaction.service.UnquantizationFuzzyEvaluationService;
 import com.interaction.service.VotedataService;
@@ -425,24 +423,35 @@ public class TeacherController {
 	 */
 	@RequestMapping("findResponderStu")
 	public void findResponderStu(@RequestParam("rdid")String rdid,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		Student student = responderdataServiceImpl.listDoneStudent(Integer.parseInt(rdid));
-		if (student != null) {
-			//定义response的各种参数
-			response.setContentType("application/json");  
-			response.setCharacterEncoding("UTF-8");
-	    	PrintWriter out = response.getWriter();
-		    //该处将查找出的学生信息添加到jsonObject
-			JSONObject jsonObject=new JSONObject();  
-			jsonObject.put("name",student.getSname());  //jsonObject中的key不能改变只能修改value
-			jsonObject.put("sId",student.getSid()); 
-			out.print(jsonObject.toString());
-			out.flush();
-			out.close();
-			//忽略该行，system.out用于测试，实际编码中不需要实现
-			System.out.println("startexerciserush.do  "+jsonObject.toString());
-		}
-		System.out.println("还没有抢答成功的学生");
+		Student student = null;
+		do{  
+			try {  
+				Thread.sleep(1000);
+				student = responderdataServiceImpl.listDoneStudent(Integer.parseInt(rdid));
+				if (student != null) {
+					
+					response.setContentType("application/json");  
+					response.setCharacterEncoding("UTF-8");
+			    	PrintWriter out = response.getWriter();
+				    
+					JSONObject jsonObject=new JSONObject();  
+					jsonObject.put("name",student.getSname());  
+					jsonObject.put("sId",student.getSid()); 
+					out.print(jsonObject.toString());
+					out.flush();
+					out.close();
+					
+					System.out.println("startexerciserush.do  "+jsonObject.toString());
+				}
+				System.out.println("还没有抢答成功的学生！");
+			} catch (InterruptedException e) {  
+				// TODO Auto-generated catch block  
+				e.printStackTrace();  
+			}  
+		} while(student==null);
+		
 	}
+
 	/**未测试！
 	 * 参数需要改变，需要传递抢答题目的ID
 	 * @param seId
@@ -479,7 +488,7 @@ public class TeacherController {
 		 * 在这里实现自己的代码，调用service层
 		 */
 		responderdataServiceImpl.resetResponder(Integer.parseInt(rdid));
-        JsonUtils.toJson(response, "rdid", rdid);
+        JsonUtils.toJson(response, "rdid", Integer.parseInt(rdid));
 		System.out.println("restartResponder.do  ");
 	}
 	/**测试未通过。没有显示研讨课中学生的信息
