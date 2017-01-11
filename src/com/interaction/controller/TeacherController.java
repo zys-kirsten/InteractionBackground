@@ -550,7 +550,6 @@ public class TeacherController {
 			@RequestParam("cId")String cId,@RequestParam("eeName")String eeName,
 			HttpServletRequest request,HttpServletResponse response) throws IOException{
 		
-		System.out.println("eeName="+eeName);
 		List<Evaluationelement> evaluationelements = evaluationElementServiceImpl.listByFatherName(Integer.parseInt(cId),"教师评价");
 
 		//将查询到的信息添加到List<EvaluateKeys> students

@@ -1,8 +1,10 @@
 package com.interaction.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -251,7 +253,28 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 	//查找除了自己组以外的其他组的组号
 	@Override
 	public List<GroupNumsVo> listOtherGroupNums(int seid, int groupNum) {
-		List<Seminarclass> seminarclasses = seminarclassDAOImpl.listOtherGroupNums(int seid, int groupNum);
-		return null;
+		List<Seminarclass> seminarclasses = seminarclassDAOImpl.listOtherGroupNums(seid, groupNum);
+		if (seminarclasses == null || seminarclasses.size() == 0) {
+			return null;
+		}
+		
+		Set<Integer> temp = new HashSet<Integer>();
+		for(Seminarclass sc:seminarclasses){
+			temp.add(sc.getGroupNum());
+		}
+		
+		List<GroupNumsVo> groupNumsVos = new ArrayList<GroupNumsVo>();
+		for(Integer i:temp){
+			GroupNumsVo groupNumsVo = new GroupNumsVo();
+			groupNumsVo.setGrNumber(i);
+			groupNumsVos.add(groupNumsVo);
+		}
+		return groupNumsVos;
+	}
+	
+	//根据组号查找属于该组的同学
+	@Override
+	public List<Seminarclass> listByGroupNum(int seid, int groupNum) {
+		return seminarclassDAOImpl.listByGroupNum(seid, groupNum);
 	}
 }

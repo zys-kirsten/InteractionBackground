@@ -24,4 +24,6 @@ public interface EvaluationElementDAO {
 
 	public List<Evaluationelement> listByCourseAndFatherName(Integer cid, String condition);
 
+	public List<Evaluationelement> listByFatherNameNeedVisited(int cid, String fatherName);
+
 }

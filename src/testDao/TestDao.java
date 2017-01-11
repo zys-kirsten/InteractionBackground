@@ -60,7 +60,7 @@ public class TestDao {
 	   // scoreshowDAOImpl = (ScoreshowDAO) beanFactory.getBean("scoreshowDAOImpl");
 		//classModuleDAOImpl = (ClassModuleDAO) beanFactory.getBean("classModuleDAOImpl");
 		//classModuleEvaluationDAOImpl = (ClassModuleEvaluationDAO) beanFactory.getBean("classModuleEvaluationDAOImpl");
-		unquantizationFuzzyEvaluationDAOImpl = (UnquantizationFuzzyEvaluationDAO) beanFactory.getBean("unquantizationFuzzyEvaluationDAOImpl");
+		//unquantizationFuzzyEvaluationDAOImpl = (UnquantizationFuzzyEvaluationDAO) beanFactory.getBean("unquantizationFuzzyEvaluationDAOImpl");
 		
 	}
 
@@ -70,7 +70,7 @@ public class TestDao {
 		getDao();
 		
 		
-		List<Seminarclass> seminarclasses = seminarclassDAOImpl.listGroup(1);
+		List<Seminarclass> seminarclasses = seminarclassDAOImpl.listByGroupNum(1, 1);
 		if (seminarclasses != null && seminarclasses.size() != 0) {
 			for(int i = 0;i<seminarclasses.size();i++){
 				System.out.println(seminarclasses.get(i).getGroupNum());

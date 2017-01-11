@@ -29,5 +29,7 @@ public interface EvaluationElementService {
 
 	List<Evaluationelement> listByFatherName(int cid, String fatherName);
 
+	List<Evaluationelement> listByFatherNameNeedVisited(int cid, String fatherName);
+
 
 }

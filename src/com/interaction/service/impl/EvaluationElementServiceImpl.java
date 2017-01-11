@@ -26,8 +26,14 @@ public class EvaluationElementServiceImpl implements EvaluationElementService{
 	@Resource
 	private SeminarDAO seminarDAOImpl; 
 
+//===================================================学生android端=================================================================
+	//组间评价前的评价因素查询
+	@Override
+	public List<Evaluationelement> listByFatherNameNeedVisited(int cid, String fatherName) {
+		return evaluationElementDAOImpl.listByFatherNameNeedVisited(cid,fatherName);
+	}
 	
-//================================================ Android端 ======================================================================
+//================================================ 教师Android端 ======================================================================
 	//执行组内评价和组间评价（包括启动与结束）
 	@Override
 	public void executeEvaluation(int seid,String fatherName,String condition) {

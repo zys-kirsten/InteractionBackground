@@ -2,6 +2,7 @@ package com.interaction.service;
 
 import java.util.List;
 
+import com.interaction.pojo.Seminarclass;
 import com.interaction.vo.GroupNumsVo;
 import com.interaction.vo.GroupVo;
 import com.interaction.vo.SeminarClassVo;
@@ -38,4 +39,7 @@ public interface SeminarClassService {
 
 	//查找除了自己组以外的其他组的组号
 	public List<GroupNumsVo> listOtherGroupNums(int seid, int groupNum);
+
+	//根据组号查找属于该组的同学
+	public List<Seminarclass> listByGroupNum(int seid, int groupNum);
 }
