@@ -31,7 +31,7 @@ public class ClassModuleEvaluationDAOImpl extends HibernateDaoSupport implements
 	public List<Classmoduleevaluation> listByCmid(Integer cmid) {
 		String hql="from Classmoduleevaluation cme where cme.classmodule.cmid = ?";
 		List<Classmoduleevaluation> classmoduleevaluations = getHibernateTemplate().find(hql,cmid);
-		if(classmoduleevaluations==null)
+		if(classmoduleevaluations==null || classmoduleevaluations.size() == 0)
 			return null;
 		return classmoduleevaluations;
 	}

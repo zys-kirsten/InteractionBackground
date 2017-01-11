@@ -407,48 +407,41 @@ public class TeacherController {
 		System.out.println("endtimelimitexercise.do  "+"seId:"+seId);
 	}
 
-	/**测试未通过！开始抢答后，数据库正常插入一条抢答数据。但当有学生sid插入后，android界面闪退，没有显示抢答学生信息，教师也无法进行学生确认。
+	//页面点击开始抢答
+	@RequestMapping("startResponder")
+	public void startResponder(@RequestParam("seId")String seId,HttpServletRequest request,HttpServletResponse response) throws IOException{
+ 
+		Integer rdid = responderdataServiceImpl.startResponder(Integer.parseInt(seId));
+		JsonUtils.toJson(response, "rdid", rdid);
+		System.out.println("startResponder.do  ");
+	}
+	/**
+	 * 该方法需要android端不停的查询数据库时调用，查看有哪一个同学已经抢答到题目
 	 * @param seId
 	 * @param request
 	 * @param response
 	 * @throws IOException
 	 * 开始抢答
-	 * @throws InterruptedException 
 	 */
-	@RequestMapping("startexerciserush")
-	public void startexerciserush(@RequestParam("seId")String seId,HttpServletRequest request,HttpServletResponse response) throws IOException, InterruptedException{
-		/**
-		 * 需要实现
-		 * 在这里实现自己的代码，调用service层开始抢答，返回学生信息
-		 * 开始抢答功能开启之后，才能进行抢答，当出现同学抢答成功时，应该关闭抢答功能，并将学生信息返回，以上功能应该在service中实现
-		 * 
-		 */
-		Integer rdid = responderdataServiceImpl.startResponder(Integer.parseInt(seId));
-		Student student = null;
-		
-		while(student == null){
-			System.out.println("还没有抢答成功的学生");
-			Thread.sleep(500);
-			student = responderdataServiceImpl.listDoneStudent(rdid);
+	@RequestMapping("findResponderStu")
+	public void findResponderStu(@RequestParam("rdid")String rdid,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		Student student = responderdataServiceImpl.listDoneStudent(Integer.parseInt(rdid));
+		if (student != null) {
+			//定义response的各种参数
+			response.setContentType("application/json");  
+			response.setCharacterEncoding("UTF-8");
+	    	PrintWriter out = response.getWriter();
+		    //该处将查找出的学生信息添加到jsonObject
+			JSONObject jsonObject=new JSONObject();  
+			jsonObject.put("name",student.getSname());  //jsonObject中的key不能改变只能修改value
+			jsonObject.put("sId",student.getSid()); 
+			out.print(jsonObject.toString());
+			out.flush();
+			out.close();
+			//忽略该行，system.out用于测试，实际编码中不需要实现
+			System.out.println("startexerciserush.do  "+jsonObject.toString());
 		}
-	
-		//定义response的各种参数
-		response.setContentType("application/json");  
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
-		
-		//需要实现
-		//该处将查找出的学生信息添加到jsonObject
-		JSONObject jsonObject=new JSONObject();  
-		jsonObject.put("name",student.getSname());  //jsonObject中的key不能改变只能修改value
-		jsonObject.put("sId",student.getSid()); 
-		jsonObject.put("rushId",rdid); 
-		out.print(jsonObject.toString());
-		out.flush();
-		out.close();
-		//忽略该行，system.out用于测试，实际编码中不需要实现
-		System.out.println("startexerciserush.do  "+jsonObject.toString());
-		
+		System.out.println("还没有抢答成功的学生");
 	}
 	/**未测试！
 	 * 参数需要改变，需要传递抢答题目的ID
@@ -460,16 +453,14 @@ public class TeacherController {
 	 * 抢答题，确定答题学生
 	 * 
 	 */
-	
-	@RequestMapping("exerciserushsubmit")
-	public void exerciserushsubmit(@RequestParam("rushId")String rdid,@RequestParam("seId")String seId,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	@RequestMapping("endResponder")
+	public void endResponder(@RequestParam("rdid")String rdid,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		responderdataServiceImpl.endResponder(Integer.parseInt(rdid));
 		//忽略该行，system.out用于测试，实际编码中不需要实现
-		System.out.println("exerciserushsubmit.do  ");
+		System.out.println("endResponder.do  ");
 	}
 	
-	/**测试不通过！是不是开始抢答与重新抢答调用了同一个方法？？？
-	 * 
+	/** 
 	 * @param seId
 	 * @param sId
 	 * @param request
@@ -481,37 +472,15 @@ public class TeacherController {
 	 * 
 	 */
 	
-	@RequestMapping("reexerciserushsubmit")
-	public void reexerciserushsubmit(@RequestParam("rushId")String rdid,@RequestParam("seId")String seId,HttpServletRequest request,HttpServletResponse response) throws IOException, InterruptedException{
+	@RequestMapping("restartResponder")
+	public void restartResponder(@RequestParam("rdid")String rdid,HttpServletRequest request,HttpServletResponse response) throws IOException, InterruptedException{
 		/**
 		 * 需要实现
 		 * 在这里实现自己的代码，调用service层
 		 */
 		responderdataServiceImpl.resetResponder(Integer.parseInt(rdid));
-        Student student = null;
-		
-		while(student == null){
-			System.out.println("还没有抢答成功的学生");
-			Thread.sleep(500);
-			student = responderdataServiceImpl.listDoneStudent(Integer.parseInt(rdid));
-		}
-	
-		//定义response的各种参数
-		response.setContentType("application/json");  
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();
-		
-		//需要实现
-		//该处将查找出的学生信息添加到jsonObject
-		JSONObject jsonObject=new JSONObject();  
-		jsonObject.put("name",student.getSname());  //jsonObject中的key不能改变只能修改value
-		jsonObject.put("sId",student.getSid()); 
-		jsonObject.put("rushId",rdid); 
-		out.print(jsonObject.toString());
-		out.flush();
-		out.close();
-		//忽略该行，system.out用于测试，实际编码中不需要实现
-		System.out.println("reexerciserushsubmit.do  ");
+        JsonUtils.toJson(response, "rdid", rdid);
+		System.out.println("restartResponder.do  ");
 	}
 	/**测试未通过。没有显示研讨课中学生的信息
 	 * @param seId

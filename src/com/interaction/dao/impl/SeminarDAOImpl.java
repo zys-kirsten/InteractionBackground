@@ -52,7 +52,7 @@ public class SeminarDAOImpl extends HibernateDaoSupport implements SeminarDAO {
 	public List<Seminar> listByCourse(Integer cid) {
 		String hql="from Seminar s where s.course.cid = ?";
 		List<Seminar> seminar = getHibernateTemplate().find(hql,cid);
-		if(seminar==null)
+		if(seminar==null || seminar.size() == 0)
 			return null;
 		return seminar;
 	}

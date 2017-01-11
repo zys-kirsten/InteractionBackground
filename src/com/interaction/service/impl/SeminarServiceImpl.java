@@ -13,9 +13,11 @@ import org.springframework.stereotype.Service;
 
 import com.interaction.dao.CourseDAO;
 import com.interaction.dao.SeminarDAO;
+import com.interaction.dao.SeminarclassDAO;
 import com.interaction.dao.TeacherDAO;
 import com.interaction.pojo.Course;
 import com.interaction.pojo.Seminar;
+import com.interaction.pojo.Seminarclass;
 import com.interaction.pojo.Teacher;
 import com.interaction.service.SeminarService;
 import com.interaction.utils.DateUtil;
@@ -31,6 +33,8 @@ public class SeminarServiceImpl implements SeminarService{
 	private CourseDAO courseDAOImpl;
 	@Resource
 	private TeacherDAO teacherDAOImpl;
+	@Resource
+	private SeminarclassDAO seminarclassDAOImpl;
 	
 	//添加研讨课
 	@Override
@@ -196,7 +200,7 @@ public class SeminarServiceImpl implements SeminarService{
 	public Seminar findBySeName(Integer cid, String seName) {
 		return seminarDAOImpl.findBySeName(cid, seName).get(0);
 	}
-//======================================Android====================================================
+//======================================教师Android====================================================
 	//执行选课，包括开始选课和结束选课
 	@Override
 	public void executeCourseSelect(int cid,String condition) {
@@ -212,5 +216,22 @@ public class SeminarServiceImpl implements SeminarService{
 				seminarDAOImpl.updateSeminar(seminar);
 			}
 		}
+	}
+//======================================学生Android====================================================
+	@Override
+	public List<SeminarVo> listByCidAndSid(int cid, int sid) {
+		List<Seminarclass> seminarclasses = seminarclassDAOImpl.listByCidAndSid(cid,sid);
+		if (seminarclasses == null ||seminarclasses.size() == 0) {
+			return null;
+		}
+	
+		List<Seminar> seminars = new ArrayList<Seminar>();
+		for(Seminarclass sc:seminarclasses){
+			Seminar seminar = seminarDAOImpl.findById(sc.getSeminar().getSeId());
+			if (seminar != null) {
+				seminars.add(seminar);
+			}
+		}
+		return p2v(seminars);
 	}
 }

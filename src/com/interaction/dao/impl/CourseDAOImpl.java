@@ -35,7 +35,7 @@ public class CourseDAOImpl extends HibernateDaoSupport implements CourseDAO{
 	public List<Course> listCourse(Integer tid) {
 		String hql="from Course c where c.teacher.tid = ?";
 		List<Course> courses = getHibernateTemplate().find(hql,tid);
-		if(courses==null)
+		if(courses==null || courses.size() == 0)
 			return null;
 		return courses;
 	}
@@ -44,7 +44,7 @@ public class CourseDAOImpl extends HibernateDaoSupport implements CourseDAO{
 	public Course findById(Integer cid) {
 		String hql="from Course c where c.cid = ?";
 		List<Course> courses = getHibernateTemplate().find(hql,cid);
-		if(courses==null)
+		if(courses==null || courses.size() == 0)
 			return null;
 		return courses.get(0);
 	}

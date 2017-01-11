@@ -15,6 +15,7 @@ import com.interaction.dao.SeminarDAO;
 import com.interaction.dao.SeminarclassDAO;
 import com.interaction.dao.StudentDAO;
 import com.interaction.pojo.Classmodule;
+import com.interaction.pojo.Course;
 import com.interaction.pojo.Seminar;
 import com.interaction.pojo.Seminarclass;
 import com.interaction.pojo.Student;
@@ -35,6 +36,8 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 	private SeminarDAO seminarDAOImpl;
 	@Resource
 	private ClassModuleDAO classModuleDAOImpl;
+	@Resource
+	private CourseDAO courseDAOImpl;
 
 	
 //====================================PC======================================================
@@ -189,8 +192,15 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 	@Override
 	public int stuSelectSeminar(int cid, int seid, int sid) {
 
-
-		return 0;
+		Seminarclass seminarclass = new Seminarclass();
+		if (courseDAOImpl.findById(cid) == null || seminarDAOImpl.findById(seid) == null || studentDAOImpl.findById(sid) == null) {
+			return -1;
+		}
+		seminarclass.setCourse(courseDAOImpl.findById(cid));
+		seminarclass.setSeminar(seminarDAOImpl.findById(seid));
+		seminarclass.setStudent(studentDAOImpl.findById(sid));
+		
+		return seminarclassDAOImpl.addSeminarclass(seminarclass);
 	}
 
 }

@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.interaction.pojo.Student;
 import com.interaction.service.CourseService;
 import com.interaction.service.SeminarClassService;
+import com.interaction.service.SeminarService;
 import com.interaction.service.StudentService;
 import com.interaction.utils.JsonUtils;
 import com.interaction.vo.CourseVo;
+import com.interaction.vo.SeminarVo;
 
 @Controller   
 public class StudentController {
@@ -25,6 +27,8 @@ public class StudentController {
 	private CourseService courseServiceImpl;
 	@Resource
 	private SeminarClassService seminarClassServiceImpl;
+	@Resource
+	private SeminarService seminarServiceImpl;
 	
 	//学生登录
 	@RequestMapping("/stuLogin")
@@ -61,6 +65,19 @@ public class StudentController {
 		int flag = -1;
 		flag = seminarClassServiceImpl.stuSelectSeminar(Integer.parseInt(cid),Integer.parseInt(seid),Integer.parseInt(sid));
 		JsonUtils.toJson(response, "flag", flag);
+	}
+	
+	//学生查看某一门课程下的“我的研讨课”
+	@RequestMapping("/stuListMySeminar")
+	public void stuListMySeminar(@RequestParam("cid")String cid,@RequestParam("sid")String sid,HttpServletResponse response) throws IOException{
+		List<SeminarVo> seminars = seminarServiceImpl.listByCidAndSid(Integer.parseInt(cid),Integer.parseInt(sid));
+		JsonUtils.toJson(response, "seminars", seminars);
+	}
+	
+	//学生查看自己的课堂分组
+	@RequestMapping("/stuGrouping")
+	public void stuGrouping(){
+		
 	}
 	
 }

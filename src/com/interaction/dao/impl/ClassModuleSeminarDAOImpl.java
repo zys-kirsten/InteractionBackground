@@ -31,7 +31,7 @@ public class ClassModuleSeminarDAOImpl extends HibernateDaoSupport implements Cl
 	public List<Classmoduleseminar> listByCmid(Integer cmid) {
 		String hql="from Classmoduleseminar cms where cms.classmodule.cmid = ?";
 		List<Classmoduleseminar> classmoduleseminars = getHibernateTemplate().find(hql,cmid);
-		if(classmoduleseminars==null)
+		if(classmoduleseminars==null || classmoduleseminars.size() == 0)
 			return null;
 		return classmoduleseminars;
 	}

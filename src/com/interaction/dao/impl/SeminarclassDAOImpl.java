@@ -1,5 +1,6 @@
 package com.interaction.dao.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -31,7 +32,7 @@ public class SeminarclassDAOImpl extends HibernateDaoSupport implements Seminarc
 	public List<Seminarclass> listLoginStudents(Integer seId) {
 		String hql="from Seminarclass sc where sc.seminar.seId = ? and sc.isLogin = 1";
 		List<Seminarclass> seminar = getHibernateTemplate().find(hql,seId);
-		if(seminar==null)
+		if(seminar==null || seminar.size() == 0)
 			return null;
 		return seminar;
 	}
@@ -54,6 +55,24 @@ public class SeminarclassDAOImpl extends HibernateDaoSupport implements Seminarc
 		if(seminar==null || seminar.size() == 0)
 			return null;
 		return seminar.get(0);
+	}
+
+	@Override
+	public int addSeminarclass(Seminarclass seminarclass) {
+		Serializable id = getHibernateTemplate().save(seminarclass);
+		if (id == null || id.toString().length() == 0) {
+			return -1;
+		}
+		return Integer.parseInt(id.toString());
+	}
+	
+	@Override
+	public List<Seminarclass> listByCidAndSid(int cid, int sid) {
+		String hql="from Seminarclass sc where sc.course.cid = ? and sc.student.sid = ?";
+		List<Seminarclass> seminarclasses = getHibernateTemplate().find(hql,cid,sid);
+		if(seminarclasses==null || seminarclasses.size() == 0)
+			return null;
+		return seminarclasses;
 	}
 	
 }

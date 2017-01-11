@@ -31,7 +31,7 @@ public class StudentDAOImpl extends HibernateDaoSupport implements StudentDAO {
 	public Student findById(Integer SId) {
 		String hql="from Student s where s.sid = ?";
 		List<Student> student = getHibernateTemplate().find(hql,SId);
-		if(student==null)
+		if(student==null || student.size() == 0)
 			return null;
 		return student.get(0);
 
@@ -47,7 +47,7 @@ public class StudentDAOImpl extends HibernateDaoSupport implements StudentDAO {
 	public Student findBySaccount(String saccount) {
 		String hql="from Student s where s.saccount = ?";
 		List<Student> student = getHibernateTemplate().find(hql,saccount);
-		if(student==null)
+		if(student==null || student.size() == 0)
 			return null;
 		return student.get(0);
 	}

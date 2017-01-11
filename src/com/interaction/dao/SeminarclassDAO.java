@@ -13,5 +13,9 @@ public interface SeminarclassDAO {
 	public int updateSeminarclass(Seminarclass seminarclass);
 
 	public Seminarclass findByCEE(int cid, int seid, int sid);
+
+	public int addSeminarclass(Seminarclass seminarclass);
+
+	public List<Seminarclass> listByCidAndSid(int cid, int sid);
 	
 }
