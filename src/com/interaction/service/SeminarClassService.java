@@ -42,4 +42,8 @@ public interface SeminarClassService {
 
 	//根据组号查找属于该组的同学
 	public List<Seminarclass> listByGroupNum(int seid, int groupNum);
+
+	//列出学生id为sid的那一组的其他同学
+	public List<SeminarClassVo> listMyGroupOtherStu(int seid, int sid, int groupNum);
+
 }

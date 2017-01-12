@@ -63,4 +63,10 @@ public class AnswerDAOImpl extends HibernateDaoSupport implements AnswerDAO{
 		return -1;
 	}
 	
+	@Override
+	public Answer findById(int aid) {
+		return getHibernateTemplate().get(Answer.class, aid);
+		
+	}
+	
 }

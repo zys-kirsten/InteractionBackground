@@ -1,5 +1,6 @@
 package com.interaction.dao.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -27,6 +28,16 @@ public class VotedataDAOImpl extends HibernateDaoSupport implements VotedataDAO{
 			return null;
 		}
 		return votedatas;
+	}
+	
+	@Override
+	public int addVotedata(Votedata votedata) {
+
+		Serializable id = getHibernateTemplate().save(votedata);
+		if (id == null || id.toString().length() == 0) {
+			return -1;
+		}
+		return Integer.parseInt(id.toString());
 	}
 
 	//执行原生的sql，但仍要求必须是数据库中存在的实体。返回vo不可以

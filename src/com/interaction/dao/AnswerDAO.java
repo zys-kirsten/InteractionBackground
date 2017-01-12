@@ -13,4 +13,6 @@ public interface AnswerDAO  {
 	public int deleteAnswer(Answer answer);
 
 	public int updateAnswer(Answer answer);
+
+	public Answer findById(int aid);
 }

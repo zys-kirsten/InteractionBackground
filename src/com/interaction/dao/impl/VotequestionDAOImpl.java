@@ -1,6 +1,7 @@
 package com.interaction.dao.impl;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.interaction.dao.VotequestionDAO;
+import com.interaction.pojo.Votedata;
 import com.interaction.pojo.Votequestion;
 
 @Repository
@@ -40,5 +42,15 @@ public class VotequestionDAOImpl extends HibernateDaoSupport implements Voteques
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+	}
+	
+	@Override
+	public Votequestion listBeVisited(int vqid) {
+		String hql = "from Votequestion v where v.vqid=? and v.beVisited=1";
+		List<Votequestion> votequestion = getHibernateTemplate().find(hql,vqid);
+		if (votequestion == null || votequestion.size() == 0) {
+			return null;
+		}
+		return votequestion.get(0);
 	}
 }

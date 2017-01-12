@@ -8,4 +8,6 @@ public interface VotedataDAO {
 
 	List<Votedata> listCurrentVotedataBySeidAndVqid(int seid, int vqid);
 
+	int addVotedata(Votedata votedata);
+
 }

@@ -10,4 +10,6 @@ public interface VotequestionDAO {
 
 	void update(Votequestion votequestion);
 
+	Votequestion listBeVisited(int vqid);
+
 }

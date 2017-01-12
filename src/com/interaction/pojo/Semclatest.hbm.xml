@@ -16,15 +16,15 @@
         <many-to-one name="course" class="com.interaction.pojo.Course" fetch="select">
             <column name="CId" not-null="true" />
         </many-to-one>
+        <many-to-one name="answer" class="com.interaction.pojo.Answer" fetch="select">
+            <column name="AId" />
+        </many-to-one>
         <many-to-one name="question" class="com.interaction.pojo.Question" fetch="select">
             <column name="QId" not-null="true" />
         </many-to-one>
         <many-to-one name="seminar" class="com.interaction.pojo.Seminar" fetch="select">
             <column name="SeId" not-null="true" />
         </many-to-one>
-        <property name="stuAnsmer" type="java.lang.String">
-            <column name="StuAnsmer" length="20" />
-        </property>
         <property name="testScore" type="java.lang.Double">
             <column name="TestScore" precision="22" scale="0" />
         </property>

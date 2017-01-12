@@ -11,9 +11,9 @@ public class Semclatest implements java.io.Serializable {
 	private Integer sctid;
 	private Student student;
 	private Course course;
+	private Answer answer;
 	private Question question;
 	private Seminar seminar;
-	private String stuAnsmer;
 	private Double testScore;
 
 	// Constructors
@@ -34,14 +34,13 @@ public class Semclatest implements java.io.Serializable {
 
 	/** full constructor */
 	public Semclatest(Integer sctid, Student student, Course course,
-			Question question, Seminar seminar, String stuAnsmer,
-			Double testScore) {
+			Answer answer, Question question, Seminar seminar, Double testScore) {
 		this.sctid = sctid;
 		this.student = student;
 		this.course = course;
+		this.answer = answer;
 		this.question = question;
 		this.seminar = seminar;
-		this.stuAnsmer = stuAnsmer;
 		this.testScore = testScore;
 	}
 
@@ -71,6 +70,14 @@ public class Semclatest implements java.io.Serializable {
 		this.course = course;
 	}
 
+	public Answer getAnswer() {
+		return this.answer;
+	}
+
+	public void setAnswer(Answer answer) {
+		this.answer = answer;
+	}
+
 	public Question getQuestion() {
 		return this.question;
 	}
@@ -85,14 +92,6 @@ public class Semclatest implements java.io.Serializable {
 
 	public void setSeminar(Seminar seminar) {
 		this.seminar = seminar;
-	}
-
-	public String getStuAnsmer() {
-		return this.stuAnsmer;
-	}
-
-	public void setStuAnsmer(String stuAnsmer) {
-		this.stuAnsmer = stuAnsmer;
 	}
 
 	public Double getTestScore() {

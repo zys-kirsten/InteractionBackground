@@ -11,13 +11,13 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.interaction.algorithm.group.GroupDivide;
+import com.interaction.dao.AnswerDAO;
 import com.interaction.dao.ClassModuleDAO;
 import com.interaction.dao.CourseDAO;
+import com.interaction.dao.QuestionDAO;
 import com.interaction.dao.SeminarDAO;
 import com.interaction.dao.SeminarclassDAO;
 import com.interaction.dao.StudentDAO;
-import com.interaction.pojo.Classmodule;
-import com.interaction.pojo.Course;
 import com.interaction.pojo.Seminar;
 import com.interaction.pojo.Seminarclass;
 import com.interaction.pojo.Student;
@@ -41,6 +41,10 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 	private ClassModuleDAO classModuleDAOImpl;
 	@Resource
 	private CourseDAO courseDAOImpl;
+	@Resource
+	private QuestionDAO questionDAOImpl;
+	@Resource
+	private AnswerDAO answerDAOImpl;
 
 	
 //====================================PC======================================================
@@ -277,4 +281,26 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 	public List<Seminarclass> listByGroupNum(int seid, int groupNum) {
 		return seminarclassDAOImpl.listByGroupNum(seid, groupNum);
 	}
+	
+	//列出学生id为sid的那一组的其他同学
+	@Override
+	public List<SeminarClassVo> listMyGroupOtherStu(int seid, int sid, int groupNum) {
+		List<Seminarclass> seminarclasses = seminarclassDAOImpl.listByGroupNum(seid, groupNum);
+		if (seminarclasses == null || seminarclasses.size() == 0) {
+			return null;
+		}
+		
+		int originalSize = seminarclasses.size();
+		for(int i = 0; i < seminarclasses.size();i++){
+			if (seminarclasses.get(i).getStudent().getSid() == sid) {
+				seminarclasses.remove(seminarclasses.get(i));
+			}
+		}
+		int newSize = seminarclasses.size();
+		if (originalSize == newSize) {
+			return null;
+		}
+		return p2v(seminarclasses);
+	}
+	
 }
