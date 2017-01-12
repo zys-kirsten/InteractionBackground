@@ -20,7 +20,7 @@ public interface SeminarclassDAO {
 
 	public List<Seminarclass> listGroup(int seid);
 
-	public Seminarclass findMyGroupNum(Integer seid, int sid);
+	public Seminarclass listBySeidAndSid(Integer seid, int sid);
 
 	public List<Seminarclass> listOtherGroupNums(int seid, int groupNum);
 

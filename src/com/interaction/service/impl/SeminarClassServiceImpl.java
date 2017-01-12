@@ -14,19 +14,25 @@ import com.interaction.algorithm.group.GroupDivide;
 import com.interaction.dao.AnswerDAO;
 import com.interaction.dao.ClassModuleDAO;
 import com.interaction.dao.CourseDAO;
+import com.interaction.dao.EvaluationElementDAO;
 import com.interaction.dao.QuestionDAO;
 import com.interaction.dao.SeminarDAO;
 import com.interaction.dao.SeminarclassDAO;
+import com.interaction.dao.SeminarscoreDAO;
 import com.interaction.dao.StudentDAO;
+import com.interaction.pojo.Evaluationelement;
 import com.interaction.pojo.Seminar;
 import com.interaction.pojo.Seminarclass;
+import com.interaction.pojo.Seminarscore;
 import com.interaction.pojo.Student;
 import com.interaction.service.SeminarClassService;
 import com.interaction.utils.DateUtil;
+import com.interaction.vo.EvaluationElementScore;
 import com.interaction.vo.GroupNumsVo;
 import com.interaction.vo.GroupVo;
 import com.interaction.vo.SeminarClassVo;
 import com.interaction.vo.SeminarStudentNo;
+import com.interaction.vo.SeminarscoreVo;
 
 @Service
 public class SeminarClassServiceImpl implements SeminarClassService{
@@ -45,6 +51,10 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 	private QuestionDAO questionDAOImpl;
 	@Resource
 	private AnswerDAO answerDAOImpl;
+	@Resource
+	private SeminarscoreDAO seminarscoreDAOImpl;
+	@Resource
+	private EvaluationElementDAO evaluationElementDAOImpl;
 
 	
 //====================================PC======================================================
@@ -247,7 +257,7 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 	//找到某个学生自己的分组
 	@Override
 	public Integer findMyGroupNum(Integer seid,int sid) {
-		Seminarclass seminarclass = seminarclassDAOImpl.findMyGroupNum(seid,sid);
+		Seminarclass seminarclass = seminarclassDAOImpl.listBySeidAndSid(seid,sid);
 		if (seminarclass == null ) {
 			return -1;
 		}
@@ -303,4 +313,33 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 		return p2v(seminarclasses);
 	}
 	
+	//学生查询自己的研讨课成绩
+	@Override
+	public SeminarscoreVo stuFindMySeminarScore(int seid, int sid) {
+
+		Seminarclass seminarclass = seminarclassDAOImpl.listBySeidAndSid(seid, sid);
+		if (seminarclass == null || seminarclass.getSeScore() == null) {
+			return null;
+		}
+		SeminarscoreVo ssvo = new SeminarscoreVo();
+		ssvo.setTotalScore(seminarclass.getSeScore());
+		
+		List<Seminarscore> seminarscores = seminarscoreDAOImpl.listBySeidAndSid(seid,sid);
+		List<EvaluationElementScore> ltees = new ArrayList<EvaluationElementScore>();
+		if (seminarscores != null && seminarscores.size() != 0) {
+			for(Seminarscore sc:seminarscores){
+				Evaluationelement  ee = evaluationElementDAOImpl.findById(sc.getEvaluationelement().getEeid());
+				EvaluationElementScore ees = new EvaluationElementScore();
+				if (ee != null) {
+					ees.setEename(ee.getEename());
+					ees.setEescore(sc.getSscore());
+				}
+				
+				ltees.add(ees);
+			}
+		}
+		
+		ssvo.setElementScores(ltees);
+		return ssvo;
+	}
 }

@@ -67,4 +67,21 @@ public class ResponderdataServiceImpl implements ResponderdataService{
 		}
 		
 	}
+	
+	//学生开始抢答
+	@Override
+	public int stuBeginResponder(int sid, int rdid) throws InterruptedException {
+		Object lock = new Object();
+		synchronized (lock) {
+			Responderdata responderdata = responderdataDAOImpl.findByIdBeVisited(rdid);
+			if (responderdata == null) {
+				return -1;
+			}
+			if (responderdata.getStudent() != null) {
+				return -1;
+			}
+			responderdata.setStudent(studentDAOImpl.findById(sid));
+			return responderdataDAOImpl.updateResponderdata(responderdata);
+		}
+	}
 }

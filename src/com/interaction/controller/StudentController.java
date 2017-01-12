@@ -13,12 +13,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.interaction.dao.ResponderdataDAO;
+import com.interaction.pojo.Answer;
 import com.interaction.pojo.Evaluationelement;
 import com.interaction.pojo.Seminarclass;
 import com.interaction.pojo.Student;
 import com.interaction.pojo.Votequestion;
 import com.interaction.service.CourseService;
 import com.interaction.service.EvaluationElementService;
+import com.interaction.service.QuestionService;
+import com.interaction.service.ResponderdataService;
 import com.interaction.service.SeminarClassService;
 import com.interaction.service.SeminarService;
 import com.interaction.service.StudentService;
@@ -32,7 +36,9 @@ import com.interaction.vo.CourseVo;
 import com.interaction.vo.EvaluateKeys;
 import com.interaction.vo.GroupNumsVo;
 import com.interaction.vo.GroupVo;
+import com.interaction.vo.QuestionVo;
 import com.interaction.vo.SeminarClassVo;
+import com.interaction.vo.SeminarscoreVo;
 import com.interaction.vo.SeminarVo;
 
 import net.sf.json.JSONArray;
@@ -56,6 +62,10 @@ public class StudentController {
 	private SemclatestService semclatestServiceImpl;
 	@Resource
 	private VotedataService votedataServiceImpl;
+	@Resource
+	private QuestionService questionServiceImpl;
+	@Resource
+	private ResponderdataService responderdataServiceImpl;
 	
 	//学生登录
 	@RequestMapping("/stuLogin")
@@ -87,6 +97,10 @@ public class StudentController {
 	}
 
 	//学生查看选课列表（需要判断标志位）
+	@RequestMapping("/stuListSelectSeminar")
+	public void stuListSelectSeminar(@RequestParam("cid")String cid,HttpServletResponse response) throws IOException{
+		
+	}
 	
 	
 	//学生选课
@@ -262,7 +276,8 @@ public class StudentController {
 	//学生点击“限时练习题”，查找课堂限时练习题
 	@RequestMapping("/stuListLimiteTimeExercise")
 	public void stuListLimiteTimeExercise(@RequestParam("cid")String cid,@RequestParam("seid")String seid,HttpServletResponse response) throws IOException{
-		
+		List<QuestionVo> questions = questionServiceImpl.listByCidAndSeidBeVisted(Integer.parseInt(cid),Integer.parseInt(seid));
+		JsonUtils.toJson(response, "questions", questions);
 	}
 	
 	//学生提交限时练习题
@@ -275,8 +290,11 @@ public class StudentController {
 	
 	//学生点击抢答按钮，开始抢答(线程互斥控制)
 	@RequestMapping("/stuBeginResponder")
-	public void stuBeginResponder(@RequestParam("sid")String sid,@RequestParam("rdid")String rdid,HttpServletResponse response) throws IOException{
-		
+	public void stuBeginResponder(@RequestParam("sid")String sid,@RequestParam("rdid")String rdid,HttpServletResponse response) throws IOException, NumberFormatException, InterruptedException{
+		if (rdid != null && (!rdid.equals("-1"))) {
+			int flag = responderdataServiceImpl.stuBeginResponder(Integer.parseInt(sid),Integer.parseInt(rdid));
+			JsonUtils.toJson(response, "flag", flag);
+		}
 	}
 	
 	//学生开始投票
@@ -287,6 +305,13 @@ public class StudentController {
 			int flag = votedataServiceImpl.stuBeginVote(Integer.parseInt(seid),Integer.parseInt(sid),Integer.parseInt(vqid),stuAnswer);
 			JsonUtils.toJson(response, "flag", flag);
 		}
+	}
+	
+	//学生查看研讨课成绩
+	@RequestMapping("/stuFindMySeminarScore")
+	public void stuFindMySeminarScore(@RequestParam("seid")String seid,@RequestParam("sid")String sid,HttpServletResponse response) throws IOException{
+	    SeminarscoreVo seminarscore = seminarClassServiceImpl.stuFindMySeminarScore(Integer.parseInt(seid),Integer.parseInt(sid));
+		JsonUtils.toJson(response, "seminarscore", seminarscore);
 	}
 	
 }

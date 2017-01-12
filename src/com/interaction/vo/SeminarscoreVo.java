@@ -2,7 +2,7 @@ package com.interaction.vo;
 
 import java.util.List;
 
-public class SeminarScore {
+public class SeminarscoreVo {
 	private double totalScore;
 	private List<EvaluationElementScore> elementScores;
 	public double getTotalScore() {

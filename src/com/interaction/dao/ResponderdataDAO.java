@@ -8,6 +8,8 @@ public interface ResponderdataDAO {
 
 	Responderdata findById(int ridi);
 
-	void updateResponderdata(Responderdata responderdata);
+	int updateResponderdata(Responderdata responderdata);
+
+	Responderdata findByIdBeVisited(int rdid);
 
 }

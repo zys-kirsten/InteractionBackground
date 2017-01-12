@@ -7,16 +7,33 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.interaction.algorithm.fuzzy.FuzzyEvaluationCompute;
+import com.interaction.dao.CourseDAO;
 import com.interaction.dao.EvaluationElementDAO;
 import com.interaction.dao.QuantizationFuzzyEvaluationDAO;
+import com.interaction.dao.SeminarDAO;
+import com.interaction.dao.SeminarclassDAO;
+import com.interaction.dao.SeminarscoreDAO;
+import com.interaction.dao.StudentDAO;
 import com.interaction.dao.UnquantizationFuzzyEvaluationDAO;
+import com.interaction.pojo.Course;
 import com.interaction.pojo.Evaluationelement;
 import com.interaction.pojo.Quantizationfuzzyevaluation;
+import com.interaction.pojo.Seminar;
+import com.interaction.pojo.Seminarclass;
+import com.interaction.pojo.Seminarscore;
+import com.interaction.pojo.Student;
 import com.interaction.pojo.Unquantizationfuzzyevaluation;
 import com.interaction.service.FuzzyEvaluationService;
 
 @Service
 public class FuzzyEvaluationServiceImpl implements FuzzyEvaluationService{
+	
+	//成绩评判等级
+	private final Integer A = 95;
+	private final Integer B = 85;
+	private final Integer C = 75;
+	private final Integer D = 65;
+	private final Integer E = 35;
 	
 	@Resource
 	private UnquantizationFuzzyEvaluationDAO unquantizationFuzzyEvaluationDAOImpl;
@@ -24,12 +41,34 @@ public class FuzzyEvaluationServiceImpl implements FuzzyEvaluationService{
 	private QuantizationFuzzyEvaluationDAO quantizationFuzzyEvaluationDAOImpl;
 	@Resource
 	private EvaluationElementDAO evaluationElementDAOImpl;
+	@Resource
+	private SeminarscoreDAO seminarscoreDAOImpl;
+	@Resource
+	private StudentDAO studentDAOImpl;
+	@Resource
+	private SeminarDAO seminarDAOImpl;
+	@Resource
+	private CourseDAO courseDAOImpl;
+	@Resource
+	private SeminarclassDAO seminarclassDAOImpl;
 	
 
 	//进行模糊综合，返回模糊综合之后的结果
 	@Override
 	public double fuzzyEvaluation(Integer seid,Integer sid,Integer cid){
 		double result = 0;
+		Course course = courseDAOImpl.findById(cid);
+		if (course == null) {
+			return 0.0;
+		}
+		Seminar seminar = seminarDAOImpl.findById(seid);
+		if (seminar == null) {
+			return 0.0;
+		}
+		Student student = studentDAOImpl.findById(sid);
+		if (student == null) {
+			return 0.0;
+		}
 		
 		List<Evaluationelement> basic = evaluationElementDAOImpl.listCourseBasicElement(cid);//非量化指标与量化指标
 		double[] basicWeight = new double[basic.size()];
@@ -61,6 +100,11 @@ public class FuzzyEvaluationServiceImpl implements FuzzyEvaluationService{
 				double[][] tempMatrix = constructMatrix(temp, seid, sid);
 				
 				secondLevalMatrix[i] = FuzzyEvaluationCompute.fuzzyCompute(tempWeight, tempMatrix);
+				
+//***为了学生成绩查询，每一个高等级评价因素的评价结果需要插入到Seminarscore中。
+				double[] eval = secondLevalMatrix[i];
+				double score = eval[0]*A+eval[1]*B+eval[2]*C+eval[3]*D+eval[4]*E;
+				addSeminarscore(seminar,student,secondLevel.get(i),FuzzyEvaluationCompute.round(score, 2));
 			}
 		}
 		//计算非量化指标的隶属度
@@ -78,12 +122,22 @@ public class FuzzyEvaluationServiceImpl implements FuzzyEvaluationService{
 		//计算量化指标的隶属度
 		double[] quantization = FuzzyEvaluationCompute.fuzzyCompute(quanWeight, quanMartix);
 		
+//***为了学生成绩查询，每一个高等级评价因素的评价结果需要插入到Seminarscore中。
+		double score = quantization[0]*A+quantization[1]*B+quantization[2]*C+quantization[3]*D+quantization[4]*E;
+		addSeminarscore(seminar,student,basic.get(1),FuzzyEvaluationCompute.round(score, 2));
+		
 		double[][] basicMatrix = {unquantization,quantization};
 		
 		//计算得到目标隶属度
 		double[] resultWeight = FuzzyEvaluationCompute.fuzzyCompute(basicWeight, basicMatrix);
 		
-		result = resultWeight[0]*95+resultWeight[1]*85+resultWeight[2]*75+resultWeight[3]*65+resultWeight[4]*35;
+		result = resultWeight[0]*A+resultWeight[1]*B+resultWeight[2]*C+resultWeight[3]*D+resultWeight[4]*E;
+
+//***将结果插入到学生总成绩当中
+		Seminarclass seminarclass = seminarclassDAOImpl.findByCEE(cid, seid, sid);
+		seminarclass.setSeScore(FuzzyEvaluationCompute.round(result, 2));
+		seminarclassDAOImpl.updateSeminarclass(seminarclass);
+		
 		return FuzzyEvaluationCompute.round(result, 2);
 	}
 	
@@ -192,5 +246,14 @@ public class FuzzyEvaluationServiceImpl implements FuzzyEvaluationService{
 		return result;
 	}
 	
+	//向seminarscore表中插入数据
+	private void addSeminarscore(Seminar seminar, Student student, Evaluationelement evaluationelement, double score) {
+		Seminarscore seminarscore = new Seminarscore();
+		seminarscore.setEvaluationelement(evaluationelement);
+		seminarscore.setSeminar(seminar);
+		seminarscore.setStudent(student);
+		seminarscore.setSscore(score);
+		seminarscoreDAOImpl.addSeminarscore(seminarscore);
+	}
 	
 }

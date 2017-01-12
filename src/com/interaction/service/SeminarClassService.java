@@ -6,6 +6,7 @@ import com.interaction.pojo.Seminarclass;
 import com.interaction.vo.GroupNumsVo;
 import com.interaction.vo.GroupVo;
 import com.interaction.vo.SeminarClassVo;
+import com.interaction.vo.SeminarscoreVo;
 import com.interaction.vo.SeminarStudentNo;
 
 public interface SeminarClassService {
@@ -45,5 +46,8 @@ public interface SeminarClassService {
 
 	//列出学生id为sid的那一组的其他同学
 	public List<SeminarClassVo> listMyGroupOtherStu(int seid, int sid, int groupNum);
+
+	//学生查询自己研讨课成绩
+	public SeminarscoreVo stuFindMySeminarScore(int seid, int sid);
 
 }

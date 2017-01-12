@@ -1,10 +1,12 @@
 package com.interaction.pojo;
 
+import net.sf.json.JSONString;
+
 /**
  * Answer entity. @author MyEclipse Persistence Tools
  */
 
-public class Answer implements java.io.Serializable {
+public class Answer implements java.io.Serializable,JSONString  {
 
 	// Fields
 
@@ -85,6 +87,11 @@ public class Answer implements java.io.Serializable {
 	public String toString() {
 		return "Answer [aid=" + aid + ", question=" + question + ", acontent=" + acontent + ", aexplain=" + aexplain
 				+ ", correct=" + correct + "]";
+	}
+
+	@Override
+	public String toJSONString() {
+		return  "{aid:'"+aid+"',acontent:'"+acontent+"'}";
 	}
 
 	

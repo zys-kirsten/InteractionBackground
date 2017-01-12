@@ -10,10 +10,10 @@
             <column name="QId" />
             <generator class="increment" />
         </id>
-        <many-to-one name="course" class="com.interaction.pojo.Course" fetch="select">
+        <many-to-one name="course" class="com.interaction.pojo.Course" fetch="select" lazy="false">
             <column name="CId" />
         </many-to-one>
-        <many-to-one name="seminar" class="com.interaction.pojo.Seminar" fetch="select">
+        <many-to-one name="seminar" class="com.interaction.pojo.Seminar" fetch="select" lazy="false">
             <column name="SeId" />
         </many-to-one>
         <property name="content" type="java.lang.String">

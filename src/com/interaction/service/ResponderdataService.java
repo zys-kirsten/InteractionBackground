@@ -12,4 +12,6 @@ public interface ResponderdataService {
 
 	void resetResponder(int rdid);
 
+	int stuBeginResponder(int sid, int rdid) throws InterruptedException;
+
 }

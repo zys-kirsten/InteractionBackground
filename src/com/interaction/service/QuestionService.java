@@ -15,5 +15,6 @@ public interface QuestionService {
 	public List<QuestionVo> findByCondition(Integer cid, String condition, String inputValue);
 	public void startTimeLimitExercise(Integer seId, Integer number);
 	public void endTimeLimitExercise(int seId);
+	public List<QuestionVo> listByCidAndSeidBeVisted(int cid, int seid);
 
 }

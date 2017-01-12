@@ -260,5 +260,14 @@ public class QuestionServiceImpl implements QuestionService{
 			questionDAOImpl.updateQuestions(questions);
 		}
 	}
-	
+//==============================学生android端===================================================================
+
+	@Override
+	public List<QuestionVo> listByCidAndSeidBeVisted(int cid, int seid) {
+		List<Question> questions = questionDAOImpl.listByCidAndSeidBeVisted(cid,seid);
+		if (questions == null  || questions.size() == 0) {
+			return null;
+		}
+		return p2v(questions);
+	}
 }
