@@ -16,8 +16,11 @@ public class Evaluationelement implements java.io.Serializable {
 	private Evaluationelement evaluationelement;
 	private String eename;
 	private Double weight;
-	private Integer isleaf;
-	private Integer bevisited;
+	private Integer beVisited;
+	private Integer isLeaf;
+	private Set unquantizationfuzzyevaluations = new HashSet(0);
+	private Set quantizationfuzzyevaluations = new HashSet(0);
+	private Set seminarscores = new HashSet(0);
 	private Set evaluationelements = new HashSet(0);
 
 	// Constructors
@@ -35,30 +38,27 @@ public class Evaluationelement implements java.io.Serializable {
 	/** full constructor */
 	public Evaluationelement(Integer eeid, Course course,
 			Evaluationelement evaluationelement, String eename, Double weight,
-			Set evaluationelements,Integer isleaf,Integer bevisited) {
+			Integer beVisited, Integer isLeaf,
+			Set unquantizationfuzzyevaluations,
+			Set quantizationfuzzyevaluations, Set seminarscores,
+			Set evaluationelements) {
 		this.eeid = eeid;
 		this.course = course;
 		this.evaluationelement = evaluationelement;
 		this.eename = eename;
 		this.weight = weight;
+		this.beVisited = beVisited;
+		this.isLeaf = isLeaf;
+		this.unquantizationfuzzyevaluations = unquantizationfuzzyevaluations;
+		this.quantizationfuzzyevaluations = quantizationfuzzyevaluations;
+		this.seminarscores = seminarscores;
 		this.evaluationelements = evaluationelements;
-		this.isleaf = isleaf;
-		this.bevisited = bevisited;
 	}
 
 	// Property accessors
 
-	
 	public Integer getEeid() {
 		return this.eeid;
-	}
-
-	public Integer getBevisited() {
-		return bevisited;
-	}
-
-	public void setBevisited(Integer bevisited) {
-		this.bevisited = bevisited;
 	}
 
 	public void setEeid(Integer eeid) {
@@ -97,6 +97,47 @@ public class Evaluationelement implements java.io.Serializable {
 		this.weight = weight;
 	}
 
+	public Integer getBeVisited() {
+		return this.beVisited;
+	}
+
+	public void setBeVisited(Integer beVisited) {
+		this.beVisited = beVisited;
+	}
+
+	public Integer getIsLeaf() {
+		return this.isLeaf;
+	}
+
+	public void setIsLeaf(Integer isLeaf) {
+		this.isLeaf = isLeaf;
+	}
+
+	public Set getUnquantizationfuzzyevaluations() {
+		return this.unquantizationfuzzyevaluations;
+	}
+
+	public void setUnquantizationfuzzyevaluations(
+			Set unquantizationfuzzyevaluations) {
+		this.unquantizationfuzzyevaluations = unquantizationfuzzyevaluations;
+	}
+
+	public Set getQuantizationfuzzyevaluations() {
+		return this.quantizationfuzzyevaluations;
+	}
+
+	public void setQuantizationfuzzyevaluations(Set quantizationfuzzyevaluations) {
+		this.quantizationfuzzyevaluations = quantizationfuzzyevaluations;
+	}
+
+	public Set getSeminarscores() {
+		return this.seminarscores;
+	}
+
+	public void setSeminarscores(Set seminarscores) {
+		this.seminarscores = seminarscores;
+	}
+
 	public Set getEvaluationelements() {
 		return this.evaluationelements;
 	}
@@ -105,19 +146,4 @@ public class Evaluationelement implements java.io.Serializable {
 		this.evaluationelements = evaluationelements;
 	}
 
-	
-	public Integer getIsleaf() {
-		return isleaf;
-	}
-
-	public void setIsleaf(Integer isleaf) {
-		this.isleaf = isleaf;
-	}
-
-	@Override
-	public String toString() {
-		return "Evaluationelement [eeid=" + eeid + ",  eename=" + eename + ", weight=" + weight +  ", isLeaf=" + isleaf +  "]";
-	}
-
-	
 }

@@ -1,6 +1,5 @@
 package testDao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -9,23 +8,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.interaction.dao.AnswerDAO;
 import com.interaction.dao.ClassModuleDAO;
-import com.interaction.dao.ClassModuleEvaluationDAO;
 import com.interaction.dao.CourseDAO;
-import com.interaction.dao.EvaluationDAO;
 import com.interaction.dao.QuestionDAO;
-import com.interaction.dao.ScoreshowDAO;
 import com.interaction.dao.SeminarDAO;
 import com.interaction.dao.SeminarclassDAO;
 import com.interaction.dao.TeacherDAO;
 import com.interaction.dao.UnquantizationFuzzyEvaluationDAO;
 import com.interaction.dao.VotedataDAO;
 import com.interaction.dao.impl.StudentDAOImpl;
-import com.interaction.pojo.Evaluationelement;
-import com.interaction.pojo.Seminar;
 import com.interaction.pojo.Seminarclass;
-import com.interaction.pojo.Student;
-import com.interaction.pojo.Unquantizationfuzzyevaluation;
-import com.interaction.pojo.Votedata;
 
 
 public class TestDao {
@@ -39,10 +30,7 @@ public class TestDao {
 	private SeminarclassDAO seminarclassDAOImpl;
 	private QuestionDAO questionDAOImpl;
 	private AnswerDAO answerDAOImpl;
-	private EvaluationDAO evaluationDAOImpl;
-	private ScoreshowDAO scoreshowDAOImpl;
 	private ClassModuleDAO classModuleDAOImpl;
-	private ClassModuleEvaluationDAO classModuleEvaluationDAOImpl;
 	private VotedataDAO votedataDAOImpl;
 	private UnquantizationFuzzyEvaluationDAO  unquantizationFuzzyEvaluationDAOImpl;
 	

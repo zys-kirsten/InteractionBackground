@@ -51,6 +51,7 @@
     <thead>
     <tr>
         <th>课堂模式名称</th>
+        <th>评价方式</th>
         <th>应用到的研讨课</th>
         <th>操作</th>
     </tr>
@@ -59,6 +60,12 @@
          <c:forEach items="${sessionScope.classModuleVos}" var="cmvs">
                     <tr>
                         <td>${cmvs.moduleName}</td>
+                        <td>
+                        <c:forEach items="${cmvs.evaluations}" var="evaluation">
+                             <c:out value="${evaluation.ename}"></c:out>
+                              <br>
+                        </c:forEach>
+                        </td>
                         <td>
                         <c:forEach items="${cmvs.seminars}" var="seminar">
                              <c:out value="${seminar.seName}"></c:out>

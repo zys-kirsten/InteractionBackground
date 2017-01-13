@@ -19,62 +19,20 @@
         <property name="groupNum" type="java.lang.Integer">
             <column name="GroupNum" />
         </property>
-        <property name="teamLeader" type="java.lang.Integer">
-            <column name="TeamLeader" />
-        </property>
-        <property name="grpMaxNum" type="java.lang.Integer">
-            <column name="GrpMaxNum" />
-        </property>
-        <property name="grpMinNum" type="java.lang.Integer">
-            <column name="GrpMinNum" />
-        </property>
-        <property name="score" type="java.lang.Integer">
-            <column name="Score" />
-        </property>
-        <property name="ability" type="java.lang.Integer">
-            <column name="Ability" />
-        </property>
-        <property name="activity" type="java.lang.Integer">
-            <column name="Activity" />
-        </property>
-        <property name="quality" type="java.lang.Integer">
-            <column name="Quality" />
-        </property>
-        <property name="sex" type="java.lang.Integer">
-            <column name="Sex" />
+        <property name="groupTime" type="java.lang.Integer">
+            <column name="GroupTime" />
         </property>
         <property name="proNum" type="java.lang.Integer">
             <column name="ProNum" />
         </property>
-        <property name="proScore" type="java.lang.Integer">
-            <column name="ProScore" />
-        </property>
         <property name="proTime" type="java.lang.Integer">
             <column name="ProTime" />
-        </property>
-        <property name="proPerson" type="java.lang.String">
-            <column name="ProPerson" />
-        </property>
-        <property name="resNum" type="java.lang.Integer">
-            <column name="ResNum" />
-        </property>
-        <property name="resScore" type="java.lang.Integer">
-            <column name="ResScore" />
-        </property>
-        <property name="census" type="java.lang.String">
-            <column name="Census" />
         </property>
         <set name="classmoduleseminars" inverse="true">
             <key>
                 <column name="CMId" />
             </key>
             <one-to-many class="com.interaction.pojo.Classmoduleseminar" />
-        </set>
-        <set name="classmoduleevaluations" inverse="true">
-            <key>
-                <column name="CMId" />
-            </key>
-            <one-to-many class="com.interaction.pojo.Classmoduleevaluation" />
         </set>
     </class>
 </hibernate-mapping>

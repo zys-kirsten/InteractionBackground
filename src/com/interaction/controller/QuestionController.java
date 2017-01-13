@@ -1,22 +1,16 @@
 package com.interaction.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.interaction.pojo.Answer;
 import com.interaction.pojo.Course;
-import com.interaction.pojo.Seminar;
-import com.interaction.pojo.Teacher;
 import com.interaction.service.QuestionService;
 import com.interaction.service.SeminarService;
 import com.interaction.utils.SessionUtil;
@@ -62,6 +56,9 @@ public class QuestionController {
 	@RequestMapping("/addQuestion")
 	public String addQuestion(QuestionVo questionVo){
 		String[] checkCorrect = SessionUtil.getRequest().getParameterValues("correct");
+		if (questionVo == null || checkCorrect == null || checkCorrect.length == 0) {
+			return "error";
+		}
 		for(int i=0;i<checkCorrect.length;i++){
 			for(int j=0;j<4;j++){
 				if(questionVo.getAnswers().get(j).getCorrect() == null || questionVo.getAnswers().get(j).getCorrect() == 0){

@@ -19,11 +19,17 @@ public class Seminar implements java.io.Serializable {
 	private Date seTime;
 	private Integer seUp;
 	private Integer seDown;
-	private Integer bevisited;
+	private Integer beVisited;
+	private Set votequestions = new HashSet(0);
 	private Set seminarclasses = new HashSet(0);
+	private Set questions = new HashSet(0);
 	private Set semclatests = new HashSet(0);
-	private Set outgroupevals = new HashSet(0);
-	private Set ingroupevals = new HashSet(0);
+	private Set votedatas = new HashSet(0);
+	private Set responderdatas = new HashSet(0);
+	private Set classmoduleseminars = new HashSet(0);
+	private Set unquantizationfuzzyevaluations = new HashSet(0);
+	private Set quantizationfuzzyevaluations = new HashSet(0);
+	private Set seminarscores = new HashSet(0);
 
 	// Constructors
 
@@ -32,20 +38,18 @@ public class Seminar implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Seminar(Course course, String seName, String seTheme,
-			Date seTime, Integer seUp, Integer seDown) {
+	public Seminar(Integer seId, Course course) {
+		this.seId = seId;
 		this.course = course;
-		this.seName = seName;
-		this.seTheme = seTheme;
-		this.seTime = seTime;
-		this.seUp = seUp;
-		this.seDown = seDown;
 	}
 
 	/** full constructor */
 	public Seminar(Integer seId, Course course, String seName, String seTheme,
-			Date seTime, Integer seUp, Integer seDown, Set seminarclasses,
-			Set semclatests, Set outgroupevals, Set ingroupevals) {
+			Date seTime, Integer seUp, Integer seDown, Integer beVisited,
+			Set votequestions, Set seminarclasses, Set questions,
+			Set semclatests, Set votedatas, Set responderdatas,
+			Set classmoduleseminars, Set unquantizationfuzzyevaluations,
+			Set quantizationfuzzyevaluations, Set seminarscores) {
 		this.seId = seId;
 		this.course = course;
 		this.seName = seName;
@@ -53,22 +57,20 @@ public class Seminar implements java.io.Serializable {
 		this.seTime = seTime;
 		this.seUp = seUp;
 		this.seDown = seDown;
+		this.beVisited = beVisited;
+		this.votequestions = votequestions;
 		this.seminarclasses = seminarclasses;
+		this.questions = questions;
 		this.semclatests = semclatests;
-		this.outgroupevals = outgroupevals;
-		this.ingroupevals = ingroupevals;
+		this.votedatas = votedatas;
+		this.responderdatas = responderdatas;
+		this.classmoduleseminars = classmoduleseminars;
+		this.unquantizationfuzzyevaluations = unquantizationfuzzyevaluations;
+		this.quantizationfuzzyevaluations = quantizationfuzzyevaluations;
+		this.seminarscores = seminarscores;
 	}
 
-	
 	// Property accessors
-
-	public Integer getBevisited() {
-		return bevisited;
-	}
-
-	public void setBevisited(Integer bevisited) {
-		this.bevisited = bevisited;
-	}
 
 	public Integer getSeId() {
 		return this.seId;
@@ -126,12 +128,36 @@ public class Seminar implements java.io.Serializable {
 		this.seDown = seDown;
 	}
 
+	public Integer getBeVisited() {
+		return this.beVisited;
+	}
+
+	public void setBeVisited(Integer beVisited) {
+		this.beVisited = beVisited;
+	}
+
+	public Set getVotequestions() {
+		return this.votequestions;
+	}
+
+	public void setVotequestions(Set votequestions) {
+		this.votequestions = votequestions;
+	}
+
 	public Set getSeminarclasses() {
 		return this.seminarclasses;
 	}
 
 	public void setSeminarclasses(Set seminarclasses) {
 		this.seminarclasses = seminarclasses;
+	}
+
+	public Set getQuestions() {
+		return this.questions;
+	}
+
+	public void setQuestions(Set questions) {
+		this.questions = questions;
 	}
 
 	public Set getSemclatests() {
@@ -142,29 +168,53 @@ public class Seminar implements java.io.Serializable {
 		this.semclatests = semclatests;
 	}
 
-	public Set getOutgroupevals() {
-		return this.outgroupevals;
+	public Set getVotedatas() {
+		return this.votedatas;
 	}
 
-	public void setOutgroupevals(Set outgroupevals) {
-		this.outgroupevals = outgroupevals;
+	public void setVotedatas(Set votedatas) {
+		this.votedatas = votedatas;
 	}
 
-	public Set getIngroupevals() {
-		return this.ingroupevals;
+	public Set getResponderdatas() {
+		return this.responderdatas;
 	}
 
-	public void setIngroupevals(Set ingroupevals) {
-		this.ingroupevals = ingroupevals;
+	public void setResponderdatas(Set responderdatas) {
+		this.responderdatas = responderdatas;
 	}
 
-	@Override
-	public String toString() {
-		return "Seminar [seId=" + seId + ", course=" + course + ", seName=" + seName + ", seTheme=" + seTheme
-				+ ", seTime=" + seTime + ", seUp=" + seUp + ", seDown=" + seDown + ", seminarclasses=" + seminarclasses
-				+ ", semclatests=" + semclatests + ", outgroupevals=" + outgroupevals + ", ingroupevals=" + ingroupevals
-				+ "]";
+	public Set getClassmoduleseminars() {
+		return this.classmoduleseminars;
 	}
 
-	
+	public void setClassmoduleseminars(Set classmoduleseminars) {
+		this.classmoduleseminars = classmoduleseminars;
+	}
+
+	public Set getUnquantizationfuzzyevaluations() {
+		return this.unquantizationfuzzyevaluations;
+	}
+
+	public void setUnquantizationfuzzyevaluations(
+			Set unquantizationfuzzyevaluations) {
+		this.unquantizationfuzzyevaluations = unquantizationfuzzyevaluations;
+	}
+
+	public Set getQuantizationfuzzyevaluations() {
+		return this.quantizationfuzzyevaluations;
+	}
+
+	public void setQuantizationfuzzyevaluations(Set quantizationfuzzyevaluations) {
+		this.quantizationfuzzyevaluations = quantizationfuzzyevaluations;
+	}
+
+	public Set getSeminarscores() {
+		return this.seminarscores;
+	}
+
+	public void setSeminarscores(Set seminarscores) {
+		this.seminarscores = seminarscores;
+	}
+
 }

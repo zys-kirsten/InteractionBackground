@@ -58,7 +58,7 @@
                     <tr>
                         <td style="text-align:center;">${l.eename}</td>
                         <c:choose>
-                           <c:when test="${l.isleaf==1}">
+                           <c:when test="${l.isLeaf==1}">
                              <td style="text-align:center;">
                                <a href="${ctxPath }/editEvaluationElement.do?eeid=${l.eeid}" class="btn btn-primary btn-sm">修改</a>
                                <a href="${ctxPath }/deleteEvaluationElement.do?eeid=${l.eeid}&fatherId=${sessionScope.fatherId}" class="btn btn-primary btn-sm">删除</a>
@@ -77,7 +77,7 @@
     </table>
     <br>
     <table align="center">
-       <c:if test="${sessionScope.list.get(0).isleaf==1}">
+       <c:if test="${sessionScope.list.get(0).isLeaf==1}">
              <tr>
                <td style="text-align:center;">
                   <a href="${ctxPath }/background/evaluation/addEvaluationElement.jsp?fatherId=${sessionScope.fatherId}" class="btn btn-primary btn-sm">添加评价因素</a>

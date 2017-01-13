@@ -1,12 +1,15 @@
 package com.interaction.pojo;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import net.sf.json.JSONString;
 
 /**
  * Answer entity. @author MyEclipse Persistence Tools
  */
 
-public class Answer implements java.io.Serializable,JSONString  {
+public class Answer implements java.io.Serializable ,JSONString{
 
 	// Fields
 
@@ -15,6 +18,7 @@ public class Answer implements java.io.Serializable,JSONString  {
 	private String acontent;
 	private String aexplain;
 	private Integer correct;
+	private Set semclatests = new HashSet(0);
 
 	// Constructors
 
@@ -23,7 +27,7 @@ public class Answer implements java.io.Serializable,JSONString  {
 	}
 
 	/** minimal constructor */
-	public Answer(Question question, String acontent,
+	public Answer(Integer aid, Question question, String acontent,
 			Integer correct) {
 		this.aid = aid;
 		this.question = question;
@@ -33,12 +37,13 @@ public class Answer implements java.io.Serializable,JSONString  {
 
 	/** full constructor */
 	public Answer(Integer aid, Question question, String acontent,
-			String aexplain, Integer correct) {
+			String aexplain, Integer correct, Set semclatests) {
 		this.aid = aid;
 		this.question = question;
 		this.acontent = acontent;
 		this.aexplain = aexplain;
 		this.correct = correct;
+		this.semclatests = semclatests;
 	}
 
 	// Property accessors
@@ -83,16 +88,17 @@ public class Answer implements java.io.Serializable,JSONString  {
 		this.correct = correct;
 	}
 
-	@Override
-	public String toString() {
-		return "Answer [aid=" + aid + ", question=" + question + ", acontent=" + acontent + ", aexplain=" + aexplain
-				+ ", correct=" + correct + "]";
+	public Set getSemclatests() {
+		return this.semclatests;
 	}
 
+	public void setSemclatests(Set semclatests) {
+		this.semclatests = semclatests;
+	}
+	
 	@Override
 	public String toJSONString() {
 		return  "{aid:'"+aid+"',acontent:'"+acontent+"'}";
 	}
 
-	
 }

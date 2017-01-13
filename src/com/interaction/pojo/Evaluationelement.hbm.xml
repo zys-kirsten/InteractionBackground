@@ -22,12 +22,30 @@
         <property name="weight" type="java.lang.Double">
             <column name="weight" precision="22" scale="0" />
         </property>
-         <property name="isleaf" type="java.lang.Integer">
-            <column name="IsLeaf"/>
+        <property name="beVisited" type="java.lang.Integer">
+            <column name="BeVisited" />
         </property>
-         <property name="bevisited" type="java.lang.Integer">
-            <column name="BeVisited"/>
+        <property name="isLeaf" type="java.lang.Integer">
+            <column name="IsLeaf" />
         </property>
+        <set name="unquantizationfuzzyevaluations" inverse="true">
+            <key>
+                <column name="EEId" />
+            </key>
+            <one-to-many class="com.interaction.pojo.Unquantizationfuzzyevaluation" />
+        </set>
+        <set name="quantizationfuzzyevaluations" inverse="true">
+            <key>
+                <column name="EEId" />
+            </key>
+            <one-to-many class="com.interaction.pojo.Quantizationfuzzyevaluation" />
+        </set>
+        <set name="seminarscores" inverse="true">
+            <key>
+                <column name="EEId" />
+            </key>
+            <one-to-many class="com.interaction.pojo.Seminarscore" />
+        </set>
         <set name="evaluationelements" inverse="true">
             <key>
                 <column name="FatherId" />

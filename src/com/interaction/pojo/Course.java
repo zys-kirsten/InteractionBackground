@@ -16,11 +16,11 @@ public class Course implements java.io.Serializable {
 	private String cnumber;
 	private String cname;
 	private String cterm;
-	private Set outgroupevals = new HashSet(0);
-	private Set ingroupevals = new HashSet(0);
 	private Set classes = new HashSet(0);
+	private Set classmodules = new HashSet(0);
 	private Set questions = new HashSet(0);
 	private Set seminars = new HashSet(0);
+	private Set evaluationelements = new HashSet(0);
 	private Set seminarclasses = new HashSet(0);
 	private Set semclatests = new HashSet(0);
 
@@ -31,8 +31,9 @@ public class Course implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Course(Teacher teacher, String cnumber, String cname,
+	public Course(Integer cid, Teacher teacher, String cnumber, String cname,
 			String cterm) {
+		this.cid = cid;
 		this.teacher = teacher;
 		this.cnumber = cnumber;
 		this.cname = cname;
@@ -41,18 +42,19 @@ public class Course implements java.io.Serializable {
 
 	/** full constructor */
 	public Course(Integer cid, Teacher teacher, String cnumber, String cname,
-			String cterm, Set outgroupevals, Set ingroupevals, Set classes,
-			Set questions, Set seminars, Set seminarclasses, Set semclatests) {
+			String cterm, Set classes, Set classmodules, Set questions,
+			Set seminars, Set evaluationelements, Set seminarclasses,
+			Set semclatests) {
 		this.cid = cid;
 		this.teacher = teacher;
 		this.cnumber = cnumber;
 		this.cname = cname;
 		this.cterm = cterm;
-		this.outgroupevals = outgroupevals;
-		this.ingroupevals = ingroupevals;
 		this.classes = classes;
+		this.classmodules = classmodules;
 		this.questions = questions;
 		this.seminars = seminars;
+		this.evaluationelements = evaluationelements;
 		this.seminarclasses = seminarclasses;
 		this.semclatests = semclatests;
 	}
@@ -99,28 +101,20 @@ public class Course implements java.io.Serializable {
 		this.cterm = cterm;
 	}
 
-	public Set getOutgroupevals() {
-		return this.outgroupevals;
-	}
-
-	public void setOutgroupevals(Set outgroupevals) {
-		this.outgroupevals = outgroupevals;
-	}
-
-	public Set getIngroupevals() {
-		return this.ingroupevals;
-	}
-
-	public void setIngroupevals(Set ingroupevals) {
-		this.ingroupevals = ingroupevals;
-	}
-
 	public Set getClasses() {
 		return this.classes;
 	}
 
 	public void setClasses(Set classes) {
 		this.classes = classes;
+	}
+
+	public Set getClassmodules() {
+		return this.classmodules;
+	}
+
+	public void setClassmodules(Set classmodules) {
+		this.classmodules = classmodules;
 	}
 
 	public Set getQuestions() {
@@ -139,6 +133,14 @@ public class Course implements java.io.Serializable {
 		this.seminars = seminars;
 	}
 
+	public Set getEvaluationelements() {
+		return this.evaluationelements;
+	}
+
+	public void setEvaluationelements(Set evaluationelements) {
+		this.evaluationelements = evaluationelements;
+	}
+
 	public Set getSeminarclasses() {
 		return this.seminarclasses;
 	}
@@ -154,13 +156,5 @@ public class Course implements java.io.Serializable {
 	public void setSemclatests(Set semclatests) {
 		this.semclatests = semclatests;
 	}
-
-	@Override
-	public String toString() {
-		return "Course [cid=" + cid + ", teacher=" + teacher + ", cnumber=" + cnumber + ", cname=" + cname + ", cterm="
-				+ cterm + "]";
-	}
-	
-	
 
 }

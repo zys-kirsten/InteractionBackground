@@ -16,9 +16,12 @@ public class Student implements java.io.Serializable {
 	private String spwd;
 	private String sname;
 	private String sphone;
-	private Set ingroupevalitems = new HashSet(0);
+	private Set unquantizationfuzzyevaluations = new HashSet(0);
+	private Set votedatas = new HashSet(0);
+	private Set responderdatas = new HashSet(0);
+	private Set quantizationfuzzyevaluations = new HashSet(0);
 	private Set classes = new HashSet(0);
-	private Set ingroupevals = new HashSet(0);
+	private Set seminarscores = new HashSet(0);
 	private Set seminarclasses = new HashSet(0);
 	private Set semclatests = new HashSet(0);
 
@@ -29,7 +32,7 @@ public class Student implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Student(String saccount, String spwd, String sname) {
+	public Student(Integer sid, String saccount, String spwd, String sname) {
 		this.sid = sid;
 		this.saccount = saccount;
 		this.spwd = spwd;
@@ -38,16 +41,20 @@ public class Student implements java.io.Serializable {
 
 	/** full constructor */
 	public Student(Integer sid, String saccount, String spwd, String sname,
-			String sphone, Set ingroupevalitems, Set classes, Set ingroupevals,
-			Set seminarclasses, Set semclatests) {
+			String sphone, Set unquantizationfuzzyevaluations, Set votedatas,
+			Set responderdatas, Set quantizationfuzzyevaluations, Set classes,
+			Set seminarscores, Set seminarclasses, Set semclatests) {
 		this.sid = sid;
 		this.saccount = saccount;
 		this.spwd = spwd;
 		this.sname = sname;
 		this.sphone = sphone;
-		this.ingroupevalitems = ingroupevalitems;
+		this.unquantizationfuzzyevaluations = unquantizationfuzzyevaluations;
+		this.votedatas = votedatas;
+		this.responderdatas = responderdatas;
+		this.quantizationfuzzyevaluations = quantizationfuzzyevaluations;
 		this.classes = classes;
-		this.ingroupevals = ingroupevals;
+		this.seminarscores = seminarscores;
 		this.seminarclasses = seminarclasses;
 		this.semclatests = semclatests;
 	}
@@ -94,12 +101,37 @@ public class Student implements java.io.Serializable {
 		this.sphone = sphone;
 	}
 
-	public Set getIngroupevalitems() {
-		return this.ingroupevalitems;
+	public Set getUnquantizationfuzzyevaluations() {
+		return this.unquantizationfuzzyevaluations;
 	}
 
-	public void setIngroupevalitems(Set ingroupevalitems) {
-		this.ingroupevalitems = ingroupevalitems;
+	public void setUnquantizationfuzzyevaluations(
+			Set unquantizationfuzzyevaluations) {
+		this.unquantizationfuzzyevaluations = unquantizationfuzzyevaluations;
+	}
+
+	public Set getVotedatas() {
+		return this.votedatas;
+	}
+
+	public void setVotedatas(Set votedatas) {
+		this.votedatas = votedatas;
+	}
+
+	public Set getResponderdatas() {
+		return this.responderdatas;
+	}
+
+	public void setResponderdatas(Set responderdatas) {
+		this.responderdatas = responderdatas;
+	}
+
+	public Set getQuantizationfuzzyevaluations() {
+		return this.quantizationfuzzyevaluations;
+	}
+
+	public void setQuantizationfuzzyevaluations(Set quantizationfuzzyevaluations) {
+		this.quantizationfuzzyevaluations = quantizationfuzzyevaluations;
 	}
 
 	public Set getClasses() {
@@ -110,12 +142,12 @@ public class Student implements java.io.Serializable {
 		this.classes = classes;
 	}
 
-	public Set getIngroupevals() {
-		return this.ingroupevals;
+	public Set getSeminarscores() {
+		return this.seminarscores;
 	}
 
-	public void setIngroupevals(Set ingroupevals) {
-		this.ingroupevals = ingroupevals;
+	public void setSeminarscores(Set seminarscores) {
+		this.seminarscores = seminarscores;
 	}
 
 	public Set getSeminarclasses() {

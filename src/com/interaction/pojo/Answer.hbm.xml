@@ -10,7 +10,7 @@
             <column name="AId" />
             <generator class="increment" />
         </id>
-        <many-to-one name="question" class="com.interaction.pojo.Question" fetch="select"  lazy="false">
+        <many-to-one name="question" class="com.interaction.pojo.Question" fetch="select" lazy="false">
             <column name="QId" not-null="true" />
         </many-to-one>
         <property name="acontent" type="java.lang.String">
@@ -22,5 +22,11 @@
         <property name="correct" type="java.lang.Integer">
             <column name="Correct" not-null="true" />
         </property>
+        <set name="semclatests" inverse="true">
+            <key>
+                <column name="AId" />
+            </key>
+            <one-to-many class="com.interaction.pojo.Semclatest" />
+        </set>
     </class>
 </hibernate-mapping>

@@ -9,7 +9,6 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.interaction.dao.EvaluationElementDAO;
-import com.interaction.pojo.Evaluation;
 import com.interaction.pojo.Evaluationelement;
 
 @Repository
@@ -104,7 +103,7 @@ public class EvaluationelementDAOImpl extends HibernateDaoSupport implements Eva
 	
 	@Override
 	public List<Evaluationelement> listByFatherNameNeedVisited(int cid, String fatherName) {
-		String hql = "from Evaluationelement e where e.course.cid=? and evaluationelement.eename=? and e.bevisited=1";
+		String hql = "from Evaluationelement e where e.course.cid=? and evaluationelement.eename=? and e.beVisited=1";
 		List<Evaluationelement> evaluationelements = getHibernateTemplate().find(hql, cid,fatherName);
 		if(evaluationelements == null || evaluationelements.size() == 0)
 			return null;

@@ -48,7 +48,7 @@ public class EvaluationElementController {
 		if (evaluationelement.getEeid() == null) {
 		    result = evaluationElementServiceImpl.addEvaluationElement(evaluationelement);//添加评价因素
 		}else{
-			evaluationelement.setIsleaf(1);//修改评价因素
+			evaluationelement.setIsLeaf(1);//修改评价因素
 			List<Evaluationelement> elements = new ArrayList<Evaluationelement>();
 			elements.add(evaluationelement);
 			result = evaluationElementServiceImpl.updateEvaluationElement(elements);

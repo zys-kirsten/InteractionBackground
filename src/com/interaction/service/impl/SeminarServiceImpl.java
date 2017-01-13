@@ -207,12 +207,12 @@ public class SeminarServiceImpl implements SeminarService{
 		List<Seminar> seminars = seminarDAOImpl.listByCourse(cid);
 		if (condition.equals("start")) {
 			for(Seminar seminar:seminars){
-				seminar.setBevisited(1);
+				seminar.setBeVisited(1);
 				seminarDAOImpl.updateSeminar(seminar);
 			}
 		}else {
 			for(Seminar seminar:seminars){
-				seminar.setBevisited(0);
+				seminar.setBeVisited(0);
 				seminarDAOImpl.updateSeminar(seminar);
 			}
 		}

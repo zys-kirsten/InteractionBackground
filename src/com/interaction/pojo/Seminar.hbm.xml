@@ -14,28 +14,40 @@
             <column name="CId" not-null="true" />
         </many-to-one>
         <property name="seName" type="java.lang.String">
-            <column name="SeName" length="20" not-null="true" />
+            <column name="SeName" length="20" />
         </property>
         <property name="seTheme" type="java.lang.String">
-            <column name="SeTheme" length="20" not-null="true" />
+            <column name="SeTheme" length="20" />
         </property>
         <property name="seTime" type="java.util.Date">
-            <column name="SeTime" length="10" not-null="true" />
+            <column name="SeTime" length="10" />
         </property>
         <property name="seUp" type="java.lang.Integer">
-            <column name="SeUp" not-null="true" />
+            <column name="SeUp" />
         </property>
         <property name="seDown" type="java.lang.Integer">
-            <column name="SeDown" not-null="true" />
+            <column name="SeDown" />
         </property>
-        <property name="bevisited" type="java.lang.Integer">
-            <column name="BeVisited"/>
+        <property name="beVisited" type="java.lang.Integer">
+            <column name="BeVisited" />
         </property>
+        <set name="votequestions" inverse="true">
+            <key>
+                <column name="SeId" />
+            </key>
+            <one-to-many class="com.interaction.pojo.Votequestion" />
+        </set>
         <set name="seminarclasses" inverse="true">
             <key>
                 <column name="SeId" not-null="true" />
             </key>
             <one-to-many class="com.interaction.pojo.Seminarclass" />
+        </set>
+        <set name="questions" inverse="true">
+            <key>
+                <column name="SeId" />
+            </key>
+            <one-to-many class="com.interaction.pojo.Question" />
         </set>
         <set name="semclatests" inverse="true">
             <key>
@@ -43,17 +55,41 @@
             </key>
             <one-to-many class="com.interaction.pojo.Semclatest" />
         </set>
-        <set name="outgroupevals" inverse="true">
+        <set name="votedatas" inverse="true">
             <key>
-                <column name="SeId" not-null="true" />
+                <column name="SeId" />
             </key>
-            <one-to-many class="com.interaction.pojo.Outgroupeval" />
+            <one-to-many class="com.interaction.pojo.Votedata" />
         </set>
-        <set name="ingroupevals" inverse="true">
+        <set name="responderdatas" inverse="true">
             <key>
-                <column name="SeId" not-null="true" />
+                <column name="SeId" />
             </key>
-            <one-to-many class="com.interaction.pojo.Ingroupeval" />
+            <one-to-many class="com.interaction.pojo.Responderdata" />
+        </set>
+        <set name="classmoduleseminars" inverse="true">
+            <key>
+                <column name="SeId" />
+            </key>
+            <one-to-many class="com.interaction.pojo.Classmoduleseminar" />
+        </set>
+        <set name="unquantizationfuzzyevaluations" inverse="true">
+            <key>
+                <column name="SeId" />
+            </key>
+            <one-to-many class="com.interaction.pojo.Unquantizationfuzzyevaluation" />
+        </set>
+        <set name="quantizationfuzzyevaluations" inverse="true">
+            <key>
+                <column name="SeId" />
+            </key>
+            <one-to-many class="com.interaction.pojo.Quantizationfuzzyevaluation" />
+        </set>
+        <set name="seminarscores" inverse="true">
+            <key>
+                <column name="SeId" />
+            </key>
+            <one-to-many class="com.interaction.pojo.Seminarscore" />
         </set>
     </class>
 </hibernate-mapping>

@@ -22,11 +22,29 @@
         <property name="sphone" type="java.lang.String">
             <column name="SPhone" length="15" />
         </property>
-        <set name="ingroupevalitems" inverse="true">
+        <set name="unquantizationfuzzyevaluations" inverse="true">
+            <key>
+                <column name="Sid" />
+            </key>
+            <one-to-many class="com.interaction.pojo.Unquantizationfuzzyevaluation" />
+        </set>
+        <set name="votedatas" inverse="true">
+            <key>
+                <column name="Sid" />
+            </key>
+            <one-to-many class="com.interaction.pojo.Votedata" />
+        </set>
+        <set name="responderdatas" inverse="true">
             <key>
                 <column name="SId" />
             </key>
-            <one-to-many class="com.interaction.pojo.Ingroupevalitem" />
+            <one-to-many class="com.interaction.pojo.Responderdata" />
+        </set>
+        <set name="quantizationfuzzyevaluations" inverse="true">
+            <key>
+                <column name="Sid" />
+            </key>
+            <one-to-many class="com.interaction.pojo.Quantizationfuzzyevaluation" />
         </set>
         <set name="classes" inverse="true">
             <key>
@@ -34,11 +52,11 @@
             </key>
             <one-to-many class="com.interaction.pojo.Class" />
         </set>
-        <set name="ingroupevals" inverse="true">
+        <set name="seminarscores" inverse="true">
             <key>
                 <column name="SId" />
             </key>
-            <one-to-many class="com.interaction.pojo.Ingroupeval" />
+            <one-to-many class="com.interaction.pojo.Seminarscore" />
         </set>
         <set name="seminarclasses" inverse="true">
             <key>

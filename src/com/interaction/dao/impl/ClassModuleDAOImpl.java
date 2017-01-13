@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.interaction.dao.ClassModuleDAO;
 import com.interaction.pojo.Classmodule;
-import com.interaction.pojo.Question;
 
 @Repository
 public class ClassModuleDAOImpl extends HibernateDaoSupport implements ClassModuleDAO{

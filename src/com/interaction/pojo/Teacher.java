@@ -25,18 +25,18 @@ public class Teacher implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Teacher(String tacount, String tpwd, String tname) {
+	public Teacher(Integer tid, String taccount, String tpwd, String tname) {
 		this.tid = tid;
-		this.taccount = tacount;
+		this.taccount = taccount;
 		this.tpwd = tpwd;
 		this.tname = tname;
 	}
 
 	/** full constructor */
-	public Teacher(Integer tid, String tacount, String tpwd, String tname,
+	public Teacher(Integer tid, String taccount, String tpwd, String tname,
 			String tphone, Set courses) {
 		this.tid = tid;
-		this.taccount = tacount;
+		this.taccount = taccount;
 		this.tpwd = tpwd;
 		this.tname = tname;
 		this.tphone = tphone;
@@ -57,8 +57,8 @@ public class Teacher implements java.io.Serializable {
 		return this.taccount;
 	}
 
-	public void setTaccount(String tacount) {
-		this.taccount = tacount;
+	public void setTaccount(String taccount) {
+		this.taccount = taccount;
 	}
 
 	public String getTpwd() {

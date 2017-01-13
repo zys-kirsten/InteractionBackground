@@ -3,17 +3,13 @@ package com.interaction.dao.impl;
 import java.io.Serializable;
 import java.util.List;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.interaction.dao.SeminarDAO;
-import com.interaction.pojo.Evaluation;
 import com.interaction.pojo.Seminar;
-import com.interaction.pojo.Teacher;
 
 @Repository
 public class SeminarDAOImpl extends HibernateDaoSupport implements SeminarDAO {

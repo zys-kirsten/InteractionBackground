@@ -116,7 +116,7 @@ public class QuestionDAOImpl extends HibernateDaoSupport implements QuestionDAO 
 
 	@Override
 	public List<Question> listByCidAndSeidBeVisted(int cid, int seid) {
-		String hql = "from Question q where q.course.cid=? and q.seminar.seId=? and beVisited=1";
+		String hql = "from Question q where q.course.cid=? and q.seminar.seId=? and q.beVisited=1";
 		List<Question> questions = getHibernateTemplate().find(hql,cid,seid);
 		if(questions == null || questions.size() == 0)
 			return null;

@@ -22,27 +22,21 @@
         <property name="cterm" type="java.lang.String">
             <column name="Cterm" length="15" not-null="true" />
         </property>
-        <set name="outgroupevals" inverse="true">
-            <key>
-                <column name="CId" not-null="true" />
-            </key>
-            <one-to-many class="com.interaction.pojo.Outgroupeval" />
-        </set>
-        <set name="ingroupevals" inverse="true">
-            <key>
-                <column name="CId" not-null="true" />
-            </key>
-            <one-to-many class="com.interaction.pojo.Ingroupeval" />
-        </set>
         <set name="classes" inverse="true">
             <key>
                 <column name="CId" not-null="true" />
             </key>
             <one-to-many class="com.interaction.pojo.Class" />
         </set>
+        <set name="classmodules" inverse="true">
+            <key>
+                <column name="CId" />
+            </key>
+            <one-to-many class="com.interaction.pojo.Classmodule" />
+        </set>
         <set name="questions" inverse="true">
             <key>
-                <column name="CId" not-null="true" />
+                <column name="CId" />
             </key>
             <one-to-many class="com.interaction.pojo.Question" />
         </set>
@@ -51,6 +45,12 @@
                 <column name="CId" not-null="true" />
             </key>
             <one-to-many class="com.interaction.pojo.Seminar" />
+        </set>
+        <set name="evaluationelements" inverse="true">
+            <key>
+                <column name="Cid" not-null="true" />
+            </key>
+            <one-to-many class="com.interaction.pojo.Evaluationelement" />
         </set>
         <set name="seminarclasses" inverse="true">
             <key>

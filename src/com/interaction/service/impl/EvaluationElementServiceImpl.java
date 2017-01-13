@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.interaction.dao.CourseDAO;
 import com.interaction.dao.EvaluationElementDAO;
 import com.interaction.dao.SeminarDAO;
-import com.interaction.dao.SeminarclassDAO;
 import com.interaction.pojo.Course;
 import com.interaction.pojo.Evaluationelement;
 import com.interaction.pojo.Seminar;
@@ -42,11 +41,11 @@ public class EvaluationElementServiceImpl implements EvaluationElementService{
 		if (evaluationelements != null) {
 			if (condition.equals("start")) {
 				for(Evaluationelement e:evaluationelements){
-					e.setBevisited(1);
+					e.setBeVisited(1);
 				}
 			}else {
 				for(Evaluationelement e:evaluationelements){
-					e.setBevisited(0);
+					e.setBeVisited(0);
 				}
 			}
 			evaluationElementDAOImpl.updateEvaluationElements(evaluationelements);
@@ -123,13 +122,13 @@ public class EvaluationElementServiceImpl implements EvaluationElementService{
 			
 			if (i == 0) {
 				evaluationelement.setEename("非量化指标");
-				evaluationelement.setIsleaf(0);
+				evaluationelement.setIsLeaf(0);
 			}else if (i == 1) {
 				evaluationelement.setEename("量化指标");
-				evaluationelement.setIsleaf(0);
+				evaluationelement.setIsLeaf(0);
 			}else{
 				if (i <= 5) {
-					evaluationelement.setIsleaf(0);
+					evaluationelement.setIsLeaf(0);
 					Evaluationelement unquantization = evaluationElementDAOImpl.findById(unquantizationId);
 					evaluationelement.setEvaluationelement(unquantization);
 					if (i == 2) {
@@ -142,7 +141,7 @@ public class EvaluationElementServiceImpl implements EvaluationElementService{
 						evaluationelement.setEename("教师评价");
 					}
 				}else{
-					evaluationelement.setIsleaf(1);
+					evaluationelement.setIsLeaf(1);
 					Evaluationelement quantization = evaluationElementDAOImpl.findById(quantizationId);
 					evaluationelement.setEvaluationelement(quantization);
 					if (i == 6) {
@@ -170,7 +169,7 @@ public class EvaluationElementServiceImpl implements EvaluationElementService{
 	//添加评价元素
 	@Override
 	public int addEvaluationElement(Evaluationelement evaluationelement) {
-		evaluationelement.setIsleaf(1);
+		evaluationelement.setIsLeaf(1);;
 		return evaluationElementDAOImpl.addEvaluationElement(evaluationelement);
 	}
 	
