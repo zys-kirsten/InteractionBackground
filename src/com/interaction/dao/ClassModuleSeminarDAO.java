@@ -12,4 +12,6 @@ public interface ClassModuleSeminarDAO {
 
 	int deleteCms(List<Classmoduleseminar> classmoduleseminars);
 
+	Classmoduleseminar listBySeId(int seId);
+
 }

@@ -65,4 +65,5 @@ public class ClassModuleDAOImpl extends HibernateDaoSupport implements ClassModu
 		}
 		return -1;
 	}
+
 }

@@ -32,8 +32,8 @@ public class VotedataServiceImpl implements VotedataService{
 	
 	//学生添加投票数据
 	@Override
-	public int stuBeginVote(int seid, int sid, int vqid, String stuAnswer) {
-		Votequestion votequestion = votequestionDAOImpl.listBeVisited(vqid);
+	public int stuBeginVote(int seid, int sid, String stuAnswer) {
+		Votequestion votequestion = votequestionDAOImpl.listBeVisited(seid);
 		if (votequestion == null) {
 			return -1;
 		}

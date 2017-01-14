@@ -46,7 +46,13 @@
     </style>
 <script type="text/javascript">
  $(document).ready(function(){
-
+	 var kk = document.getElementsByName("groupTime");  
+	 for (var j=0; j<kk.length; j++) {  
+		 if (kk[j].value=='${classModuleVo.groupTime}') {  
+			 kk[j].checked=true;  
+			 break;  
+		 }  
+	 }  
  }); 
 </script>   
 <script type="text/javascript">

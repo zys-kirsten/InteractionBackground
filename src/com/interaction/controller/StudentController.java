@@ -6,19 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.interaction.dao.ResponderdataDAO;
-import com.interaction.pojo.Answer;
 import com.interaction.pojo.Evaluationelement;
 import com.interaction.pojo.Seminarclass;
 import com.interaction.pojo.Student;
-import com.interaction.pojo.Votequestion;
 import com.interaction.service.CourseService;
 import com.interaction.service.EvaluationElementService;
 import com.interaction.service.QuestionService;
@@ -28,7 +24,6 @@ import com.interaction.service.SeminarService;
 import com.interaction.service.StudentService;
 import com.interaction.service.UnquantizationFuzzyEvaluationService;
 import com.interaction.service.VotedataService;
-import com.interaction.service.VotequestionService;
 import com.interaction.service.impl.SemclatestService;
 import com.interaction.utils.JsonUtils;
 import com.interaction.vo.AndroidEvaluationVo;
@@ -38,8 +33,8 @@ import com.interaction.vo.GroupNumsVo;
 import com.interaction.vo.GroupVo;
 import com.interaction.vo.QuestionVo;
 import com.interaction.vo.SeminarClassVo;
-import com.interaction.vo.SeminarscoreVo;
 import com.interaction.vo.SeminarVo;
+import com.interaction.vo.SeminarscoreVo;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -103,7 +98,7 @@ public class StudentController {
 	}
 	
 	
-	//学生选课
+	//学生选课（需要修改，判断上下限）(线程加锁)
 	@RequestMapping("/stuSelectSeminar")
 	public void stuSelectSeminar(@RequestParam("cid")String cid,@RequestParam("seid")String seid,@RequestParam("sid")String sid,HttpServletResponse response) throws IOException{
 		int flag = -1;
@@ -120,7 +115,7 @@ public class StudentController {
 		JsonUtils.toJson(response, "seminars", seminars);
 	}
 	
-	//学生查看自己的课堂分组
+	//学生查看自己的课堂分组(需要判断标志位)
 	@RequestMapping("/stuGrouping")
 	public void stuGrouping(@RequestParam("seid")String seid,@RequestParam("sid")String sid,HttpServletResponse response) throws IOException{
 
@@ -144,16 +139,14 @@ public class StudentController {
 		}
 	}
 	
-	//学生在组间评价前查询需要评价的组
+	//学生在组间评价前查询需要评价的组(需要查看标志位)
 	@RequestMapping("/stuListOutGroupEvaluation")
-	public void stuListOutGroupEvaluation(@RequestParam("seid")String seid,@RequestParam("groupNum")String groupNum,HttpServletResponse response) throws IOException{
-		if (groupNum != null && (!groupNum.equals("-1"))) {
-			List<GroupNumsVo>  groupnumsVo = seminarClassServiceImpl.listOtherGroupNums(Integer.parseInt(seid),Integer.parseInt(groupNum));
-			JsonUtils.toJson(response, "groupnumsVo", groupnumsVo);
-		}
+	public void stuListOutGroupEvaluation(@RequestParam("seid")String seid,@RequestParam("sid")String sid,HttpServletResponse response) throws IOException{
+		List<GroupNumsVo>  groupnumsVo = seminarClassServiceImpl.listOtherGroupNums(Integer.parseInt(seid),Integer.parseInt(sid));
+		JsonUtils.toJson(response, "groupnumsVo", groupnumsVo);
 	}
 	
-	//学生点击某一个具体的组号，查询组间评价信息
+	//学生点击某一个具体的组号，查询组间评价信息(需要查看标志位)
 	@RequestMapping("/stufindOutGroupEvaluationKeys")
 	public void stufindOutGroupEvaluationKeys(@RequestParam("cid")String cid,HttpServletResponse response) throws IOException{
 		List<Evaluationelement> evaluationelements = evaluationElementServiceImpl.listByFatherNameNeedVisited(Integer.parseInt(cid),"组间评价");
@@ -196,14 +189,14 @@ public class StudentController {
 		JsonUtils.toJson(response, "flag", flag);
 	}
 	
-	//学生在组内评价前查询需要评价的组内成员
+	//学生在组内评价前查询需要评价的组内成员(需要查看标志位)
 	@RequestMapping("/stuListInGroupEvaluation")
-	public void stuListInGroupEvaluation(@RequestParam("seid")String seid,@RequestParam("sid")String sid,@RequestParam("groupNum")String groupNum,HttpServletResponse response) throws IOException{
-		List<SeminarClassVo> students = seminarClassServiceImpl.listMyGroupOtherStu(Integer.parseInt(seid),Integer.parseInt(sid),Integer.parseInt(groupNum));
+	public void stuListInGroupEvaluation(@RequestParam("seid")String seid,@RequestParam("sid")String sid,HttpServletResponse response) throws IOException{
+		List<SeminarClassVo> students = seminarClassServiceImpl.listMyGroupOtherStu(Integer.parseInt(seid),Integer.parseInt(sid));
 		JsonUtils.toJson(response, "students", students);
 	}
 	
-	//学生点击组内某一具体同学，查询组内评价信息
+	//学生点击组内某一具体同学，查询组内评价信息(需要查看标志位)
 	@RequestMapping("/stufindInGroupEvaluationKeys")
 	public void stufindInGroupEvaluationKeys(@RequestParam("cid")String cid,HttpServletResponse response) throws IOException{
 		List<Evaluationelement> evaluationelements = evaluationElementServiceImpl.listByFatherNameNeedVisited(Integer.parseInt(cid),"组内评价");
@@ -273,7 +266,7 @@ public class StudentController {
 		JsonUtils.toJson(response, "flag", flag);
 	}
 	
-	//学生点击“限时练习题”，查找课堂限时练习题
+	//学生点击“限时练习题”，查找课堂限时练习题(需要查看标志位)
 	@RequestMapping("/stuListLimiteTimeExercise")
 	public void stuListLimiteTimeExercise(@RequestParam("cid")String cid,@RequestParam("seid")String seid,HttpServletResponse response) throws IOException{
 		List<QuestionVo> questions = questionServiceImpl.listByCidAndSeidBeVisted(Integer.parseInt(cid),Integer.parseInt(seid));
@@ -288,23 +281,19 @@ public class StudentController {
 		JsonUtils.toJson(response, "flag", flag);
 	}
 	
-	//学生点击抢答按钮，开始抢答(线程互斥控制)
+	//学生点击抢答按钮，开始抢答(线程互斥控制)(需要查看标志位)
 	@RequestMapping("/stuBeginResponder")
-	public void stuBeginResponder(@RequestParam("sid")String sid,@RequestParam("rdid")String rdid,HttpServletResponse response) throws IOException, NumberFormatException, InterruptedException{
-		if (rdid != null && (!rdid.equals("-1"))) {
-			int flag = responderdataServiceImpl.stuBeginResponder(Integer.parseInt(sid),Integer.parseInt(rdid));
-			JsonUtils.toJson(response, "flag", flag);
-		}
+	public void stuBeginResponder(@RequestParam("sid")String sid,@RequestParam("seid")String seid,HttpServletResponse response) throws IOException, NumberFormatException, InterruptedException{
+		int flag = responderdataServiceImpl.stuBeginResponder(Integer.parseInt(sid),Integer.parseInt(seid));
+		JsonUtils.toJson(response, "flag", flag);
 	}
 	
-	//学生开始投票
+	//学生开始投票(需要查看标志位)
 	@RequestMapping("/stuBeginVote")
 	public void stuBeginVote(@RequestParam("seid")String seid,@RequestParam("sid")String sid,
-			@RequestParam("vqid")String vqid,@RequestParam("stuAnswer")String stuAnswer,HttpServletResponse response) throws IOException{
-		if (vqid != null && (!vqid.equals("-1"))) {
-			int flag = votedataServiceImpl.stuBeginVote(Integer.parseInt(seid),Integer.parseInt(sid),Integer.parseInt(vqid),stuAnswer);
-			JsonUtils.toJson(response, "flag", flag);
-		}
+			@RequestParam("stuAnswer")String stuAnswer,HttpServletResponse response) throws IOException{
+		int flag = votedataServiceImpl.stuBeginVote(Integer.parseInt(seid),Integer.parseInt(sid),stuAnswer);
+		JsonUtils.toJson(response, "flag", flag);
 	}
 	
 	//学生查看研讨课成绩

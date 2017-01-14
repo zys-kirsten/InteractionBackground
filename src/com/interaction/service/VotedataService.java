@@ -9,6 +9,6 @@ public interface VotedataService {
 	List<VotedataVo> listCurrentVotedataBySeidAndVqid(int seid, int vqid);
 
 	//学生进行投票数据修改
-	int stuBeginVote(int seid, int sid, int vqid, String stuAnswer);
+	int stuBeginVote(int seid, int sid, String stuAnswer);
 
 }

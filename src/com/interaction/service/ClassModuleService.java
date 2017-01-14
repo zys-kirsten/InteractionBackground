@@ -16,4 +16,6 @@ public interface ClassModuleService {
 
 	int deleteClassModuleById(Integer cmid);
 
+	Integer listOneAttribute(int seid, String condition);
+
 }

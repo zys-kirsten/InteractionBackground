@@ -10,6 +10,6 @@ public interface ResponderdataDAO {
 
 	int updateResponderdata(Responderdata responderdata);
 
-	Responderdata findByIdBeVisited(int rdid);
+	Responderdata findBySeidBeVisited(int seid);
 
 }

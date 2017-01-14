@@ -70,10 +70,10 @@ public class ResponderdataServiceImpl implements ResponderdataService{
 	
 	//学生开始抢答
 	@Override
-	public int stuBeginResponder(int sid, int rdid) throws InterruptedException {
+	public int stuBeginResponder(int sid, int seid){
 		Object lock = new Object();
 		synchronized (lock) {
-			Responderdata responderdata = responderdataDAOImpl.findByIdBeVisited(rdid);
+			Responderdata responderdata = responderdataDAOImpl.findBySeidBeVisited(seid);
 			if (responderdata == null) {
 				return -1;
 			}

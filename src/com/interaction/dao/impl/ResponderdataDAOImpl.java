@@ -46,9 +46,9 @@ public class ResponderdataDAOImpl extends HibernateDaoSupport implements Respond
 	}
 	
 	@Override
-	public Responderdata findByIdBeVisited(int rdid) {
-		String hql = "from Responderdata r where r.rdid=? and r.beVisited = 1";
-		List<Responderdata> responderdatas = getHibernateTemplate().find(hql, rdid);
+	public Responderdata findBySeidBeVisited(int seid) {
+		String hql = "from Responderdata r where r.seminar.seId=? and r.beVisited = 1";
+		List<Responderdata> responderdatas = getHibernateTemplate().find(hql, seid);
 		if(responderdatas == null || responderdatas.size() == 0)
 			return null;
 		return responderdatas.get(0);

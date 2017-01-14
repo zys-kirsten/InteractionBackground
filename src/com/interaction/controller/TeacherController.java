@@ -17,6 +17,7 @@ import com.interaction.pojo.Course;
 import com.interaction.pojo.Evaluationelement;
 import com.interaction.pojo.Student;
 import com.interaction.pojo.Teacher;
+import com.interaction.service.ClassModuleService;
 import com.interaction.service.CourseService;
 import com.interaction.service.EvaluationElementService;
 import com.interaction.service.QuestionService;
@@ -64,11 +65,11 @@ public class TeacherController {
 	private ResponderdataService responderdataServiceImpl;
 	@Resource
 	private UnquantizationFuzzyEvaluationService unquantizationFuzzyEvaluationServiceImpl;
-	
+	@Resource
+	private ClassModuleService classModuleServiceImpl;
 	
 //=====================================教师Android端===================================================================	
 	
-	//测试不通过，android端没修改
 	@RequestMapping("teacherlogin")
 	public void Login(@RequestParam("tAccount")String tAccount,@RequestParam("tPwd")String tPwd,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		Integer tId = -1;
@@ -113,7 +114,6 @@ public class TeacherController {
 		System.out.println("findseminarbycid.do  ");
 	}
 	/**
-	 * Android端没有实现此功能，没有对应的查看签到学生列表的按钮
 	 * @param seId
 	 * @param request
 	 * @param response
@@ -133,7 +133,7 @@ public class TeacherController {
 	}
 	
 	/**
-	 * 测试通过（配置文件读取分组个数还未实现（我自己的，跟你无关）)
+	 * 测试通过（配置文件读取分组个数还已经实现）
 	 * @param seId
 	 * @param request
 	 * @param response
@@ -356,6 +356,9 @@ public class TeacherController {
 	@RequestMapping("findexerciseinfo")
 	public void findexerciseinfo(@RequestParam("seId")String seId,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		//定义response的各种参数
+		Integer number = classModuleServiceImpl.listOneAttribute(Integer.parseInt(seId),"proNum");
+		Integer time = classModuleServiceImpl.listOneAttribute(Integer.parseInt(seId),"proTime");
+		
 		response.setContentType("application/json");  
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
@@ -363,8 +366,8 @@ public class TeacherController {
 		//需要实现
 	    //该处将查找出的数量和时间添加到jsonObject
 		JSONObject jsonObject=new JSONObject();  
-		jsonObject.put("number", 10); 
-		jsonObject.put("time", 7); 
+		jsonObject.put("number", number); 
+		jsonObject.put("time", time); 
 
 
 		out.print(jsonObject.toString());
@@ -452,7 +455,7 @@ public class TeacherController {
 		
 	}
 
-	/**未测试！
+	/**
 	 * 参数需要改变，需要传递抢答题目的ID
 	 * @param seId
 	 * @param sId
@@ -491,7 +494,7 @@ public class TeacherController {
         JsonUtils.toJson(response, "rdid", Integer.parseInt(rdid));
 		System.out.println("restartResponder.do  ");
 	}
-	/**测试未通过。没有显示研讨课中学生的信息
+	/**
 	 * @param seId
 	 * @param request
 	 * @param response
@@ -507,7 +510,6 @@ public class TeacherController {
 		System.out.println("findstudentsbyseid.do  ");
 	}
 	/**
-	 * 未测试。
 	 * @param seId
 	 * @param sId
 	 * @param positivity
@@ -538,7 +540,6 @@ public class TeacherController {
 		System.out.println("teacherevaluatesubmit.do  "+evaluations);
 	}
 	/**
-	 * 未通过
 	 * @param cId
 	 * @param eeName：教师评价
 	 * @param request

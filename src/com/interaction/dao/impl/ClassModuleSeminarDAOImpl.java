@@ -46,5 +46,14 @@ public class ClassModuleSeminarDAOImpl extends HibernateDaoSupport implements Cl
 		}
 		return -1;
 	}
+
+	@Override
+	public Classmoduleseminar listBySeId(int seId) {
+		String hql="from Classmoduleseminar cms where cms.seminar.seId = ?";
+		List<Classmoduleseminar> classmoduleseminars = getHibernateTemplate().find(hql,seId);
+		if(classmoduleseminars==null || classmoduleseminars.size() == 0)
+			return null;
+		return classmoduleseminars.get(0);
+	}
 	
 }

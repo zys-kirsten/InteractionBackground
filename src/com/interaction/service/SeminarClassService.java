@@ -39,13 +39,13 @@ public interface SeminarClassService {
 	public Integer findMyGroupNum(Integer seid,int sid);
 
 	//查找除了自己组以外的其他组的组号
-	public List<GroupNumsVo> listOtherGroupNums(int seid, int groupNum);
+	public List<GroupNumsVo> listOtherGroupNums(int seid, int sid);
 
 	//根据组号查找属于该组的同学
 	public List<Seminarclass> listByGroupNum(int seid, int groupNum);
 
 	//列出学生id为sid的那一组的其他同学
-	public List<SeminarClassVo> listMyGroupOtherStu(int seid, int sid, int groupNum);
+	public List<SeminarClassVo> listMyGroupOtherStu(int seid, int sid);
 
 	//学生查询自己研讨课成绩
 	public SeminarscoreVo stuFindMySeminarScore(int seid, int sid);

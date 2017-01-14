@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.interaction.algorithm.group.GroupDivide;
 import com.interaction.dao.AnswerDAO;
 import com.interaction.dao.ClassModuleDAO;
+import com.interaction.dao.ClassModuleSeminarDAO;
 import com.interaction.dao.CourseDAO;
 import com.interaction.dao.EvaluationElementDAO;
 import com.interaction.dao.QuestionDAO;
@@ -20,6 +21,8 @@ import com.interaction.dao.SeminarDAO;
 import com.interaction.dao.SeminarclassDAO;
 import com.interaction.dao.SeminarscoreDAO;
 import com.interaction.dao.StudentDAO;
+import com.interaction.pojo.Classmodule;
+import com.interaction.pojo.Classmoduleseminar;
 import com.interaction.pojo.Evaluationelement;
 import com.interaction.pojo.Seminar;
 import com.interaction.pojo.Seminarclass;
@@ -44,8 +47,6 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 	@Resource
 	private SeminarDAO seminarDAOImpl;
 	@Resource
-	private ClassModuleDAO classModuleDAOImpl;
-	@Resource
 	private CourseDAO courseDAOImpl;
 	@Resource
 	private QuestionDAO questionDAOImpl;
@@ -55,6 +56,10 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 	private SeminarscoreDAO seminarscoreDAOImpl;
 	@Resource
 	private EvaluationElementDAO evaluationElementDAOImpl;
+	@Resource
+	private ClassModuleSeminarDAO classModuleSeminarDAOImpl;
+	@Resource
+	private ClassModuleDAO classModuleDAOImpl;
 
 	
 //====================================PC======================================================
@@ -135,45 +140,57 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 	//对已登录的学生进行分组
 	@Override
 	public List<GroupVo> divideGroup(int seId) {
-		boolean flag = true;
-		List<Seminarclass> ltpo = seminarclassDAOImpl.listLoginStudents(seId);
 		
 		//读取配置模式，获得分组的个数
-	//	Classmodule classmodule = classModuleDAOImpl.listBySeId(seId);
-		Integer grpNum = 3;
-				
-		List<List<Seminarclass>> lists = GroupDivide.divideGroup(ltpo,grpNum);
-		if (lists == null || lists.size() == 0) {
+		Classmoduleseminar classmoduleseminar = classModuleSeminarDAOImpl.listBySeId(seId);
+		if (classmoduleseminar == null) {
 			return null;
 		}
-		
-		List<GroupVo> groupVos = new ArrayList<>();
-		Integer grNum = 1;
-		for (List<Seminarclass> list:lists) {
-			GroupVo groupVo = new GroupVo();
-			String grNames = "";
-			Integer inGroupNum = 1;
-			for(Seminarclass seminarclass:list){
-				seminarclass.setGroupNum(grNum);
-				seminarclass.setInGroupNum(inGroupNum++);
-				seminarclass.setConfirmGroup(0);
-				int result = seminarclassDAOImpl.updateSeminarclass(seminarclass);  //更新研讨课学生
-				if (result == -1) {
-					flag = false;
-				}
-				Student student = studentDAOImpl.findById(seminarclass.getStudent().getSid()); //为了页面返回显示
-				grNames += student.getSname()+" ";
-			}
-			groupVo.setGrName((grNum++).toString());
-			groupVo.setStNames(grNames);
+		Classmodule classmodule = classModuleDAOImpl.findById(classmoduleseminar.getClassmodule().getCmid());
+		if (classmodule == null) {
+			return null;
+		}
+		if (classmodule.getGroupTime() == 1) {   //课堂模式显示的是课上分组
+			boolean flag = true;
+			List<Seminarclass> ltpo = seminarclassDAOImpl.listLoginStudents(seId);
+			Integer grpNum = classmodule.getGroupNum();
 			
-			groupVos.add(groupVo);
+			List<List<Seminarclass>> lists = GroupDivide.divideGroup(ltpo,grpNum);
+			if (lists == null || lists.size() == 0) {
+				return null;
+			}
+			
+			List<GroupVo> groupVos = new ArrayList<>();
+			Integer grNum = 1;
+			for (List<Seminarclass> list:lists) {
+				GroupVo groupVo = new GroupVo();
+				String grNames = "";
+				Integer inGroupNum = 1;
+				for(Seminarclass seminarclass:list){
+					seminarclass.setGroupNum(grNum);
+					seminarclass.setInGroupNum(inGroupNum++);
+					seminarclass.setConfirmGroup(0);
+					int result = seminarclassDAOImpl.updateSeminarclass(seminarclass);  //更新研讨课学生
+					if (result == -1) {
+						flag = false;
+					}
+					Student student = studentDAOImpl.findById(seminarclass.getStudent().getSid()); //为了页面返回显示
+					grNames += student.getSname()+" ";
+				}
+				groupVo.setGrName((grNum++).toString());
+				groupVo.setStNames(grNames);
+				
+				groupVos.add(groupVo);
+			}
+			
+			if (flag == false) {
+				return null;
+			}
+			return groupVos;
+		}else {  //课前教师已经分好组
+			return listGroup(seId);
 		}
 		
-		if (flag == false) {
-			return null;
-		}
-		return groupVos;
 	}
 
 	//教师确认分组结果
@@ -209,15 +226,35 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 	@Override
 	public int stuSelectSeminar(int cid, int seid, int sid) {
 
-		Seminarclass seminarclass = new Seminarclass();
 		if (courseDAOImpl.findById(cid) == null || seminarDAOImpl.findById(seid) == null || studentDAOImpl.findById(sid) == null) {
 			return -1;
 		}
-		seminarclass.setCourse(courseDAOImpl.findById(cid));
-		seminarclass.setSeminar(seminarDAOImpl.findById(seid));
-		seminarclass.setStudent(studentDAOImpl.findById(sid));
 		
-		return seminarclassDAOImpl.addSeminarclass(seminarclass);
+		Seminar seminar = seminarDAOImpl.findById(seid);
+		if (seminar == null) {
+			return -1;
+		}
+		Seminarclass seminarclass2 = seminarclassDAOImpl.listBySeidAndSid(seid, sid);
+		if (seminarclass2 != null) {
+			return -1;
+		}
+		
+		int upNum = seminar.getSeUp();
+		Object lock = new Object();
+		synchronized (lock) {
+			List<Seminarclass> seminarclasses = seminarclassDAOImpl.listBySeminar(seid);
+			
+			if (seminarclasses.size() < upNum ) {
+				Seminarclass seminarclass = new Seminarclass();
+				seminarclass.setCourse(courseDAOImpl.findById(cid));
+				seminarclass.setSeminar(seminarDAOImpl.findById(seid));
+				seminarclass.setStudent(studentDAOImpl.findById(sid));
+				
+				return seminarclassDAOImpl.addSeminarclass(seminarclass);
+			}else {
+				return -1;
+			}
+		}
 	}
 
 	//学生查看课堂分组
@@ -258,7 +295,7 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 	@Override
 	public Integer findMyGroupNum(Integer seid,int sid) {
 		Seminarclass seminarclass = seminarclassDAOImpl.listBySeidAndSid(seid,sid);
-		if (seminarclass == null ) {
+		if (seminarclass == null || seminarclass.getGroupNum() == null) {
 			return -1;
 		}
 		return seminarclass.getGroupNum();
@@ -266,8 +303,12 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 	
 	//查找除了自己组以外的其他组的组号
 	@Override
-	public List<GroupNumsVo> listOtherGroupNums(int seid, int groupNum) {
-		List<Seminarclass> seminarclasses = seminarclassDAOImpl.listOtherGroupNums(seid, groupNum);
+	public List<GroupNumsVo> listOtherGroupNums(int seid, int sid) {
+		Seminarclass seminarclass = seminarclassDAOImpl.listBySeidAndSid(seid, sid);
+		if (seminarclass == null || seminarclass.getGroupNum() == null) {
+			return null;
+		}
+		List<Seminarclass> seminarclasses = seminarclassDAOImpl.listOtherGroupNums(seid, seminarclass.getGroupNum());
 		if (seminarclasses == null || seminarclasses.size() == 0) {
 			return null;
 		}
@@ -294,8 +335,12 @@ public class SeminarClassServiceImpl implements SeminarClassService{
 	
 	//列出学生id为sid的那一组的其他同学
 	@Override
-	public List<SeminarClassVo> listMyGroupOtherStu(int seid, int sid, int groupNum) {
-		List<Seminarclass> seminarclasses = seminarclassDAOImpl.listByGroupNum(seid, groupNum);
+	public List<SeminarClassVo> listMyGroupOtherStu(int seid, int sid) {
+		Seminarclass seminarclass = seminarclassDAOImpl.listBySeidAndSid(seid, sid);
+		if (seminarclass == null || seminarclass.getGroupNum() == null) {
+			return null;
+		}
+		List<Seminarclass> seminarclasses = seminarclassDAOImpl.listByGroupNum(seid, seminarclass.getGroupNum());
 		if (seminarclasses == null || seminarclasses.size() == 0) {
 			return null;
 		}

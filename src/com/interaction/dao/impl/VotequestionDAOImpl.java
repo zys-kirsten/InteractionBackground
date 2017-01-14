@@ -45,9 +45,9 @@ public class VotequestionDAOImpl extends HibernateDaoSupport implements Voteques
 	}
 	
 	@Override
-	public Votequestion listBeVisited(int vqid) {
-		String hql = "from Votequestion v where v.vqid=? and v.beVisited=1";
-		List<Votequestion> votequestion = getHibernateTemplate().find(hql,vqid);
+	public Votequestion listBeVisited(int seid) {
+		String hql = "from Votequestion v where v.seminar.seId=? and v.beVisited=1";
+		List<Votequestion> votequestion = getHibernateTemplate().find(hql,seid);
 		if (votequestion == null || votequestion.size() == 0) {
 			return null;
 		}

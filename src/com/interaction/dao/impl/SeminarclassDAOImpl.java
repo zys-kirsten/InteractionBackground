@@ -95,7 +95,7 @@ public class SeminarclassDAOImpl extends HibernateDaoSupport implements Seminarc
 	
 	@Override
 	public List<Seminarclass> listOtherGroupNums(int seid, int groupNum) {
-		String hql="from Seminarclass sc where  sc.seminar.seId = ? and groupNum is not ?";
+		String hql="from Seminarclass sc where  sc.confirmGroup = 1 and sc.seminar.seId = ? and groupNum is not ?";
 		List<Seminarclass> seminarclasses = getHibernateTemplate().find(hql,seid,groupNum);
 		if(seminarclasses==null || seminarclasses.size() == 0)
 			return null;
@@ -104,7 +104,7 @@ public class SeminarclassDAOImpl extends HibernateDaoSupport implements Seminarc
 	
 	@Override
 	public List<Seminarclass> listByGroupNum(int seid, int groupNum) {
-		String hql="from Seminarclass sc where  sc.seminar.seId = ? and groupNum = ?";
+		String hql="from Seminarclass sc where  sc.confirmGroup = 1 and sc.seminar.seId = ? and groupNum = ?";
 		List<Seminarclass> seminarclasses = getHibernateTemplate().find(hql,seid,groupNum);
 		if(seminarclasses==null || seminarclasses.size() == 0)
 			return null;
