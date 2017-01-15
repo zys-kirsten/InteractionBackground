@@ -123,4 +123,14 @@ public class QuestionDAOImpl extends HibernateDaoSupport implements QuestionDAO 
 		
 		return questions;
 	}
+	
+	@Override
+	public Question findByIdBeVisited(int qid) {
+		String hql = "from Question q where q.qid=? and q.beVisited=1";
+		List<Question> questions = getHibernateTemplate().find(hql,qid);
+		if(questions == null || questions.size() == 0)
+			return null;
+		
+		return questions.get(0);
+	}
 }

@@ -46,6 +46,11 @@ public class VotedataServiceImpl implements VotedataService{
 			return -1;
 		}
 		
+		Votedata judge = votedataDAOImpl.listBySeidAndSidBeVisited(seid,sid);
+		if (judge != null) {
+			return -1;
+		}
+		
 		Votedata votedata = new Votedata();
 		votedata.setSeminar(seminar);
 		votedata.setStuAnswer(stuAnswer);

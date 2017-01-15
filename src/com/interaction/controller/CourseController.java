@@ -1,23 +1,23 @@
 package com.interaction.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.interaction.pojo.Course;
+import com.interaction.pojo.Student;
 import com.interaction.pojo.Teacher;
 import com.interaction.service.CourseService;
 import com.interaction.service.EvaluationElementService;
+import com.interaction.service.StudentService;
 import com.interaction.utils.SessionUtil;
 import com.interaction.vo.CourseVo;
 
@@ -28,7 +28,24 @@ public class CourseController {
 	private CourseService courseServiceImpl;
 	@Resource
 	private EvaluationElementService evaluationElementServiceImpl;
+	@Resource
+	private StudentService studentServiceImpl;
 	
+	
+	//教师导入本门课的学生信息
+	@RequestMapping("/uploadStuInfo")
+	public String uploadStuInfo(@RequestParam("cid")Integer cid,@RequestParam MultipartFile file) throws IOException{
+		List<Student> list = studentServiceImpl.readReport(file.getInputStream()); 
+
+		if (list != null && list.size() != 0) {
+			int result = studentServiceImpl.insertStudents(list,cid);
+			if (result != -1) {
+				return "success";
+			}
+		}
+		  
+        return "error"; 
+	}
 	
 	//教师添加（修改）课程信息
 	@RequestMapping("/addCourse")
@@ -37,7 +54,6 @@ public class CourseController {
 		//Teacher teacher = (Teacher) SessionUtil.getMySession().getAttribute("teacher");
 		course.setTeacher(getTeacher());
 		
-		List<CourseVo> courseVos = new ArrayList<CourseVo>();
 		int result = -1;
 
 		if (course.getCid() == null) {

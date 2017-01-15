@@ -73,7 +73,7 @@
                         <td>
                             <a href="${ctxPath }/listEditCourse.do?cid=${c.cid}" class="btn btn-primary btn-sm">修改</a>
                             <a href="${ctxPath }/deleteCourse.do?cid=${c.cid}" class="btn btn-primary btn-sm">删除</a>
-                           <%--  <a href="${ctxPath }/listSeminarByCourse.do?cid=${c.cid}" class="btn btn-primary btn-sm">详情</a> --%>
+                            <a href="${ctxPath }/background/course/importStudents.jsp?cid=${c.cid}" class="btn btn-primary btn-sm">学生名单导入</a>
                         </td>
                     </tr>
           </c:forEach>

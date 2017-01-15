@@ -36,6 +36,10 @@ public class SemclatestServiceImpl implements SemclatestService{
 	
 	@Override
 	public int submitSemclatest(int cid, int seid, int sid, int qid, int aid) {
+		Question question = questionDAOImpl.findByIdBeVisited(qid);
+		if (question == null) {
+			return -1;
+		}
 		Course course = courseDAOImpl.findById(cid);
 		if (course == null) {
 			return -1;
@@ -48,14 +52,16 @@ public class SemclatestServiceImpl implements SemclatestService{
 		if (student == null) {
 			return -1;
 		}
-		Question question = questionDAOImpl.findById(qid);
-		if (question == null) {
-			return -1;
-		}
 		Answer answer = answerDAOImpl.findById(aid);
 		if (answer == null) {
 			return -1;
 		}
+		
+		Semclatest judge = semclatestDAOImpl.listBySeidAndSidAndQidBeVisited(seid,sid,qid);
+		if (judge != null) {
+			return -1;
+		}
+		
 		Semclatest semclatest = new Semclatest();
 		semclatest.setAnswer(answer);
 		semclatest.setCourse(course);

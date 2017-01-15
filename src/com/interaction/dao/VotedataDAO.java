@@ -10,4 +10,6 @@ public interface VotedataDAO {
 
 	int addVotedata(Votedata votedata);
 
+	Votedata listBySeidAndSidBeVisited(int seid, int sid);
+
 }

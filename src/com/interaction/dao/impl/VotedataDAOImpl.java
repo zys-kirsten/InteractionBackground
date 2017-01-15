@@ -40,6 +40,15 @@ public class VotedataDAOImpl extends HibernateDaoSupport implements VotedataDAO{
 		return Integer.parseInt(id.toString());
 	}
 
+	@Override
+	public Votedata listBySeidAndSidBeVisited(int seid, int sid) {
+		String hql = "from Votedata v where v.seminar.seId=? and v.student.sid=? and v.votequestion.beVisited=1";
+		List<Votedata> votedatas = getHibernateTemplate().find(hql,seid,sid);
+		if (votedatas == null || votedatas.size() == 0) {
+			return null;
+		}
+		return votedatas.get(0);
+	}
 	//执行原生的sql，但仍要求必须是数据库中存在的实体。返回vo不可以
 //	@Override
 //	public List<VotedataVo> listCurrentVotedataBySeidAndVqid(int seid, int vqid) {

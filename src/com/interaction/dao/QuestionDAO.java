@@ -25,5 +25,7 @@ public interface QuestionDAO {
 	public void updateQuestions(List<Question> questions);
 
 	public List<Question> listByCidAndSeidBeVisted(int cid, int seid);
+
+	public Question findByIdBeVisited(int qid);
 	
 }

@@ -33,6 +33,7 @@ public class UnquantizationFuzzyEvaluationServiceImpl implements UnquantizationF
     //评价结果提交
     @Override
 	public int submitEvaluations(List<AndroidEvaluationVo> list) {
+    	
 		int flag = -1;
 		if (list != null && list.size() != 0) {
 			for(AndroidEvaluationVo aev : list){
