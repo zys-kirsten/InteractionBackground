@@ -1,9 +1,7 @@
 package com.interaction.service.impl;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,7 +19,6 @@ import com.interaction.pojo.Seminarclass;
 import com.interaction.pojo.Teacher;
 import com.interaction.service.SeminarService;
 import com.interaction.utils.DateUtil;
-import com.interaction.vo.CourseVo;
 import com.interaction.vo.SeminarVo;
 
 @Service
@@ -233,5 +230,46 @@ public class SeminarServiceImpl implements SeminarService{
 			}
 		}
 		return p2v(seminars);
+	}
+
+	//列出可以选择的研讨课
+	@Override
+	public List<List<SeminarVo>> listSelectSeminar(int cid) {
+		List<Seminar> seminars = seminarDAOImpl.listByCourse(cid);
+		if (seminars == null || seminars.size() == 0) {
+			return null;
+		}
+		Course course = courseDAOImpl.findById(cid);
+		if (course == null) {
+			return null;
+		}
+		
+		int semNum = 0;
+		List<SeminarVo> seminarVos = p2v(seminars);
+		if (course.getSemNum() == null || course.getSemNum() > seminarVos.size()) {
+			semNum = seminarVos.size();
+		}else {
+			semNum = course.getSemNum();
+		}
+		
+		int eachGroupNum = seminarVos.size()/semNum;
+		int extraNum = seminarVos.size()%semNum;
+		
+		List<List<SeminarVo>> lists = new ArrayList<List<SeminarVo>>();
+		int index = 0;
+		
+		for(int i = 0; i < semNum; i++){
+			List<SeminarVo> temp = new ArrayList<SeminarVo>();
+			for (int j = 0; j < eachGroupNum; j++) {
+				temp.add(seminarVos.get(index++));
+			}
+			if (extraNum > 0) {
+				temp.add(seminarVos.get(index++));
+				extraNum--;
+			}
+			lists.add(temp);
+		}
+		
+		return lists;
 	}
 }

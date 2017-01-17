@@ -16,6 +16,7 @@ import com.interaction.dao.TeacherDAO;
 import com.interaction.dao.UnquantizationFuzzyEvaluationDAO;
 import com.interaction.dao.VotedataDAO;
 import com.interaction.dao.impl.StudentDAOImpl;
+import com.interaction.pojo.Course;
 import com.interaction.pojo.Seminarclass;
 
 
@@ -39,9 +40,9 @@ public class TestDao {
 		beanFactory =new ClassPathXmlApplicationContext("applicationContext.xml");
 		//studentDAOImpl =(StudentDAOImpl)beanFactory.getBean("studentDAOImpl");
 		//teacherDAOImpl = (TeacherDAO) beanFactory.getBean("teacherDAOImpl");
-		//courseDAOImpl = (CourseDAO) beanFactory.getBean("courseDAOImpl");
+		courseDAOImpl = (CourseDAO) beanFactory.getBean("courseDAOImpl");
 		//seminarDAOImpl = (SeminarDAO) beanFactory.getBean("seminarDAOImpl");
-		seminarclassDAOImpl = (SeminarclassDAO) beanFactory.getBean("seminarclassDAOImpl");
+		//seminarclassDAOImpl = (SeminarclassDAO) beanFactory.getBean("seminarclassDAOImpl");
 	   // questionDAOImpl = (QuestionDAO) beanFactory.getBean("questionDAOImpl");
 	   // answerDAOImpl = (AnswerDAO) beanFactory.getBean("answerDAOImpl");
 		//evaluationDAOImpl = (EvaluationDAO) beanFactory.getBean("evaluationDAOImpl");
@@ -57,17 +58,19 @@ public class TestDao {
 	public void test(){
 		getDao();
 		
+		Course course = courseDAOImpl.findById(1);
+		System.out.println(course.getSemNum());
 		
-		List<Seminarclass> seminarclasses = seminarclassDAOImpl.listByGroupNum(1, 1);
-		if (seminarclasses != null && seminarclasses.size() != 0) {
-			for(int i = 0;i<seminarclasses.size();i++){
-				System.out.println(seminarclasses.get(i).getGroupNum());
-//				System.out.println("第"+list.get(0).getGroupNum()+"组：");
-//				for(Seminarclass sc:list){
-//					System.out.print(sc.getStudent().getSid()+",");
-//				}
-			}
-		}
+//		List<Seminarclass> seminarclasses = seminarclassDAOImpl.listByGroupNum(1, 1);
+//		if (seminarclasses != null && seminarclasses.size() != 0) {
+//			for(int i = 0;i<seminarclasses.size();i++){
+//				System.out.println(seminarclasses.get(i).getGroupNum());
+////				System.out.println("第"+list.get(0).getGroupNum()+"组：");
+////				for(Seminarclass sc:list){
+////					System.out.print(sc.getStudent().getSid()+",");
+////				}
+//			}
+//		}
 		
 //		Student student = new Student();
 //		student.setSid(2);

@@ -60,6 +60,7 @@
         
         <th>课程名称</th>
         <th>开课学期</th>
+        <th>学生选择研讨课数目</th>
         
         <th>操作</th>
     </tr>
@@ -67,9 +68,10 @@
 	 <tbody>     
          <c:forEach items="${sessionScope.courses}" var="c">
                     <tr>
-                        <td>${c.cnumber}</td>
-                        <td>${c.cname}</td>
-                        <td>${c.cterm}</td>
+                        <td align="center">${c.cnumber}</td>
+                        <td align="center">${c.cname}</td>
+                        <td align="center">${c.cterm}</td>
+                        <td align="center">${c.semNum}</td>
                         <td>
                             <a href="${ctxPath }/listEditCourse.do?cid=${c.cid}" class="btn btn-primary btn-sm">修改</a>
                             <a href="${ctxPath }/deleteCourse.do?cid=${c.cid}" class="btn btn-primary btn-sm">删除</a>

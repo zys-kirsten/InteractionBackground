@@ -22,6 +22,9 @@
         <property name="cterm" type="java.lang.String">
             <column name="Cterm" length="15" not-null="true" />
         </property>
+        <property name="semNum" type="java.lang.Integer">
+            <column name="SemNum"/>
+        </property>
         <set name="classes" inverse="true">
             <key>
                 <column name="CId" not-null="true" />

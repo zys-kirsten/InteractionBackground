@@ -48,14 +48,6 @@
 <body>
 
 	<table class="table table-bordered table-hover definewidth m10">
-    <thead>
-    <tr>
-        <th>课堂模式名称</th>
-        <th>应用到的研讨课</th>
-        <th>课堂分组时间</th>
-        <th>操作</th>
-    </tr>
-    </thead>
 	 <tbody>     
          <c:forEach items="${sessionScope.classModuleVos}" var="cmvs">
                     <tr>
@@ -68,7 +60,7 @@
                         </td>
                         <td>
                           <c:choose>
-                            <c:when test="${cmvs.groupTime==1}">课上分组</c:when>
+                            <c:when test="${seminar.seName}=1">课上分组</c:when>
                             <c:otherwise>课前分组</c:otherwise>
                           </c:choose>
                           

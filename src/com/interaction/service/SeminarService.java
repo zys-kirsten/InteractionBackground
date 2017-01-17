@@ -18,5 +18,6 @@ public interface SeminarService {
 	public Seminar findBySeName(Integer cid, String string);
 	public void executeCourseSelect(int parseInt, String string);
 	public List<SeminarVo> listByCidAndSid(int cid, int sid);
+	public List<List<SeminarVo>> listSelectSeminar(int cid);
 
 }

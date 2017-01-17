@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.interaction.pojo.Course;
 import com.interaction.pojo.Seminar;
 import com.interaction.service.ClassModuleService;
+import com.interaction.service.SeminarClassService;
 import com.interaction.service.SeminarService;
 import com.interaction.utils.SessionUtil;
 import com.interaction.vo.ClassModuleVo;
@@ -24,6 +25,8 @@ public class ClassModuleController {
 	private ClassModuleService classModuleServiceImpl;
 	@Resource
 	private SeminarService seminarServiceImpl;
+	@Resource
+	private SeminarClassService seminarClassServiceImpl;
 	
 	//修改配置前回显配置信息
 	@RequestMapping("/editClassModule")

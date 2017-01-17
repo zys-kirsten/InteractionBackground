@@ -68,6 +68,7 @@ public class CourseServiceImpl implements CourseService{
 		courseVo.setCname(course.getCname());
 		courseVo.setCnumber(course.getCnumber());
 		courseVo.setCterm(course.getCterm());
+		courseVo.setSemNum(course.getSemNum());
 		
 		Teacher teacher = teacherDAOImpl.findById(course.getTeacher().getTid());
 		
@@ -85,6 +86,7 @@ public class CourseServiceImpl implements CourseService{
 		course.setCname(courseVo.getCname());
 		course.setCnumber(courseVo.getCnumber());
 		course.setCterm(courseVo.getCterm());
+		course.setSemNum(courseVo.getSemNum());
 		course.setTeacher(teacherDAOImpl.findById(courseVo.getTid()));	
 		return course;
 	}

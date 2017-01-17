@@ -60,8 +60,8 @@
 	  <tr>
         <td class="tableleft">开课学期</td>
         <td><input type="text" id="cterm" name="cterm"/><font style="color:red"> *</font></td>
-        <td class="tableleft">备注</td>
-        <td><input type="text" name="cremark"/></td>
+        <td class="tableleft">学生选择研讨课数目</td>
+        <td><input type="text" id="semNum" name="semNum"/><font style="color:red"> *</font></td>
       </tr>	
  	</table>
   </td>

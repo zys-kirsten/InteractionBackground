@@ -34,7 +34,7 @@ public class Classmodule implements java.io.Serializable {
 	/** full constructor */
 	public Classmodule(Integer cmid, Course course, String moduleName,
 			Integer groupNum, Integer groupTime, Integer proNum,
-			Integer proTime, Set classmoduleseminars) {
+			Integer proTime,Set classmoduleseminars) {
 		this.cmid = cmid;
 		this.course = course;
 		this.moduleName = moduleName;
@@ -103,6 +103,7 @@ public class Classmodule implements java.io.Serializable {
 		this.proTime = proTime;
 	}
 
+	
 	public Set getClassmoduleseminars() {
 		return this.classmoduleseminars;
 	}

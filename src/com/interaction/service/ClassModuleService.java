@@ -18,4 +18,5 @@ public interface ClassModuleService {
 
 	Integer listOneAttribute(int seid, String condition);
 
+
 }

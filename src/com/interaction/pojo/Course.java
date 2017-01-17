@@ -16,6 +16,7 @@ public class Course implements java.io.Serializable {
 	private String cnumber;
 	private String cname;
 	private String cterm;
+	private Integer semNum;
 	private Set classes = new HashSet(0);
 	private Set classmodules = new HashSet(0);
 	private Set questions = new HashSet(0);
@@ -156,5 +157,15 @@ public class Course implements java.io.Serializable {
 	public void setSemclatests(Set semclatests) {
 		this.semclatests = semclatests;
 	}
+
+	public Integer getSemNum() {
+		return semNum;
+	}
+
+	public void setSemNum(Integer semNum) {
+		this.semNum = semNum;
+	}
+	
+	
 
 }

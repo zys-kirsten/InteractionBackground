@@ -104,17 +104,20 @@ function addCourse(){
 		  co.cterm.focus();
 		  return;
 		}
-	 
+	  if(co.semNum.value==""){
+		  co.semNum.placeholder="不能为空!";
+		  co.semNum.focus();
+		  return;
+		}
 	  var projectUrl = co.currentUrl.value; 
-	//  var currentUrl1 ="/IB";
 	  var url= projectUrl+"/addCourse.do";
 	  
 	 if(co.cid.value=="") {
 		 //添加课程
-		  data= {"cnumber":co.cnumber.value,"cname":co.cname.value,"cterm":co.cterm.value};
+		  data= {"cnumber":co.cnumber.value,"cname":co.cname.value,"cterm":co.cterm.value,"semNum":co.semNum.value};
 	 }else{
 		 //修改课程
-		  data= {"cnumber":co.cnumber.value,"cname":co.cname.value,"cterm":co.cterm.value,"cid":co.cid.value};
+		  data= {"cnumber":co.cnumber.value,"cname":co.cname.value,"cterm":co.cterm.value,"cid":co.cid.value,"semNum":co.semNum.value};
 	 }
 	 $.post(url,data,function(msg){
 	    	if(msg!="fail"){

@@ -7,9 +7,18 @@ public class CourseVo {
 	private String cnumber;
 	private String cname;
 	private String cterm;
+	private Integer semNum;
 	
 	private Integer tid;
 	private String tname;
+	
+	
+	public Integer getSemNum() {
+		return semNum;
+	}
+	public void setSemNum(Integer semNum) {
+		this.semNum = semNum;
+	}
 	public Integer getCid() {
 		return cid;
 	}

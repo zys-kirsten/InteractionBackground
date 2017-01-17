@@ -94,11 +94,12 @@ public class StudentController {
 	//学生查看选课列表（需要判断标志位）
 	@RequestMapping("/stuListSelectSeminar")
 	public void stuListSelectSeminar(@RequestParam("cid")String cid,HttpServletResponse response) throws IOException{
-		
+		List<List<SeminarVo>> selectseminars = seminarServiceImpl.listSelectSeminar(Integer.parseInt(cid));
+		JsonUtils.toJson(response, "selectseminars", selectseminars);
 	}
 	
 	
-	//学生选课（需要修改，判断上下限）(线程加锁)
+	//学生选课(线程加锁)
 	@RequestMapping("/stuSelectSeminar")
 	public void stuSelectSeminar(@RequestParam("cid")String cid,@RequestParam("seid")String seid,@RequestParam("sid")String sid,HttpServletResponse response) throws IOException{
 		int flag = -1;

@@ -95,7 +95,6 @@ public class ClassModuleVo {
 	public void setSeminars(List<Seminar> seminars) {
 		this.seminars = seminars;
 	}
-	
 
 	
 //	@Override
