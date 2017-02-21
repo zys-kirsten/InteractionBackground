@@ -68,7 +68,10 @@ default-lazy-init="true" default-init-method="init" default-destroy-method="dest
 			    <value>com/interaction/pojo/Votedata.hbm.xml</value>
 			    <value>com/interaction/pojo/Votequestion.hbm.xml</value>
 			    <value>com/interaction/pojo/Responderdata.hbm.xml</value>
-			    <value>com/interaction/pojo/Seminarscore.hbm.xml</value>	
+			    <value>com/interaction/pojo/Seminarscore.hbm.xml</value>
+			    <value>com/interaction/pojo/Seminarpoint.hbm.xml</value>
+			    <value>com/interaction/pojo/Seminarpointfeedback.hbm.xml</value>
+			    <value>com/interaction/pojo/Wrongquestion.hbm.xml</value>	
 			</list>
 		</property>
 	</bean>

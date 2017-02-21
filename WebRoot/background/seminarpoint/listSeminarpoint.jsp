@@ -43,36 +43,34 @@
 </head>
 <body >
 <br>
-&nbsp;&nbsp;
-<font color="#777777"><strong>${sessionScope.seminarVos[0].cname}</strong></font> 
+ <font color="#777777" size="5"><strong>&nbsp;&nbsp;&nbsp;&nbsp;${sessionScope.seminar.seName} </strong></font>
 <table class="table table-bordered table-hover definewidth m10">
     <thead>
     <tr>
-        <th>研讨课名称</th>
-        <th>研讨课主题</th>
-        <th>时间</th>
-        <th>人数上限</th>
-        <th>人数下限</th>
-        
-        <th>操作</th>
+        <th style="text-align:center;">知识点</th>
+        <th style="text-align:center;">操作</th>
     </tr>
     </thead>
 	 <tbody>     
-         <c:forEach items="${sessionScope.seminarVos}" var="svs">
+         <c:forEach items="${sessionScope.seminarpoints}" var="sps">
                     <tr>
-                        <td>${svs.seName}</td>
-                        <td>${svs.seTheme}</td>
-                        <td>${svs.seTime}</td>
-                        <td>${svs.seUp}</td>
-                        <td>${svs.seDown}</td>
-                        <td>
-                            <a href="${ctxPath }/editSeminar.do?seId=${svs.seId}&cid=${svs.cid}" class="btn btn-primary btn-sm">修改</a>
-                            <a href="${ctxPath }/deleteSeminar.do?seId=${svs.seId}&cid=${svs.cid}" class="btn btn-primary btn-sm">删除</a>
-                            <a href="${ctxPath }/listSeminarpoint.do?seId=${svs.seId}" class="btn btn-primary btn-sm">知识点列表</a>
+                        <td style="text-align:center;">${sps.content}</td>
+                        <td style="text-align:center;">
+                          <a href="${ctxPath }/editSeminarpoint.do?spid=${sps.spid}" class="btn btn-primary btn-sm">修改</a>
+                          <a href="${ctxPath }/deleteSeminarpoint.do?spid=${sps.spid}&seId=${sps.seminar.seId}" class="btn btn-primary btn-sm">删除</a>
                         </td>
                     </tr>
           </c:forEach>
+          
       </tbody>         
+    </table>
+    <br>
+    <table align="center">
+       <tr>
+         <td style="text-align:center;">
+            <a href="${ctxPath }/background/seminarpoint/addSeminarpoint.jsp?seId=${sessionScope.seminar.seId}" class="btn btn-primary btn-sm">添加知识点</a>
+         </td>
+       </tr>
     </table>
 
 </body>

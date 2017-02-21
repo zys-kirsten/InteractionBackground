@@ -1,7 +1,6 @@
 package com.interaction.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,14 +10,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.interaction.pojo.Course;
 import com.interaction.pojo.Seminar;
 import com.interaction.pojo.Teacher;
 import com.interaction.service.SeminarService;
 import com.interaction.utils.SessionUtil;
-import com.interaction.vo.CourseVo;
 import com.interaction.vo.SeminarVo;
 
 
@@ -57,7 +54,6 @@ public class SeminarController {
 		Teacher teacher = getTeacher();
 		seminarVo.setCid(course.getCid());
 		seminarVo.setTid(teacher.getTid());
-		System.out.println(seminarVo+"********");
 		int result = -1;
 
 		if (seminarVo.getSeId() == null) {
@@ -85,34 +81,9 @@ public class SeminarController {
 	//列出某一课程的所有研讨课
 	@RequestMapping("/listSeminarByCourse")
 	public String listSeminarByCourse(@RequestParam(value="cid") Integer cid){
-//		if(cid == null){
-//			return "error";
-//		}
-//		List<SeminarVo> sVos = seminarServiceImpl.listByCourse(cid);
-//	    SessionUtil.getMySession().setAttribute("seminarVos", sVos);
 		listCourseSeminar();
 		return "listSeminar";
 	}
-	
-//	//列出某一教师的所有研讨课
-//	@RequestMapping("/listSeminar")
-//	public String listSeminarByTeacher(@RequestParam(value="tid") Integer tid){
-//		ModelAndView modelAndView = new ModelAndView();
-//		
-//		if(tid == null){
-//			modelAndView.setViewName("error");
-//			return modelAndView;
-//		}
-//		List<SeminarVo> sVos = seminarServiceImpl.listByTeacher(tid);
-//	   
-//		if(sVos == null || sVos.size() == 0){
-//			modelAndView.setViewName("error");
-//		}else {
-//			modelAndView.setViewName("seminarDisplay");
-//		    modelAndView.addObject("seminarVos", sVos);
-//		}		
-//		return modelAndView;
-//	}
 	
 	//列出某一位教师有研讨课的所有课程
 	@RequestMapping("/listHaveSeminarCourse")
