@@ -1,4 +1,41 @@
-﻿//研讨课登录前选择课程
+﻿//====================元系统相关==============================
+//元系统管理员登录
+function doSystemlogin(){
+	var th = document.form1;
+	if(th.aaccount.value==""){
+		th.aaccount.placeholder="不能为空!";
+		th.aaccount.focus();
+		return;
+	}
+	if(th.apwd.value==""){
+		th.apwd.placeholder="不能为空!";
+		th.apwd.focus();
+		return;
+	}
+	var url = "systemLoginCheck.do";
+	data= {"aaccount":th.aaccount.value,"apwd":th.apwd.value}
+	$.post(url,data,function(msg){	
+		if(msg == "success"){
+			window.location.href="adminBackground/systemIndex.jsp";
+		}else if(msg=="success2"){
+			window.location.href="adminBackground/developerIndex.jsp";
+		}else if(msg == "wrong"){
+			th.apwd.value="";
+			th.apwd.placeholder="密码错误!";
+			th.apwd.focus();
+			return;
+		}else{
+			th.aaccount.value="";
+			th.apwd.value="";
+			th.apwd.placeholder="密码";
+			th.aaccount.placeholder="用户名不存在!";
+			th.aaccount.focus();
+			return;
+		}
+	})
+}
+//==============================================================
+//研讨课登录前选择课程
 function chooseCourse(){
 var th = document.form1;
 	 var projectUrl = th.currentUrl.value;

@@ -212,15 +212,15 @@ float:left;
 	<div class="top2">
 	<br/>
 		<div class="title" >
-			<h2>翻转课堂后台管理</h2>
+			<h2>翻转课堂元系统</h2>
 		</div>
 		<div class="fr top-link">
 			<a href="admin_list.html" target="mainCont"><i
 				class="adminIcon"></i>
 				<span>
-				   <c:set var="t" scope="session" value="${teacher}"/>
+				   <c:set var="t" scope="session" value="${admin}"/>
                       <c:if test="${not empty t}">
-                             <c:out value="${t.tname}"/>
+                             <c:out value="${admin.aname}"/>
                       </c:if>
                 </span>&nbsp;</a> 
 		</div>
@@ -231,26 +231,42 @@ float:left;
 		<div class="div1">
            <div class="div2">
 				<div class="spgl"></div>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				课程信息管理
+				&nbsp;
+				教师管理
 			</div>
 			<div class="div3">
-				<li><a class="a" href="${ctxPath }/listCourse.do" target="rightFrame">查看已有课程</a></li>
-				<li><a class="a" href="${ctxPath }/background/course/addCourse.jsp" target="rightFrame">添加课程</a></li>
-			   
+				<li><a class="a" href="${ctxPath }/adminListTeacher.do" target="rightFrame">查看教师列表</a></li>
 			</div>
 			<div class="div2">
 				<div class="spgl"></div>
-				功能配置
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				开发者管理
 			</div>
 			<div class="div3">
-				<li><a class="a" href="${ctxPath }/teacherListComponent.do?tid=${teacher.tid}" target="rightFrame">查看已有功能</a></li>
-				<li><a class="a" href="${ctxPath }/teacherListComponentBeforeConfig.do" target="rightFrame">配置新功能</a></li>
+				<li><a class="a" href="${ctxPath }/adminListDeveloper.do" target="rightFrame">查看开发者列表</a></li>
+				<li><a class="a" href="${ctxPath }/listCourse.do" target="rightFrame">添加开发者</a></li>
 			</div>
-			<a class="a1" href="../logout.do"><div class="div2">
-					<div class="tcht"></div>
-					退出
-				</div></a>
+			<div class="div2">
+				<div class="spgl"></div>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				功能构件管理
+			</div>
+			<div class="div3">
+				<li><a class="a" href="${ctxPath }/adminListComponent.do" target="rightFrame">查看功能构件</a></li>
+			</div>
+			<div class="div2">
+				<div class="spgl"></div>
+				&nbsp;
+				菜单管理
+			</div>
+			<div class="div3">
+				<li><a class="a" href="${ctxPath }/adminListMenu.do" target="rightFrame">查看菜单</a></li>
+				<li><a class="a" href="${ctxPath }/adminBeforeAddMenu.do" target="rightFrame">添加菜单</a></li>
+			</div>
+			<a class="a1" href="${ctxPath }/adminLogout.do"><div class="div2">
+			<div class="tcht"></div>
+				退出
+			</div></a>
 		</div>
 	</div>
 

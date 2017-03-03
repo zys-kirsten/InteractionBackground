@@ -1,5 +1,7 @@
 package com.interaction.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -33,6 +35,11 @@ public class TeacherServiceImpl implements TeacherService{
 	@Override
 	public Teacher listByAccount(String taccount) {
 		return teacherDAOImpl.listByAccount(taccount);
+	}
+
+	@Override
+	public List<Teacher> listAllTeachers() {
+		return teacherDAOImpl.listAllTeachers();
 	}
 
 }

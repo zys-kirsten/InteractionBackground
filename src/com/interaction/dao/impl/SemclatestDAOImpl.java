@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.interaction.dao.SemclatestDAO;
 import com.interaction.pojo.Semclatest;
-import com.interaction.pojo.Votequestion;
 
 @Repository
 public class SemclatestDAOImpl extends HibernateDaoSupport implements SemclatestDAO {

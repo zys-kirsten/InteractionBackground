@@ -1,5 +1,7 @@
 package com.interaction.service;
 
+import java.util.List;
+
 import com.interaction.pojo.Teacher;
 
 public interface TeacherService {
@@ -11,5 +13,7 @@ public interface TeacherService {
 	Teacher login(String taccount);
 
 	Teacher listByAccount(String taccount);
+
+	List<Teacher> listAllTeachers();
 
 }

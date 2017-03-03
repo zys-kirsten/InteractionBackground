@@ -59,5 +59,15 @@ public class TeacherDAOImpl extends HibernateDaoSupport implements TeacherDAO {
 			return null;
 		return teacher.get(0);
 	}
+
+
+	@Override
+	public List<Teacher> listAllTeachers() {
+		String hql="from Teacher";
+		List<Teacher> teachers = getHibernateTemplate().find(hql);
+		if(teachers==null || teachers.size() == 0)
+			return null;
+		return teachers;
+	}
 	
 }
