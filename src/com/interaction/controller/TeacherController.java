@@ -20,6 +20,7 @@ import com.interaction.pojo.Teacher;
 import com.interaction.service.ClassModuleService;
 import com.interaction.service.CourseService;
 import com.interaction.service.EvaluationElementService;
+import com.interaction.service.FunctioncomponentService;
 import com.interaction.service.QuestionService;
 import com.interaction.service.ResponderdataService;
 import com.interaction.service.SeminarClassService;
@@ -31,6 +32,7 @@ import com.interaction.service.VotequestionService;
 import com.interaction.utils.JsonUtils;
 import com.interaction.utils.SessionUtil;
 import com.interaction.vo.AndroidEvaluationVo;
+import com.interaction.vo.ComponentVo;
 import com.interaction.vo.CourseVo;
 import com.interaction.vo.EvaluateKeys;
 import com.interaction.vo.GroupVo;
@@ -49,6 +51,8 @@ public class TeacherController {
 	private TeacherService teacherServiceImpl;
 	@Resource
 	private CourseService courseServiceImpl;
+	@Resource
+	private FunctioncomponentService functioncomponentServiceImpl;
 	@Resource  
 	private SeminarService seminarServiceImpl;
 	@Resource
@@ -628,10 +632,12 @@ public class TeacherController {
 		Teacher teacher = (Teacher) SessionUtil.getMySession().getAttribute("teacher");
 		Course course = courseServiceImpl.listCourseByName(teacher.getTid(),cname);
 		List<Evaluationelement> evaluationelements = evaluationElementServiceImpl.listCourseSixEvaluationElements(course.getCid());
+		List<ComponentVo> componentVos = functioncomponentServiceImpl.listTeacherFunction(teacher.getTid());
 		String msg = "fail";
 		if (course != null) {
 			SessionUtil.getMySession().setAttribute("course", course);
 			SessionUtil.getMySession().setAttribute("evaluationelements", evaluationelements);
+			SessionUtil.getMySession().setAttribute("componentVos", componentVos);
 			msg = "success";
 		}
 		response.getWriter().print(msg);

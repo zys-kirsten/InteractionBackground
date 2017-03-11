@@ -285,32 +285,21 @@ float:left;
 				</ul>
 			</div> 
 			
-			<!-- <div class="div2">
-				<div class="gggl"></div>
-				评价管理
-			</div>
-			<div class="div3">
-
-				<ul>
-					<li><a class="a" href="javascript:void(0);"
-						onClick="openurl('deletecomment.html');">评价删除</a></li>
-					<li><a class="a" href="javascript:void(0);"
-						onClick="openurl('useredit.html');">用户禁言</a></li>
-				</ul>
-
-			</div> -->
-		<!-- 	<div class="div2">
-				<div class="pjgl"></div>
-				公告管理
+			<c:forEach items="${sessionScope.componentVos}" var="cvs">
+			<div class="div2">
+				<div class="spgl"></div>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				${cvs.mname}
 			</div>
 			<div class="div3">
 				<ul>
-					<li><a class="a" href="javascript:void(0);"
-						onClick="openurl('afficheQuery.html');">查看公告</a></li>
-					<li><a class="a" href="javascript:void(0);"
-						onClick="openurl('afficheAdd.html');">添加公告</a></li>
+				<c:forEach items="${cvs.functioncomponentVos}" var="cv">
+					<li><a class="a" href="${ctxPath }/${cv.url}" target="rightFrame">${cv.fcname }</a></li>
+				</c:forEach>
 				</ul>
-			</div> -->
+			</div>
+		</c:forEach>	
+			
 			<a class="a1" href="../logout.do"><div class="div2">
 					<div class="tcht"></div>
 					退出后台

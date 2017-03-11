@@ -82,7 +82,7 @@
                           </c:otherwise>
                         </c:choose>
                         <td>
-                            <a href="${ctxPath }/editSeminar.do?seId=${svs.seId}&cid=${svs.cid}" class="btn btn-primary btn-sm">修改</a>
+                            <a href="${ctxPath }/editSeminar.do?seId=${svs.seId}&cid=${svs.cid}" class="btn btn-primary btn-sm">验证</a>
                             <a href="${ctxPath }/deleteSeminar.do?seId=${svs.seId}&cid=${svs.cid}" class="btn btn-primary btn-sm">删除</a>
                         </td>
                     </tr>

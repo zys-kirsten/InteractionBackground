@@ -1,0 +1,6 @@
+<tr align="center">
+	<td >
+	    <input type="submit" value="$yes" class="btn btn-primary">&nbsp;&nbsp;
+        <input type="reset" value="$no" class="btn btn-primary">	
+    </td>
+ </tr>

@@ -1,0 +1,12 @@
+package com.interaction.service;
+
+import java.util.List;
+
+import com.interaction.pojo.${classNameUpCase};
+
+public interface ${classNameUpCase}Service {
+
+	public int add${classNameUpCase}(${classNameUpCase} ${classNameLowCase});
+	public List<${classNameUpCase}> list${classNameUpCase}();
+
+}

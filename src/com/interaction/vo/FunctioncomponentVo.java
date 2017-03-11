@@ -14,6 +14,18 @@ public class FunctioncomponentVo {
 	
 	private Integer mid;
 	private String mname;
+	
+	private boolean flag = false; //为了功能菜单显示
+	
+	
+	public boolean getFlag() {
+		return flag;
+	}
+
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
+
 	public Integer getFcid() {
 		return fcid;
 	}

@@ -11,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.interaction.pojo.Admin;
-import com.interaction.pojo.Functioncomponent;
-import com.interaction.pojo.Menu;
 import com.interaction.pojo.Teacher;
 import com.interaction.service.AdminService;
 import com.interaction.service.FunctioncomponentService;

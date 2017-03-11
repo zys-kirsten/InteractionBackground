@@ -1,0 +1,28 @@
+package com.interaction.service.impl;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.interaction.dao.${classNameUpCase}DAO;
+import com.interaction.pojo.${classNameUpCase};
+import com.interaction.service.${classNameUpCase}Service;
+
+@Service
+public class ${classNameUpCase}ServiceImpl implements ${classNameUpCase}Service{
+
+	@Resource
+	private ${classNameUpCase}DAO ${classNameLowCase}DAOImpl;
+
+	@Override
+	public int add${classNameUpCase}(${classNameUpCase} ${classNameLowCase}) {
+		return ${classNameLowCase}DAOImpl.add${classNameUpCase}(${classNameLowCase});
+	}
+
+	@Override
+	public List<${classNameUpCase}> list${classNameUpCase}() {
+		return ${classNameLowCase}DAOImpl.list${classNameUpCase}();
+	}
+}

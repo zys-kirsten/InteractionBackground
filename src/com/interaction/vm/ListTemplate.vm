@@ -1,0 +1,29 @@
+#include('com/interaction/vm/PageHead.vm')
+<body >
+<br>
+
+<table class="table table-bordered table-hover definewidth m10">
+   <thead>
+    <tr>
+      #foreach($elem in $descs)
+        <th>$elem</th>
+      #end
+    </tr>
+    </thead>
+	 <tbody>     
+         <c:forEach items="${className}" var="v">
+	        <tr>
+	             #foreach($ele in $attrs)
+			       <td>$ele </td>
+			      #end
+	            <td>
+	                <a href="" class="btn btn-primary btn-sm">$yes</a>
+	                <a href="" class="btn btn-primary btn-sm">$no</a>
+	            </td>
+	        </tr>
+          </c:forEach>
+      </tbody>         
+    </table>
+
+</body>
+</html>

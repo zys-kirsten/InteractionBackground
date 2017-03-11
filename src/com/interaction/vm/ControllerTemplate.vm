@@ -1,0 +1,36 @@
+package com.interaction.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.interaction.pojo.${classNameUpCase};
+import com.interaction.service.${classNameUpCase}Service;
+import com.interaction.utils.SessionUtil;
+
+@Controller
+public class ${classNameUpCase}Controller{
+	@Resource
+	private ${classNameUpCase}Service ${classNameLowCase}ServiceImpl;
+	
+	public String to${classNameUpCase}Add() {
+		return "${classNameLowCase}/${classNameLowCase}Add.jsp";
+	}
+	
+	public String ${classNameLowCase}Add(${classNameUpCase} ${classNameLowCase}) {
+		${classNameLowCase}ServiceImpl.add(${classNameLowCase});
+		return list${classNameUpCase}();
+	}
+	
+	public String list${classNameUpCase}() {
+		List<${classNameUpCase}> ${classNameLowCase}s = ${classNameLowCase}ServiceImpl.list${classNameUpCase}();
+		SessionUtil.getMySession().setAttribute("${classNameLowCase}s", ${classNameLowCase}s);
+		return "${classNameLowCase}/list${classNameUpCase}";
+	}
+}

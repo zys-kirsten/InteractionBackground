@@ -1,0 +1,39 @@
+package com.interaction.dao.impl;
+
+import java.util.List;
+
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
+
+import com.interaction.dao.${classNameUpCase}DAO;
+import com.interaction.pojo.${classNameUpCase};
+
+@Repository
+public class ${classNameUpCase}DAOImpl extends HibernateDaoSupport implements ${classNameUpCase}DAO {
+
+	@Autowired
+	public void setMysessionFactory(SessionFactory sessionFactory) {
+		super.setSessionFactory(sessionFactory);	
+	}
+
+	@Override
+	public int add${classNameUpCase}(${classNameUpCase} ${classNameLowCase}) {
+
+		Serializable id = getHibernateTemplate().save(${classNameLowCase});
+		if (id == null || id.toString().length() == 0) {
+			return -1;
+		}
+		return Integer.parseInt(id.toString());
+	}
+	
+	@Override
+	public List<${classNameUpCase}> list${classNameUpCase}() {
+		String hql = "from ${classNameUpCase}";
+		List<${classNameUpCase}> ${classNameLowCase}s = getHibernateTemplate().find(hql);
+		if(${classNameLowCase}s == null || ${classNameLowCase}s.size() == 0)
+			return null;
+		return ${classNameLowCase}s;
+	}
+}

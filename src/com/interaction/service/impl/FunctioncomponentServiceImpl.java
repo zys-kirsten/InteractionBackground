@@ -17,6 +17,7 @@ import com.interaction.pojo.Menu;
 import com.interaction.pojo.Teacher;
 import com.interaction.pojo.Teacherfunction;
 import com.interaction.service.FunctioncomponentService;
+import com.interaction.vo.ComponentVo;
 import com.interaction.vo.FunctioncomponentVo;
 
 @Service
@@ -154,7 +155,7 @@ public class FunctioncomponentServiceImpl implements FunctioncomponentService{
 		
 		List<Teacherfunction> tfs = teacherfunctionDAOImpl.listByTid(tid);
 		if (tfs == null || tfs.size() == 0) {
-			return null;
+			return p2v(fcpos);
 		}
 		
 		List<FunctioncomponentVo> fcvos = new ArrayList<FunctioncomponentVo>();
@@ -198,5 +199,43 @@ public class FunctioncomponentServiceImpl implements FunctioncomponentService{
 			}
 		}
 		return 1;
+	}
+
+	//教师登录时，页面加载教师配置的功能
+	@Override
+	public List<ComponentVo> listTeacherFunction(Integer tid) {
+		List<Teacherfunction> tfs = teacherfunctionDAOImpl.listByTid(tid);
+		
+		List<FunctioncomponentVo> fcvos = listByTid(tid);
+		if (fcvos == null || fcvos.size() == 0) {
+			return null;
+		}
+		
+		List<ComponentVo> componentVos = fv2cv(fcvos);
+		return componentVos;
+	}
+
+	//工具方法：将functioncomponentvo转换成componentvo
+	private List<ComponentVo> fv2cv(List<FunctioncomponentVo> fcvos) {
+		List<ComponentVo> cvos = new ArrayList<ComponentVo>();
+		
+		for (int i = 0; i < fcvos.size(); i++) {
+			if (!fcvos.get(i).getFlag()) {
+				ComponentVo componentVo = new ComponentVo();
+				String mname = fcvos.get(i).getMname();
+				List<FunctioncomponentVo> temp = new ArrayList<FunctioncomponentVo>();
+				for (int j = i; j < fcvos.size(); j++) {
+					if (fcvos.get(j).getFlag() == false && fcvos.get(j).getMname().equals(mname)) {
+						temp.add(fcvos.get(j));
+						fcvos.get(j).setFlag(true);
+					}
+				}
+				componentVo.setMid(fcvos.get(i).getMid());
+				componentVo.setMname(mname);
+				componentVo.setFunctioncomponentVos(temp);
+				cvos.add(componentVo);
+			}
+		}
+		return cvos;
 	}
 }
