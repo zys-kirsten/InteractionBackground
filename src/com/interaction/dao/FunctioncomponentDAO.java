@@ -13,6 +13,12 @@ public interface FunctioncomponentDAO {
 	int addFunctioncomponent(Functioncomponent functioncomponent);
 
 	Functioncomponent findById(Integer fcid);
+
+	void deleteFunctioncomponent(Functioncomponent functioncomponent);
+
+	int updateFunctioncomponent(Functioncomponent functioncomponent);
+
+	List<Functioncomponent> listStartFunctioncomponent();
 	
 	
 

@@ -2,7 +2,6 @@ package com.interaction.service;
 
 import java.util.List;
 
-import com.interaction.pojo.Menu;
 import com.interaction.pojo.Teacher;
 import com.interaction.vo.ComponentVo;
 import com.interaction.vo.FunctioncomponentVo;
@@ -24,5 +23,13 @@ public interface FunctioncomponentService {
 	int addTeacherFunctionComponent(Teacher teacher, String[] checkChoose);
 
 	List<ComponentVo> listTeacherFunction(Integer tid);
+
+	void deleteByFcid(Integer fcid);
+
+	FunctioncomponentVo findByFcid(Integer fcid);
+
+	int updateFunctioncomponent(FunctioncomponentVo functioncomponentVo);
+
+	void startFunctioncomponent(Integer fcid);
 
 }

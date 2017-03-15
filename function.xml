@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module name="数据分析" author="zys" desc="学生课前反馈数据分析">
+    <function id="SeminarPointFeedbackList" type="query" classNameUpCase="Seminarpointfeedback" 
+       classNameLowCase="seminarpointfeedback" entityUrl="com/interaction/pojo/Seminarpointfeedback">
+        <attrs>
+	        <attr attrName="content" desc="知识点内容"></attr>
+	        <attr attrName="sname" desc="学生姓名"></attr>
+	        <attr attrName="time" desc="反馈时间"></attr>
+	        <attr attrName="result" desc="反馈结果"></attr>
+        </attrs>
+        <paras>
+            <controller paraName="tid" value="1"></controller>
+            <controller paraName="seId" value="1"></controller>
+        </paras>
+    </function>
+</module>

@@ -42,4 +42,15 @@ public class TeacherServiceImpl implements TeacherService{
 		return teacherDAOImpl.listAllTeachers();
 	}
 
+	@Override
+	public void deleteTeacherByTid(Integer tid) {
+
+		Teacher teacher = teacherDAOImpl.findById(tid);
+		if (teacher == null) {
+			return ;
+		}
+		
+		teacherDAOImpl.deleteTeacher(teacher);
+	}
+
 }

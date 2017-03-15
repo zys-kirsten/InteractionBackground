@@ -40,6 +40,23 @@
            }
 
     </style>
+    
+ <script type="text/javascript">
+//管理员验证功能构件
+ function adminJudgeComponent(fcid){
+	 var url = "${ctxPath}/adminJudgeComponent.do";
+	 data = {"fcid":fcid};
+	 $.post(url,data,function(msg){
+		 if(msg=="success"){
+           alert("功能存在，验证成功！");
+		 }else{
+		   alert("功能不存在，验证失败！");
+		 }
+	 });
+	
+ };
+
+ </script>   
 </head>
 <body >
 <br>
@@ -76,15 +93,16 @@
                         <c:choose>
                           <c:when test="${fcs.state==0}">
                             <td>未启用</td>
+                            <td>
+                               <button class="btn btn-primary btn-sm" onclick="adminJudgeComponent(${fcs.fcid});">验证</button>
+                               <a href="${ctxPath }/adminStartComponent.do?fcid=${fcs.fcid}" class="btn btn-primary btn-sm">启用</a>
+                               <a href="${ctxPath }/adminDeleteComponent.do?fcid=${fcs.fcid}" class="btn btn-primary btn-sm">删除</a>
+                            </td>
                           </c:when>
                           <c:otherwise>
                             <td>启用</td>
                           </c:otherwise>
                         </c:choose>
-                        <td>
-                            <a href="${ctxPath }/editSeminar.do?seId=${svs.seId}&cid=${svs.cid}" class="btn btn-primary btn-sm">验证</a>
-                            <a href="${ctxPath }/deleteSeminar.do?seId=${svs.seId}&cid=${svs.cid}" class="btn btn-primary btn-sm">删除</a>
-                        </td>
                     </tr>
           </c:forEach>
       </tbody>         

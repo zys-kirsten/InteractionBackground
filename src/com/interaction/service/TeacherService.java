@@ -16,4 +16,6 @@ public interface TeacherService {
 
 	List<Teacher> listAllTeachers();
 
+	void deleteTeacherByTid(Integer tid);
+
 }

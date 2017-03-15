@@ -212,7 +212,7 @@ float:left;
 	<div class="top2">
 	<br/>
 		<div class="title" >
-			<h2>翻转课堂后台管理</h2>
+			<h2>翻转课堂元系统</h2>
 		</div>
 		<div class="fr top-link">
 			<a href="admin_list.html" target="mainCont"><i

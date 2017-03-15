@@ -12,4 +12,8 @@ public interface AdminDAO {
 
 	Admin findById(Integer aid);
 
+	void deleteAdmin(Admin admin);
+
+	int addDeveloper(Admin admin);
+
 }

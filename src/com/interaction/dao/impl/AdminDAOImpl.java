@@ -1,5 +1,6 @@
 package com.interaction.dao.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -46,5 +47,19 @@ public class AdminDAOImpl extends HibernateDaoSupport implements AdminDAO {
 			// TODO: handle exception
 		}
 		return null;
+	}
+	@Override
+	public void deleteAdmin(Admin admin) {
+		getHibernateTemplate().delete(admin);
+	}
+	
+	@Override
+	public int addDeveloper(Admin admin) {
+
+		Serializable id = getHibernateTemplate().save(admin);
+		if (id == null || id.toString().length() == 0) {
+			return -1;
+		}
+		return Integer.parseInt(id.toString());
 	}
 }

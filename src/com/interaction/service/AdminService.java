@@ -10,4 +10,8 @@ public interface AdminService {
 
 	List<Admin> listAllDeveloper();
 
+	void deleteByAid(Integer aid);
+
+	int addDeveloper(Admin admin);
+
 }

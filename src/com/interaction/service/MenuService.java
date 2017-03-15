@@ -10,4 +10,10 @@ public interface MenuService {
 
 	int addMenu(MenuVo menuVo);
 
+	MenuVo findById(Integer mid);
+
+	int updateMenu(MenuVo menuVo);
+
+	void deleteById(Integer mid);
+
 }

@@ -87,12 +87,13 @@ public class FunctioncomponentServiceImpl implements FunctioncomponentService{
 			return null;
 		}
 		Functioncomponent fcpo = new Functioncomponent();
+		fcpo.setFcid(functioncomponentVo.getFcid());
 		fcpo.setAdmin(adminDAOImpl.findById(functioncomponentVo.getAid()));
 		fcpo.setDescription(functioncomponentVo.getDescription());
 		fcpo.setFcname(functioncomponentVo.getFcname());
 		fcpo.setMenu(menuDAOImpl.findById(functioncomponentVo.getMid()));
 		fcpo.setState(0);
-		fcpo.setType(0);
+		fcpo.setType(functioncomponentVo.getType());
 		fcpo.setUrl(functioncomponentVo.getUrl());
 		return fcpo;
 	}
@@ -148,7 +149,7 @@ public class FunctioncomponentServiceImpl implements FunctioncomponentService{
 	//教师选择功能前的构件列表（不包括教师已经有的功能构件）
 	@Override
 	public List<FunctioncomponentVo> listFunctioncomponentExceptTid(Integer tid) {
-		List<Functioncomponent> fcpos = functioncomponentDAOImpl.listAllFunctioncomponent();
+		List<Functioncomponent> fcpos = functioncomponentDAOImpl.listStartFunctioncomponent();
 		if (fcpos == null || fcpos.size() == 0) {
 			return null;
 		}
@@ -237,5 +238,46 @@ public class FunctioncomponentServiceImpl implements FunctioncomponentService{
 			}
 		}
 		return cvos;
+	}
+	//根据ID删除
+	@Override
+	public void deleteByFcid(Integer fcid) {
+
+		Functioncomponent functioncomponent = functioncomponentDAOImpl.findById(fcid);
+		if (functioncomponent == null) {
+			return;
+		}
+		
+		functioncomponentDAOImpl.deleteFunctioncomponent(functioncomponent);
+	}
+	
+	//根据id查找
+	@Override
+	public FunctioncomponentVo findByFcid(Integer fcid) {
+		Functioncomponent functioncomponent = functioncomponentDAOImpl.findById(fcid);
+		return p2v(functioncomponent);
+	}
+	
+	@Override
+	public int updateFunctioncomponent(FunctioncomponentVo functioncomponentVo) {
+
+		if (functioncomponentVo == null) {
+			return -1;
+		}
+		
+		return functioncomponentDAOImpl.updateFunctioncomponent(v2p(functioncomponentVo));
+	}
+	
+	//管理员启用组件功能
+	@Override
+	public void startFunctioncomponent(Integer fcid) {
+
+		Functioncomponent functioncomponent = functioncomponentDAOImpl.findById(fcid);
+
+		if (functioncomponent == null) {
+			return;
+		}
+		functioncomponent.setState(1);
+		functioncomponentDAOImpl.updateFunctioncomponent(functioncomponent);
 	}
 }

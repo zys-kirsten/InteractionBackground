@@ -244,7 +244,7 @@ float:left;
 			</div>
 			<div class="div3">
 				<li><a class="a" href="${ctxPath }/adminListDeveloper.do" target="rightFrame">查看开发者列表</a></li>
-				<li><a class="a" href="${ctxPath }/listCourse.do" target="rightFrame">添加开发者</a></li>
+				<li><a class="a" href="${ctxPath }/adminBackground/developer/addDeveloper.jsp" target="rightFrame">添加开发者</a></li>
 			</div>
 			<div class="div2">
 				<div class="spgl"></div>

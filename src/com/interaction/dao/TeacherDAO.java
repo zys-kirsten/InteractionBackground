@@ -10,5 +10,6 @@ public interface TeacherDAO {
 	public Teacher findById(int tid);
 	public Teacher listByAccount(String taccount);
 	public List<Teacher> listAllTeachers();
+	public void deleteTeacher(Teacher teacher);
 	
 }

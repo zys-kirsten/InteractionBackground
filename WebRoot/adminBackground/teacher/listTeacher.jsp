@@ -58,8 +58,7 @@
                         <td>${ts.tname}</td>
                         <td>${ts.tphone}</td>
                         <td>
-                            <a href="${ctxPath }/editSeminar.do?seId=${svs.seId}&cid=${svs.cid}" class="btn btn-primary btn-sm">修改</a>
-                            <a href="${ctxPath }/deleteSeminar.do?seId=${svs.seId}&cid=${svs.cid}" class="btn btn-primary btn-sm">删除</a>
+                            <a href="${ctxPath }/adminDeleteTeacher.do?tid=${ts.tid}" class="btn btn-primary btn-sm">删除</a>
                         </td>
                     </tr>
           </c:forEach>

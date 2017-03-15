@@ -80,14 +80,40 @@ public class ComponentController {
 		return "../adminBackground/component/addComponent";
 	}
 	
-	//添加构件
+	//添加(修改)构件
 	@RequestMapping("/addComponent")
 	public String addComponent(FunctioncomponentVo functioncomponentVo){
 		Admin admin = getAdmin();
 		functioncomponentVo.setAid(admin.getAid());
-		int id = functioncomponentServiceImpl.addFunctioncomponent(functioncomponentVo);
+		if (functioncomponentVo.getFcid() == null) {
+			int id = functioncomponentServiceImpl.addFunctioncomponent(functioncomponentVo);
+		}else {
+			System.out.println(111);
+			int id = functioncomponentServiceImpl.updateFunctioncomponent(functioncomponentVo);
+		}
+		
 		return listComponent(admin.getAid());
 	}
+	
+	//修改构件前回显
+	@RequestMapping("/developerEditComponent")
+	public String develpoerEditComponent(@RequestParam("fcid")Integer fcid){
+		FunctioncomponentVo functioncomponentVo = functioncomponentServiceImpl.findByFcid(fcid);
+		List<MenuVo> menus = menuServiceImpl.listAllMenu();
+		
+		SessionUtil.getMySession().setAttribute("functioncomponentVo", functioncomponentVo);
+		SessionUtil.getMySession().setAttribute("menus", menus);
+		return "../adminBackground/component/editComponent";
+	}
+	
+	
+	//删除构件
+	@RequestMapping("/developerDeleteComponent")
+    public String develpoerDeleteComponent(@RequestParam("fcid") Integer fcid){
+		functioncomponentServiceImpl.deleteByFcid(fcid);
+		return listComponent(getAdmin().getAid());
+	}
+	
 	
 	private Admin getAdmin(){
 		return (Admin)SessionUtil.getMySession().getAttribute("admin");
@@ -96,4 +122,5 @@ public class ComponentController {
 	private Teacher getTeacher(){
 		return (Teacher)SessionUtil.getMySession().getAttribute("teacher");
 	}
+	
 }

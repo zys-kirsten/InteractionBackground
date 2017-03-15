@@ -12,4 +12,8 @@ public interface MenuDAO {
 
 	int addMenu(Menu menu);
 
+	int updateMenu(Menu v2p);
+
+	void deleteMenu(Menu menu);
+
 }

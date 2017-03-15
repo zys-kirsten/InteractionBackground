@@ -69,5 +69,11 @@ public class TeacherDAOImpl extends HibernateDaoSupport implements TeacherDAO {
 			return null;
 		return teachers;
 	}
+
+
+	@Override
+	public void deleteTeacher(Teacher teacher) {
+		getHibernateTemplate().delete(teacher);
+	}
 	
 }

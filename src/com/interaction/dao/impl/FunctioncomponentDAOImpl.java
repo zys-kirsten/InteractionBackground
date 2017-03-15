@@ -52,4 +52,32 @@ public class FunctioncomponentDAOImpl extends HibernateDaoSupport implements Fun
 	public Functioncomponent findById(Integer fcid) {
 		return getHibernateTemplate().get(Functioncomponent.class, fcid);
 	}
+
+	@Override
+	public void deleteFunctioncomponent(Functioncomponent functioncomponent) {
+
+		getHibernateTemplate().delete(functioncomponent);
+	}
+	
+	@Override
+	public int updateFunctioncomponent(Functioncomponent functioncomponent) {
+		try {
+			getHibernateTemplate().update(functioncomponent);
+			return functioncomponent.getFcid();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
+	@Override
+	public List<Functioncomponent> listStartFunctioncomponent() {
+		String hql = "from Functioncomponent fc where fc.state=1";
+		List<Functioncomponent> functioncomponents = getHibernateTemplate().find(hql);
+		if(functioncomponents == null || functioncomponents.size() == 0){
+			return null;
+		}
+		return functioncomponents;
+	}
 }

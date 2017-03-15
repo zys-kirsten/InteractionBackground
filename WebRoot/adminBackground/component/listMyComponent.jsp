@@ -74,15 +74,15 @@
                         <c:choose>
                           <c:when test="${fcs.state==0}">
                             <td>未启用</td>
+                            <td>
+                              <a href="${ctxPath }/developerEditComponent.do?fcid=${fcs.fcid}" class="btn btn-primary btn-sm">修改</a>
+                              <a href="${ctxPath }/developerDeleteComponent.do?fcid=${fcs.fcid}" class="btn btn-primary btn-sm">删除</a>
+                            </td>
                           </c:when>
                           <c:otherwise>
                             <td>启用</td>
                           </c:otherwise>
                         </c:choose>
-                        <td>
-                            <a href="${ctxPath }/editSeminar.do?seId=${svs.seId}&cid=${svs.cid}" class="btn btn-primary btn-sm">修改</a>
-                            <a href="${ctxPath }/deleteSeminar.do?seId=${svs.seId}&cid=${svs.cid}" class="btn btn-primary btn-sm">删除</a>
-                        </td>
                     </tr>
           </c:forEach>
       </tbody>         

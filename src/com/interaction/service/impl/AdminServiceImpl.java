@@ -25,4 +25,20 @@ public class AdminServiceImpl implements AdminService{
 	public List<Admin> listAllDeveloper() {
 		return adminDAOImpl.listAllDeveloper();
 	}
+
+	@Override
+	public void deleteByAid(Integer aid) {
+		Admin admin = adminDAOImpl.findById(aid);
+		if (admin == null) {
+			return;
+		}
+		adminDAOImpl.deleteAdmin(admin);
+	}
+	
+	@Override
+	public int addDeveloper(Admin admin) {
+
+		admin.setAtype(1);
+		return adminDAOImpl.addDeveloper(admin);
+	}
 }

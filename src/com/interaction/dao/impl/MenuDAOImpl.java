@@ -49,4 +49,21 @@ public class MenuDAOImpl extends HibernateDaoSupport implements MenuDAO{
 		return Integer.parseInt(id.toString());
 	}
 	
+	@Override
+	public int updateMenu(Menu menu) {
+
+		try {
+			getHibernateTemplate().update(menu);
+			return menu.getMid();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return -1;
+	}
+	
+	@Override
+	public void deleteMenu(Menu menu) {
+
+		getHibernateTemplate().delete(menu);
+	}
 }

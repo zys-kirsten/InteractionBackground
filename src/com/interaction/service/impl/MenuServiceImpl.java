@@ -85,4 +85,33 @@ public class MenuServiceImpl implements MenuService{
 		return menuDAOImpl.addMenu(menu);
 	}
 
+	@Override
+	public MenuVo findById(Integer mid) {
+
+		Menu menu = menuDAOImpl.findById(mid);
+		if (menu == null) {
+			return null;
+		}
+		return p2v(menu);
+	}
+	
+	@Override
+	public int updateMenu(MenuVo menuVo) {
+
+		if (menuVo == null) {
+			return -1;
+		}
+		
+		return menuDAOImpl.updateMenu(v2p(menuVo));
+	}
+	
+	@Override
+	public void deleteById(Integer mid) {
+
+		 Menu menu = menuDAOImpl.findById(mid);
+		 if (menu == null) {
+			return ;
+		}
+		 menuDAOImpl.deleteMenu(menu);
+	}
 }
