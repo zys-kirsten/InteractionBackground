@@ -1,6 +1,7 @@
 package com.interaction.dao.impl;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,29 @@ public class SpocscoreDAOImpl extends HibernateDaoSupport implements SpocscoreDA
 			return -1;
 		}
 		return Integer.parseInt(id.toString());
+	}
+
+
+	@Override
+	public Spocscore findBySidAndSeid(Integer sid, Integer seId) {
+		String hql="from Spocscore ss where ss.student.sid=? and ss.seminar.seId = ?";
+		List<Spocscore> spocscores = getHibernateTemplate().find(hql,sid,seId);
+		if(spocscores == null || spocscores.size() == 0)
+			return null;
+		return spocscores.get(0);
+	}
+
+
+	@Override
+	public int updateSpocscore(Spocscore spocscore) {
+		try {
+			getHibernateTemplate().update(spocscore);
+			return 1;
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		return -1;
 	}
 
 }

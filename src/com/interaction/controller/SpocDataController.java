@@ -46,9 +46,9 @@ public class SpocDataController {
 			}
 		}
 		
-		for (Spocscore spocscore:spocscores) {
-			System.out.println(spocscore);
-		}
+//		for (Spocscore spocscore:spocscores) {
+//			System.out.println(spocscore);
+//		}
         return "error";
 	}
 	
@@ -64,9 +64,9 @@ public class SpocDataController {
 				return "success";
 			}
 		}		
-		for (Spocdiscuss s:spocdiscusses) {
-			System.out.println(s);
-		}
+//		for (Spocdiscuss s:spocdiscusses) {
+//			System.out.println(s);
+//		}
         return "error";
 	}
 	

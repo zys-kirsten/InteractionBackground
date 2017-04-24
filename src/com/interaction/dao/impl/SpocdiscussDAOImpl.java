@@ -1,6 +1,7 @@
 package com.interaction.dao.impl;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,4 +28,24 @@ public class SpocdiscussDAOImpl extends HibernateDaoSupport implements Spocdiscu
 		return Integer.parseInt(id.toString());
 	}
 	
+	@Override
+	public Spocdiscuss findBySidAndCid(Integer sid, Integer cid) {
+		String hql="from Spocdiscuss sd where sd.student.sid=? and sd.course.cid = ?";
+		List<Spocdiscuss> spocdiscusses = getHibernateTemplate().find(hql,sid,cid);
+		if(spocdiscusses == null || spocdiscusses.size() == 0)
+			return null;
+		return spocdiscusses.get(0);
+	}
+
+
+	@Override
+	public int updateSpocdiscuss(Spocdiscuss spocdiscuss) {
+		try {
+			getHibernateTemplate().update(spocdiscuss);
+			return 1;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return -1;
+	}
 }

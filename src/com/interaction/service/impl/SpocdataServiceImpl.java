@@ -20,7 +20,6 @@ import com.interaction.dao.SeminarDAO;
 import com.interaction.dao.SpocdiscussDAO;
 import com.interaction.dao.SpocscoreDAO;
 import com.interaction.dao.StudentDAO;
-import com.interaction.pojo.Course;
 import com.interaction.pojo.Spocdiscuss;
 import com.interaction.pojo.Spocscore;
 import com.interaction.pojo.Student;
@@ -135,7 +134,13 @@ public class SpocdataServiceImpl implements SpocdataService{
 		for(Spocscore spocscore:spocscores){
 			if (spocscore != null) {
 				spocscore.setSeminar(seminarDAOImpl.findById(seId));
-				result = spocscoreDAOImpl.addSpocscore(spocscore);
+				Spocscore temp = spocscoreDAOImpl.findBySidAndSeid(spocscore.getStudent().getSid(),seId);
+				if (temp == null) {
+					result = spocscoreDAOImpl.addSpocscore(spocscore);
+				}else{
+					spocscore.setSsid(temp.getSsid());
+					result = spocscoreDAOImpl.updateSpocscore(spocscore);
+				}
 				if (result == -1) {
 					break;
 				}
@@ -242,9 +247,14 @@ public class SpocdataServiceImpl implements SpocdataService{
 		int result = -1;
 		for(Spocdiscuss spocdiscuss:spocdiscusses){
 			if (spocdiscuss != null) {
-				Course course = courseDAOImpl.findById(cid);
-				spocdiscuss.setCourse(course);
-				result = spocdiscussDAOImpl.addSpocdiscuss(spocdiscuss);
+				spocdiscuss.setCourse(courseDAOImpl.findById(cid));
+				Spocdiscuss temp = spocdiscussDAOImpl.findBySidAndCid(spocdiscuss.getStudent().getSid(),cid);
+				if (temp == null) {
+					result = spocdiscussDAOImpl.addSpocdiscuss(spocdiscuss);
+				}else{
+					spocdiscuss.setSdid(temp.getSdid());
+					result = spocdiscussDAOImpl.updateSpocdiscuss(spocdiscuss);
+				}
 				if (result == -1) {
 					break;
 				}
