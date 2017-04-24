@@ -275,6 +275,17 @@ float:left;
 			</div>
 			<div class="div2">
 				<div class="yhgl"></div>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				SPOC数据分析
+			</div>
+			<div class="div3">
+				<ul>
+				    <li><a class="a" href="${ctxPath }/listSpocClass.do?cid=${course.cid}" target="rightFrame">导入SPOC数据</a></li>
+					<li><a class="a" href="${ctxPath }/background/spocData/importSpocData" target="rightFrame">SPOC数据分析</a></li>
+				</ul>
+			</div> 
+			<div class="div2">
+				<div class="yhgl"></div>
 			
 				配置管理
 			</div>

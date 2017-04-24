@@ -18,6 +18,8 @@ public interface SeminarDAO {
 
 	List<Seminar> findBySeName(Integer cid, String seName);
 
+	List<Seminar> listByCourseBeVisited(int cid);
+
 	
 	
 }

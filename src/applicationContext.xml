@@ -30,7 +30,7 @@ default-lazy-init="true" default-init-method="init" default-destroy-method="dest
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 		<property name="url" value="jdbc:mysql://localhost:3306/interaction"></property>
 		<property name="username" value="root"></property>
-		<property name="password" value="1221"></property>
+		<property name="password" value="123456"></property>
 	</bean>
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
@@ -75,7 +75,9 @@ default-lazy-init="true" default-init-method="init" default-destroy-method="dest
 			    <value>com/interaction/pojo/Admin.hbm.xml</value>
 			    <value>com/interaction/pojo/Functioncomponent.hbm.xml</value>
 			    <value>com/interaction/pojo/Menu.hbm.xml</value>
-			    <value>com/interaction/pojo/Teacherfunction.hbm.xml</value>	
+			    <value>com/interaction/pojo/Teacherfunction.hbm.xml</value>
+			    <value>com/interaction/pojo/Spocdiscuss.hbm.xml</value>
+			    <value>com/interaction/pojo/Spocscore.hbm.xml</value>	
 			</list>
 		</property>
 	</bean>

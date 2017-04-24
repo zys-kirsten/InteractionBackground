@@ -45,7 +45,7 @@ public class AdminController {
 	@RequestMapping("/adminJudgeComponent")
 	public void adminJudgeComponent(@RequestParam("fcid")Integer fcid,HttpServletResponse response) throws IOException{
 		
-		String rootPath = "F:/workplace/eclipse/InteractionBackground/WebRoot/";
+		String rootPath = "E:/SoftWareWorkspaces/eclipse/InteractionBackground/WebRoot/";
 		String msg = "fail"; 
 		FunctioncomponentVo functioncomponent = functioncomponentServiceImpl.findByFcid(fcid);
 		if (functioncomponent != null) {

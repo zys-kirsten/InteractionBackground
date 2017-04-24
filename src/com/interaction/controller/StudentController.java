@@ -74,6 +74,7 @@ public class StudentController {
 			}
 		}
 		JsonUtils.toJson(response, "sid", sid);
+		System.out.println("stuLogin");
 	}
 	
 	//学生签到
@@ -82,6 +83,7 @@ public class StudentController {
 		int flag = -1;
 		flag = studentServiceImpl.stuSignIn(Integer.parseInt(cid),Integer.parseInt(seid),Integer.parseInt(sid));
 		JsonUtils.toJson(response, "flag", flag);
+		System.out.println("stuSignIn");
 	}
 	
 	//学生查看我的课程
@@ -89,6 +91,7 @@ public class StudentController {
 	public void stuListCourse(@RequestParam("sid")String sid,HttpServletResponse response) throws IOException{
 		List<CourseVo> courses = courseServiceImpl.listCourseByStudent(Integer.parseInt(sid));
 		JsonUtils.toJson(response, "courses", courses);
+		System.out.println("stuListCourse");
 	}
 
 	//学生查看选课列表（需要判断标志位）
@@ -96,6 +99,7 @@ public class StudentController {
 	public void stuListSelectSeminar(@RequestParam("cid")String cid,HttpServletResponse response) throws IOException{
 		List<List<SeminarVo>> selectseminars = seminarServiceImpl.listSelectSeminar(Integer.parseInt(cid));
 		JsonUtils.toJson(response, "selectseminars", selectseminars);
+		System.out.println("stuListSelectSeminar");
 	}
 	
 	
@@ -106,6 +110,7 @@ public class StudentController {
 		
 		flag = seminarClassServiceImpl.stuSelectSeminar(Integer.parseInt(cid),Integer.parseInt(seid),Integer.parseInt(sid));
 		JsonUtils.toJson(response, "flag", flag);
+		System.out.println("stuSelectSeminar");
 		
 	}
 	
@@ -114,6 +119,7 @@ public class StudentController {
 	public void stuListMySeminar(@RequestParam("cid")String cid,@RequestParam("sid")String sid,HttpServletResponse response) throws IOException{
 		List<SeminarVo> seminars = seminarServiceImpl.listByCidAndSid(Integer.parseInt(cid),Integer.parseInt(sid));
 		JsonUtils.toJson(response, "seminars", seminars);
+		System.out.println("stuListMySeminar");
 	}
 	
 	//学生查看自己的课堂分组(需要判断标志位)
@@ -138,6 +144,8 @@ public class StudentController {
 				out.close();
 			}
 		}
+		
+		System.out.println("stuGrouping");
 	}
 	
 	//学生在组间评价前查询需要评价的组(需要查看标志位)
@@ -145,6 +153,7 @@ public class StudentController {
 	public void stuListOutGroupEvaluation(@RequestParam("seid")String seid,@RequestParam("sid")String sid,HttpServletResponse response) throws IOException{
 		List<GroupNumsVo>  groupnumsVo = seminarClassServiceImpl.listOtherGroupNums(Integer.parseInt(seid),Integer.parseInt(sid));
 		JsonUtils.toJson(response, "groupnumsVo", groupnumsVo);
+		System.out.println("stuListOutGroupEvaluation");
 	}
 	
 	//学生点击某一个具体的组号，查询组间评价信息(需要查看标志位)
@@ -161,6 +170,7 @@ public class StudentController {
 
 			JsonUtils.toJson(response, "keys",keys);
 		}
+		System.out.println("stufindOutGroupEvaluationKeys");
 	}
 	
 	//学生提交组间评价信息
@@ -188,6 +198,7 @@ public class StudentController {
 		int flag = unquantizationFuzzyEvaluationServiceImpl.submitEvaluations(list);
 		
 		JsonUtils.toJson(response, "flag", flag);
+		System.out.println("stuOutGroupEvaluationSubmit");
 	}
 	
 	//学生在组内评价前查询需要评价的组内成员(需要查看标志位)
@@ -195,6 +206,7 @@ public class StudentController {
 	public void stuListInGroupEvaluation(@RequestParam("seid")String seid,@RequestParam("sid")String sid,HttpServletResponse response) throws IOException{
 		List<SeminarClassVo> students = seminarClassServiceImpl.listMyGroupOtherStu(Integer.parseInt(seid),Integer.parseInt(sid));
 		JsonUtils.toJson(response, "students", students);
+		System.out.println("stuListInGroupEvaluation");
 	}
 	
 	//学生点击组内某一具体同学，查询组内评价信息(需要查看标志位)
@@ -211,6 +223,7 @@ public class StudentController {
 
 			JsonUtils.toJson(response, "keys",keys);
 		}
+		System.out.println("stufindInGroupEvaluationKeys");
 	}
 	
 	//学生提交组内评价信息
@@ -230,6 +243,7 @@ public class StudentController {
 		int flag = unquantizationFuzzyEvaluationServiceImpl.submitEvaluations(list);
 		
 		JsonUtils.toJson(response, "flag", flag);
+		System.out.println("stuInGroupEvaluationSubmit");
 	}
 	
 	//学生点击自评，查询自评信息
@@ -246,6 +260,7 @@ public class StudentController {
 
 			JsonUtils.toJson(response, "keys",keys);
 		}
+		System.out.println("stufindSelfEvaluationKeys");
 	}
 	
 	//学生提交自评信息
@@ -265,6 +280,7 @@ public class StudentController {
 		int flag = unquantizationFuzzyEvaluationServiceImpl.submitEvaluations(list);
 		
 		JsonUtils.toJson(response, "flag", flag);
+		System.out.println("stuSelfEvaluationSubmit");
 	}
 	
 	//学生点击“限时练习题”，查找课堂限时练习题(需要查看标志位)
@@ -272,6 +288,7 @@ public class StudentController {
 	public void stuListLimiteTimeExercise(@RequestParam("cid")String cid,@RequestParam("seid")String seid,HttpServletResponse response) throws IOException{
 		List<QuestionVo> questions = questionServiceImpl.listByCidAndSeidBeVisted(Integer.parseInt(cid),Integer.parseInt(seid));
 		JsonUtils.toJson(response, "questions", questions);
+		System.out.println("stuListLimiteTimeExercise");
 	}
 	
 	//学生提交限时练习题
@@ -280,6 +297,7 @@ public class StudentController {
 			@RequestParam("qid")String qid,@RequestParam("aid")String aid,HttpServletResponse response) throws IOException{
 		int flag = semclatestServiceImpl.submitSemclatest(Integer.parseInt(cid),Integer.parseInt(seid),Integer.parseInt(sid),Integer.parseInt(qid),Integer.parseInt(aid));
 		JsonUtils.toJson(response, "flag", flag);
+		System.out.println("stuLimiteTimeExerciseSubmit");
 	}
 	
 	//学生点击抢答按钮，开始抢答(线程互斥控制)(需要查看标志位)
@@ -287,6 +305,7 @@ public class StudentController {
 	public void stuBeginResponder(@RequestParam("sid")String sid,@RequestParam("seid")String seid,HttpServletResponse response) throws IOException, NumberFormatException, InterruptedException{
 		int flag = responderdataServiceImpl.stuBeginResponder(Integer.parseInt(sid),Integer.parseInt(seid));
 		JsonUtils.toJson(response, "flag", flag);
+		System.out.println("stuBeginResponder");
 	}
 	
 	//学生开始投票(需要查看标志位)
@@ -295,6 +314,7 @@ public class StudentController {
 			@RequestParam("stuAnswer")String stuAnswer,HttpServletResponse response) throws IOException{
 		int flag = votedataServiceImpl.stuBeginVote(Integer.parseInt(seid),Integer.parseInt(sid),stuAnswer);
 		JsonUtils.toJson(response, "flag", flag);
+		System.out.println("stuBeginVote");
 	}
 	
 	//学生查看研讨课成绩
@@ -302,6 +322,7 @@ public class StudentController {
 	public void stuFindMySeminarScore(@RequestParam("seid")String seid,@RequestParam("sid")String sid,HttpServletResponse response) throws IOException{
 	    SeminarscoreVo seminarscore = seminarClassServiceImpl.stuFindMySeminarScore(Integer.parseInt(seid),Integer.parseInt(sid));
 		JsonUtils.toJson(response, "seminarscore", seminarscore);
+		System.out.println("stuFindMySeminarScore");
 	}
 	
 }

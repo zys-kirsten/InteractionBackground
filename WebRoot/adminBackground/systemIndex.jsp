@@ -248,20 +248,20 @@ float:left;
 			</div>
 			<div class="div2">
 				<div class="spgl"></div>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				功能构件管理
-			</div>
-			<div class="div3">
-				<li><a class="a" href="${ctxPath }/adminListComponent.do" target="rightFrame">查看功能构件</a></li>
-			</div>
-			<div class="div2">
-				<div class="spgl"></div>
 				&nbsp;
 				菜单管理
 			</div>
 			<div class="div3">
 				<li><a class="a" href="${ctxPath }/adminListMenu.do" target="rightFrame">查看菜单</a></li>
 				<li><a class="a" href="${ctxPath }/adminBeforeAddMenu.do" target="rightFrame">添加菜单</a></li>
+			</div>
+			<div class="div2">
+				<div class="spgl"></div>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				功能构件管理
+			</div>
+			<div class="div3">
+				<li><a class="a" href="${ctxPath }/adminListComponent.do" target="rightFrame">查看功能构件</a></li>
 			</div>
 			<a class="a1" href="${ctxPath }/adminLogout.do"><div class="div2">
 			<div class="tcht"></div>

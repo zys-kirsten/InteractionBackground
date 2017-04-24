@@ -52,6 +52,15 @@ public class SeminarDAOImpl extends HibernateDaoSupport implements SeminarDAO {
 			return null;
 		return seminar;
 	}
+	
+	@Override
+	public List<Seminar> listByCourseBeVisited(int cid) {
+		String hql="from Seminar s where s.course.cid = ? and s.beVisited=1";
+		List<Seminar> seminar = getHibernateTemplate().find(hql,cid);
+		if(seminar==null || seminar.size() == 0)
+			return null;
+		return seminar;
+	}
 	@Override
 	public int deleteSeminar(Seminar seminar) {
 		try {

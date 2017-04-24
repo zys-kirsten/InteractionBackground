@@ -12,12 +12,18 @@ import com.interaction.dao.CourseDAO;
 import com.interaction.dao.QuestionDAO;
 import com.interaction.dao.SeminarDAO;
 import com.interaction.dao.SeminarclassDAO;
+import com.interaction.dao.SpocdiscussDAO;
+import com.interaction.dao.SpocscoreDAO;
 import com.interaction.dao.TeacherDAO;
 import com.interaction.dao.UnquantizationFuzzyEvaluationDAO;
 import com.interaction.dao.VotedataDAO;
 import com.interaction.dao.impl.StudentDAOImpl;
 import com.interaction.pojo.Course;
+import com.interaction.pojo.Seminar;
 import com.interaction.pojo.Seminarclass;
+import com.interaction.pojo.Spocdiscuss;
+import com.interaction.pojo.Spocscore;
+import com.interaction.pojo.Student;
 
 
 public class TestDao {
@@ -34,14 +40,16 @@ public class TestDao {
 	private ClassModuleDAO classModuleDAOImpl;
 	private VotedataDAO votedataDAOImpl;
 	private UnquantizationFuzzyEvaluationDAO  unquantizationFuzzyEvaluationDAOImpl;
+	private SpocscoreDAO spocscoreDAOImpl;
+	private SpocdiscussDAO spocdiscussDAOImpl;
 	
 	public void getDao(){
 		
 		beanFactory =new ClassPathXmlApplicationContext("applicationContext.xml");
-		//studentDAOImpl =(StudentDAOImpl)beanFactory.getBean("studentDAOImpl");
+		studentDAOImpl =(StudentDAOImpl)beanFactory.getBean("studentDAOImpl");
 		//teacherDAOImpl = (TeacherDAO) beanFactory.getBean("teacherDAOImpl");
-		courseDAOImpl = (CourseDAO) beanFactory.getBean("courseDAOImpl");
-		//seminarDAOImpl = (SeminarDAO) beanFactory.getBean("seminarDAOImpl");
+		//courseDAOImpl = (CourseDAO) beanFactory.getBean("courseDAOImpl");
+		seminarDAOImpl = (SeminarDAO) beanFactory.getBean("seminarDAOImpl");
 		//seminarclassDAOImpl = (SeminarclassDAO) beanFactory.getBean("seminarclassDAOImpl");
 	   // questionDAOImpl = (QuestionDAO) beanFactory.getBean("questionDAOImpl");
 	   // answerDAOImpl = (AnswerDAO) beanFactory.getBean("answerDAOImpl");
@@ -50,7 +58,8 @@ public class TestDao {
 		//classModuleDAOImpl = (ClassModuleDAO) beanFactory.getBean("classModuleDAOImpl");
 		//classModuleEvaluationDAOImpl = (ClassModuleEvaluationDAO) beanFactory.getBean("classModuleEvaluationDAOImpl");
 		//unquantizationFuzzyEvaluationDAOImpl = (UnquantizationFuzzyEvaluationDAO) beanFactory.getBean("unquantizationFuzzyEvaluationDAOImpl");
-		
+		//spocscoreDAOImpl = (SpocscoreDAO) beanFactory.getBean("spocscoreDAOImpl");
+		spocdiscussDAOImpl = (SpocdiscussDAO) beanFactory.getBean("spocdiscussDAOImpl");
 	}
 
 	
@@ -58,8 +67,30 @@ public class TestDao {
 	public void test(){
 		getDao();
 		
-		Course course = courseDAOImpl.findById(1);
-		System.out.println(course.getSemNum());
+		Seminar seminar = seminarDAOImpl.findById(1);
+		Student student = studentDAOImpl.findById(1);
+		
+		Spocdiscuss spocdiscuss = new Spocdiscuss();
+		spocdiscuss.setAdmire(2);
+		spocdiscuss.setComment(3);
+		spocdiscuss.setReplay(4);
+		spocdiscuss.setNote(5);
+		//spocdiscuss.setSeminar(seminar);
+		spocdiscuss.setStudent(student);
+		spocdiscuss.setSubject(6);
+		
+		spocdiscussDAOImpl.addSpocdiscuss(spocdiscuss);
+		
+//		Spocscore spocscore = new Spocscore();
+//		spocscore.setScore1(1);
+//		spocscore.setScore2(2);
+//		spocscore.setSeminar(seminar);
+//		spocscore.setStudent(student);
+//		spocscoreDAOImpl.addSpocscore(spocscore);
+		
+		
+		//Course course = courseDAOImpl.findById(1);
+		//System.out.println(course.getSemNum());
 		
 //		List<Seminarclass> seminarclasses = seminarclassDAOImpl.listByGroupNum(1, 1);
 //		if (seminarclasses != null && seminarclasses.size() != 0) {

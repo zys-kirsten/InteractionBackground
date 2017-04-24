@@ -235,7 +235,7 @@ public class SeminarServiceImpl implements SeminarService{
 	//列出可以选择的研讨课
 	@Override
 	public List<List<SeminarVo>> listSelectSeminar(int cid) {
-		List<Seminar> seminars = seminarDAOImpl.listByCourse(cid);
+		List<Seminar> seminars = seminarDAOImpl.listByCourseBeVisited(cid);
 		if (seminars == null || seminars.size() == 0) {
 			return null;
 		}

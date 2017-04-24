@@ -100,7 +100,7 @@
 <body>
 <div class="box">
     <br/>
-    <h1 class="text-center text-white"><span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;SPOC翻转课堂后台管理</h1>
+    <h1 class="text-center text-white"><span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;翻转课堂元系统</h1>
     <div class="login-box">
         <div class="login-title text-center">
             <h1><small>普通登录</small></h1>
