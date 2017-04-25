@@ -13,4 +13,5 @@ public interface StudentService {
 	public int stuSignIn(int cid, int seid, int sid);
 	public List<Student> readReport(InputStream inputStream);
 	public int insertStudents(List<Student> list, Integer cid);
+	public List<Student> listStudentByCid(Integer cid);
 }

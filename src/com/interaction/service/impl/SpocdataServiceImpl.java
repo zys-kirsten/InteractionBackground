@@ -3,6 +3,7 @@ package com.interaction.service.impl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -25,6 +26,7 @@ import com.interaction.pojo.Spocscore;
 import com.interaction.pojo.Student;
 import com.interaction.service.SpocdataService;
 import com.interaction.utils.ImportDataUtil;
+import com.interaction.vo.SpocDataVo;
 
 @Service
 public class SpocdataServiceImpl implements SpocdataService{
@@ -248,19 +250,115 @@ public class SpocdataServiceImpl implements SpocdataService{
 		for(Spocdiscuss spocdiscuss:spocdiscusses){
 			if (spocdiscuss != null) {
 				spocdiscuss.setCourse(courseDAOImpl.findById(cid));
-				Spocdiscuss temp = spocdiscussDAOImpl.findBySidAndCid(spocdiscuss.getStudent().getSid(),cid);
-				if (temp == null) {
 					result = spocdiscussDAOImpl.addSpocdiscuss(spocdiscuss);
-				}else{
-					spocdiscuss.setSdid(temp.getSdid());
-					result = spocdiscussDAOImpl.updateSpocdiscuss(spocdiscuss);
-				}
 				if (result == -1) {
 					break;
 				}
+//				spocdiscuss.setCourse(courseDAOImpl.findById(cid));
+//				Spocdiscuss temp = spocdiscussDAOImpl.findBySidAndCid(spocdiscuss.getStudent().getSid(),cid);
+//				if (temp == null) {
+//					result = spocdiscussDAOImpl.addSpocdiscuss(spocdiscuss);
+//				}else{
+//					spocdiscuss.setSdid(temp.getSdid());
+//					result = spocdiscussDAOImpl.updateSpocdiscuss(spocdiscuss);
+//				}
+//				if (result == -1) {
+//					break;
+//				}
 			}
 		}
 		return result;
 	}
 	
+	//获得图表所需数据
+    @Override
+    public SpocDataVo grenateGraph(Integer seId) {  
+    	SpocDataVo bean = new SpocDataVo(); 
+    	List<Spocscore> spocscores = spocscoreDAOImpl.listBySeid(seId);
+    	int num0=0,num1=0,num2=0,num3=0,num4=0,num5=0;
+    	for(Spocscore spocscore:spocscores){
+    		if (spocscore.getScore1() == 5) {
+				num5++;
+			}else if (spocscore.getScore1() == 4) {
+				num4++;
+			}else if (spocscore.getScore1() == 3) {
+				num3++;
+			}else if (spocscore.getScore1() == 2) {
+				num2++;
+			}else if (spocscore.getScore1() == 1) {
+				num1++;
+			}else {
+				num0++;
+			}
+    	}
+    	
+        List<String> categories = Arrays.asList("0","1","2","3","4","5");  
+        List<Integer> data = Arrays.asList(num0, num1, num2, num3, num4, num5);  
+        bean.setCategories(categories);  
+        bean.setData(data); 
+        return bean;
+    	
+    }  
+    
+    @Override
+    public List<SpocDataVo> generateDiscussGraph(Integer cid,Integer sid) {
+    	List<SpocDataVo> result = new ArrayList<SpocDataVo>();
+    	
+    	SpocDataVo bean = new SpocDataVo(); 
+    	
+    	List<Spocdiscuss> spocdiscusses = spocdiscussDAOImpl.findBySidAndCid(sid,cid);
+    	String[] cate = new String[spocdiscusses.size()];
+    	Integer[] admire = new Integer[spocdiscusses.size()];
+    	Integer[] comment = new Integer[spocdiscusses.size()];
+    	Integer[] subject = new Integer[spocdiscusses.size()];
+    	Integer[] replay = new Integer[spocdiscusses.size()];
+    	
+    	for (int i = 0; i < spocdiscusses.size(); i++) {
+    		cate[i] = "第"+(i+1)+"周";
+			subject[i] = spocdiscusses.get(i).getSubject();
+			comment[i] = spocdiscusses.get(i).getComment();
+			replay[i] = spocdiscusses.get(i).getReplay();
+			admire[i] = spocdiscusses.get(i).getAdmire();
+		}
+    	List<String> categories = Arrays.asList(cate);  
+        List<Integer> data = Arrays.asList(subject);   
+        bean.setCategories(categories);  
+        bean.setData(data); 
+        result.add(bean);
+        
+        data = Arrays.asList(comment); 
+        bean = new SpocDataVo();
+        bean.setData(data);
+        result.add(bean);
+        
+        data = Arrays.asList(replay); 
+        bean = new SpocDataVo();
+        bean.setData(data);
+        result.add(bean);
+        
+        data = Arrays.asList(admire); 
+        bean = new SpocDataVo();
+        bean.setData(data);
+        result.add(bean);
+        
+        return result;
+    }
+//    public SpocDataVo generateDiscussGraph(Integer cid,Integer sid) {
+//    	SpocDataVo bean = new SpocDataVo(); 
+//    	
+//    	List<Spocdiscuss> spocdiscusses = spocdiscussDAOImpl.findBySidAndCid(sid,cid);
+//    	Integer[] num = new Integer[spocdiscusses.size()];
+//    	String[] cate = new String[spocdiscusses.size()];
+//    	
+//    	for (int i = 0; i < spocdiscusses.size(); i++) {
+//			cate[i] = "第"+(i+1)+"周";
+//			num[i] = spocdiscusses.get(i).getNote();
+//		}
+//    	List<String> categories = Arrays.asList(cate);  
+//        List<Integer> data = Arrays.asList(num);   
+//       
+//        bean.setCategories(categories);  
+//        bean.setData(data); 
+//        return bean;
+//    }
 }

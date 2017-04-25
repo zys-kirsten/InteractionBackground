@@ -53,5 +53,4 @@ public class StudentDAOImpl extends HibernateDaoSupport implements StudentDAO {
 	}
 
 	
-	
 }

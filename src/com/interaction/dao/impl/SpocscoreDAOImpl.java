@@ -52,4 +52,12 @@ public class SpocscoreDAOImpl extends HibernateDaoSupport implements SpocscoreDA
 		return -1;
 	}
 
+	@Override
+	public List<Spocscore> listBySeid(Integer seId) {
+		String hql="from Spocscore ss where ss.seminar.seId = ?";
+		List<Spocscore> spocscores = getHibernateTemplate().find(hql,seId);
+		if(spocscores == null || spocscores.size() == 0)
+			return null;
+		return spocscores;
+	}
 }

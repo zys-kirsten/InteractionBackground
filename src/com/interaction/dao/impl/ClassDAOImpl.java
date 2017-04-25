@@ -46,4 +46,13 @@ public class ClassDAOImpl extends HibernateDaoSupport implements ClassDAO{
 			return null;
 		return classes.get(0);
 	}
+	
+	@Override
+	public List<Class> listByCid(Integer cid) {
+		String hql = "from Class c where c.course.cid=?";
+		List<Class> classes = getHibernateTemplate().find(hql, cid);
+		if(classes == null || classes.size() == 0)
+			return null;
+		return classes;
+	}
 }

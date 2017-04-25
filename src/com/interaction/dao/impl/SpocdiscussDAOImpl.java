@@ -29,12 +29,12 @@ public class SpocdiscussDAOImpl extends HibernateDaoSupport implements Spocdiscu
 	}
 	
 	@Override
-	public Spocdiscuss findBySidAndCid(Integer sid, Integer cid) {
+	public List<Spocdiscuss> findBySidAndCid(Integer sid, Integer cid) {
 		String hql="from Spocdiscuss sd where sd.student.sid=? and sd.course.cid = ?";
 		List<Spocdiscuss> spocdiscusses = getHibernateTemplate().find(hql,sid,cid);
 		if(spocdiscusses == null || spocdiscusses.size() == 0)
 			return null;
-		return spocdiscusses.get(0);
+		return spocdiscusses;
 	}
 
 
@@ -47,5 +47,14 @@ public class SpocdiscussDAOImpl extends HibernateDaoSupport implements Spocdiscu
 			// TODO: handle exception
 		}
 		return -1;
+	}
+
+	@Override
+	public List<Spocdiscuss> ListByCid(Integer cid) {
+		String hql="from Spocdiscuss sd where sd.course.cid = ?";
+		List<Spocdiscuss> spocdiscusses = getHibernateTemplate().find(hql,cid);
+		if(spocdiscusses == null || spocdiscusses.size() == 0)
+			return null;
+		return spocdiscusses;
 	}
 }

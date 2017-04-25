@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.interaction.pojo.Spocdiscuss;
 import com.interaction.pojo.Spocscore;
+import com.interaction.vo.SpocDataVo;
 
 public interface SpocdataService {
 
@@ -15,4 +16,8 @@ public interface SpocdataService {
 	public List<Spocdiscuss> importSpocdiscuss(InputStream inputStream);
 
 	public int insertSpocdiscuss(List<Spocdiscuss> spocdiscusses, Integer cid);
+
+	public SpocDataVo grenateGraph(Integer seId);
+
+	public List<SpocDataVo> generateDiscussGraph(Integer cid, Integer sid);
 }

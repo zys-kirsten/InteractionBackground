@@ -226,4 +226,15 @@ public class StudentServiceImpl implements StudentService{
 		return result;
 	}
 	
+	@Override
+	public List<Student> listStudentByCid(Integer cid) {
+		List<Class> classes = classDAOImpl.listByCid(cid);
+		List<Student> students = new ArrayList<Student>();
+		for(Class class1:classes){
+			Student student = studentDAOImpl.findById(class1.getStudent().getSid());
+			students.add(student);
+		}
+		return students;
+	}
+	
 }

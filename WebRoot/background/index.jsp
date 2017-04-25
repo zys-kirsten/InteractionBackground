@@ -280,8 +280,8 @@ float:left;
 			</div>
 			<div class="div3">
 				<ul>
-				    <li><a class="a" href="${ctxPath }/listSpocClass.do?cid=${course.cid}" target="rightFrame">导入SPOC数据</a></li>
-					<li><a class="a" href="${ctxPath }/background/spocData/importSpocData" target="rightFrame">SPOC数据分析</a></li>
+				    <li><a class="a" href="${ctxPath }/listSpocClass.do?cid=${course.cid}&go=spocData/importSpocData" target="rightFrame">导入SPOC数据</a></li>
+					<li><a class="a" href="${ctxPath }/listSpocClass.do?cid=${course.cid}&go=spocData/showSpocData" target="rightFrame">SPOC数据分析</a></li>
 				</ul>
 			</div> 
 			<div class="div2">
