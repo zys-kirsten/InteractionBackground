@@ -72,6 +72,7 @@ onload=function(){
 	  <ul>
 	   <li id="one1" onclick="setTab('one',1)">spoc测试题数据分析</li>
 	   <li id="one2" onclick="setTab('one',2)">spoc讨论区数据分析</li>
+	   <li id="one3" onclick="setTab('one',3)">学生学习效果分析</li>
 	  </ul>
 	 </div>
 	 <br><br>
@@ -101,7 +102,7 @@ onload=function(){
     </td>
    </tr>
 </table>
-<div id="main" style="height:300px;border:1px solid #ccc;padding:10px;"></div>  
+<div id="main" style="height:400px;border:1px solid #ccc;padding:10px;"></div>  
 <script type="text/javascript">  
     // 直接页面写的调用ajax的方法  
     function callbackFn(myChart,jsonURL){  
@@ -209,7 +210,7 @@ onload=function(){
     </td>
    </tr>
 </table>
-<div id="main2" style="height:300px;border:1px solid #ccc;padding:10px;"></div>  
+<div id="main2" style="height:400px;border:1px solid #ccc;padding:10px;"></div>  
 <script type="text/javascript">  
     // 直接页面写的调用ajax的方法  
     function callbackFn2(myChart2,jsonURL2){  
@@ -313,6 +314,125 @@ onload=function(){
        var showDivId2 = 'main2';  
        var jsonURL2 = "${ctxPath }/generateDiscussGraph.do";  
        createTestReport2(showDivId2,jsonURL2);  
+    } 
+    </script> 
+  </div>
+<!--  spoc讨论区   end -->
+<!-- 学生学习效果  start -->
+  <div id="con_one_3" style="display:none;">
+ <table width="82%" border="0" cellpadding="0" cellspacing="0" class="CContent">
+ <tr>
+  <td>
+    <table class="table table-bordered table-hover m10" style="margin-left:10px;margin-top:3px;">
+      <tr>
+        <td style="text-align:left;width:20%;" >
+          <font color="#777777" size="3"><strong>  请选择对应的研讨课：</strong></font>
+        </td>
+        <td style="text-align:center;width:20%;" >
+               <select  id="seId3" name="seId3" style="width:100%;">
+	          <c:forEach items="${seminarVos}" var="svo">
+	            <option value="${svo.seId }">${svo.seName }</option>
+	          </c:forEach>
+			</select>
+        </td>
+        <td style="text-align:left;width:20%;" >
+          <font color="#777777" size="3"><strong>请选择某一学生：</strong></font>
+        </td>
+        <td style="text-align:center;width:20%;" >
+               <select  id="sid3" name="sid3" style="width:100%;">
+	          <c:forEach items="${students}" var="svo">
+	            <option value="${svo.sid }">${svo.sname }</option>
+	          </c:forEach>
+			</select>
+        </td>
+         <td style="text-align:left;width:20%;" >
+          <button onClick="showStu();" class="btn btn-primary btn-sm">查看分析图</button>
+         </td>
+       </tr>
+     </table>
+    </td>
+   </tr>
+</table>
+<div id="main3" style="height:400px;border:1px solid #ccc;padding:10px;"></div>  
+<script type="text/javascript">  
+    // 直接页面写的调用ajax的方法  
+    function callbackFn3(myChart3,jsonURL3){  
+    	var stu3 = $('#sid3 option:selected') .val();
+    	var seId3 = $('#seId3 option:selected') .val();
+        $.ajax({  
+             url:jsonURL3, 
+             data:{"sid":stu3,"seId":seId3},
+             dataType:"json", 
+             success:function(jsonData){  
+                 myChart3.setOption({  
+                	 series: [
+                	          {
+                	              name: '雷达',
+                	              type: 'radar',
+                	              data: [
+                	                  {
+                	                	 
+                	                      value: jsonData.data,
+                	                      name: '学生实际情况',
+                	                  },
+                	                  {
+                	                      value:  [60, 60, 60, 60, 60, 60],
+                	                      name: '合格标准',
+                	                  },
+                	              ]
+                	          },
+                	      ]
+                });  
+                // 设置加载等待隐藏  
+                myChart3.hideLoading();  
+             }  
+         });  
+    }  
+      // 初始化echar报表的方法  
+      function initReport3(myChart3){  
+            
+          // 显示标题，图例和空的坐标轴  
+          myChart3.setOption({  
+              title: {  
+                  text: '学生学习效果'  
+              },  
+              tooltip: {},
+              legend: {
+                  data:['学生实际情况','合格标准']  
+              },
+              radar:  {
+                          indicator: [
+                              { name: '量化指标',max:100 },
+                              { name: '自评',max:100  },
+                              { name: '组内评价',max:100  },
+                              { name: '组间评价',max:100  },
+                              { name: '教师评价' ,max:100 }
+                          ],
+              },
+                         
+                  series: [{  
+                      name: '雷达',  
+                      type: 'radar',  
+                      data: []  
+                  }] 
+          });  
+      }  
+          
+     function createTestReport3(showDivId3,jsonURL3){  
+         var myChart3 = echarts.init(document.getElementById(showDivId3));  
+         // 初始化report对象  
+         initReport3(myChart3);  
+      //   myChart.showLoading({text: '正在努力的读取数据中...'  });  
+         // 调用后台获取json数据  
+         callbackFn3(myChart3,jsonURL3);  
+     }  
+    </script>   
+         
+    <script type="text/javascript">  
+    function showStu(){
+       var showDivId3 = 'main3';  
+       var jsonURL3 = "${ctxPath }/generateStuGraph.do";  
+       createTestReport3(showDivId3,jsonURL3);  
     } 
     </script> 
   </div>

@@ -20,4 +20,6 @@ public interface SpocdataService {
 	public SpocDataVo grenateGraph(Integer seId);
 
 	public List<SpocDataVo> generateDiscussGraph(Integer cid, Integer sid);
+
+	public SpocDataVo generateStuGraph(Integer seId, Integer sid);
 }

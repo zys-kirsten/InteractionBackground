@@ -18,9 +18,11 @@ import org.springframework.stereotype.Service;
 
 import com.interaction.dao.CourseDAO;
 import com.interaction.dao.SeminarDAO;
+import com.interaction.dao.SeminarscoreDAO;
 import com.interaction.dao.SpocdiscussDAO;
 import com.interaction.dao.SpocscoreDAO;
 import com.interaction.dao.StudentDAO;
+import com.interaction.pojo.Seminarscore;
 import com.interaction.pojo.Spocdiscuss;
 import com.interaction.pojo.Spocscore;
 import com.interaction.pojo.Student;
@@ -41,6 +43,8 @@ public class SpocdataServiceImpl implements SpocdataService{
 	private SeminarDAO seminarDAOImpl;
 	@Resource
 	private CourseDAO courseDAOImpl;
+	@Resource
+	private SeminarscoreDAO seminarscoreDAOImpl;
 	
 	//读取excel表格中内容，转换成List<Spocscore>
 	@Override
@@ -254,17 +258,6 @@ public class SpocdataServiceImpl implements SpocdataService{
 				if (result == -1) {
 					break;
 				}
-//				spocdiscuss.setCourse(courseDAOImpl.findById(cid));
-//				Spocdiscuss temp = spocdiscussDAOImpl.findBySidAndCid(spocdiscuss.getStudent().getSid(),cid);
-//				if (temp == null) {
-//					result = spocdiscussDAOImpl.addSpocdiscuss(spocdiscuss);
-//				}else{
-//					spocdiscuss.setSdid(temp.getSdid());
-//					result = spocdiscussDAOImpl.updateSpocdiscuss(spocdiscuss);
-//				}
-//				if (result == -1) {
-//					break;
-//				}
 			}
 		}
 		return result;
@@ -343,22 +336,24 @@ public class SpocdataServiceImpl implements SpocdataService{
         
         return result;
     }
-//    public SpocDataVo generateDiscussGraph(Integer cid,Integer sid) {
-//    	SpocDataVo bean = new SpocDataVo(); 
-//    	
-//    	List<Spocdiscuss> spocdiscusses = spocdiscussDAOImpl.findBySidAndCid(sid,cid);
-//    	Integer[] num = new Integer[spocdiscusses.size()];
-//    	String[] cate = new String[spocdiscusses.size()];
-//    	
-//    	for (int i = 0; i < spocdiscusses.size(); i++) {
-//			cate[i] = "第"+(i+1)+"周";
-//			num[i] = spocdiscusses.get(i).getNote();
-//		}
-//    	List<String> categories = Arrays.asList(cate);  
-//        List<Integer> data = Arrays.asList(num);   
-//       
-//        bean.setCategories(categories);  
-//        bean.setData(data); 
-//        return bean;
-//    }
+
+    @Override
+    public SpocDataVo generateStuGraph(Integer seId, Integer sid) {
+
+    	SpocDataVo bean = new SpocDataVo(); 
+    	
+    	List<Seminarscore> seminarscores = seminarscoreDAOImpl.listBySeidAndSid(seId, sid);
+    	if (seminarscores != null && seminarscores.size() != 0) {
+        	Integer[] index = new Integer[seminarscores.size()];
+        	
+        	for (int i = 0; i < seminarscores.size(); i++) {
+				index[i] = seminarscores.get(i).getSscore().intValue();
+			}
+        	
+        	List<Integer> data = Arrays.asList(index);
+            bean.setData(data); 
+		}
+    	
+    	return bean;
+    }
 }

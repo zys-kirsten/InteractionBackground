@@ -16,6 +16,7 @@ import com.interaction.pojo.Question;
 import com.interaction.pojo.Semclatest;
 import com.interaction.pojo.Seminar;
 import com.interaction.pojo.Student;
+import com.interaction.service.SemclatestService;
 
 @Service
 public class SemclatestServiceImpl implements SemclatestService{

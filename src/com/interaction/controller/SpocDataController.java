@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.jws.WebResult;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -12,21 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.github.abel533.echarts.Option;
 import com.github.abel533.echarts.json.GsonUtil;
-import com.interaction.pojo.Class;
 import com.interaction.pojo.Course;
 import com.interaction.pojo.Spocdiscuss;
 import com.interaction.pojo.Spocscore;
 import com.interaction.pojo.Student;
-import com.interaction.service.CourseService;
+import com.interaction.service.SeminarClassService;
 import com.interaction.service.SeminarService;
 import com.interaction.service.SpocdataService;
 import com.interaction.service.StudentService;
 import com.interaction.utils.SessionUtil;
 import com.interaction.vo.SeminarVo;
-
-import net.sf.json.JSON;
 
 @Controller
 public class SpocDataController {
@@ -63,9 +58,6 @@ public class SpocDataController {
 			}
 		}
 		
-//		for (Spocscore spocscore:spocscores) {
-//			System.out.println(spocscore);
-//		}
         return "error";
 	}
 	
@@ -81,9 +73,6 @@ public class SpocDataController {
 				return "success";
 			}
 		}		
-//		for (Spocdiscuss s:spocdiscusses) {
-//			System.out.println(s);
-//		}
         return "error";
 	}
 	
@@ -107,6 +96,21 @@ public class SpocDataController {
 		String optionStr = null;
 	    try {  
 	        optionStr= GsonUtil.format(spocdataServiceImpl.generateDiscussGraph(getCourse().getCid(),sid));
+	        System.out.println(optionStr);
+	    } catch (Exception e) {  
+	    }  
+	   response.getWriter().print(optionStr);  
+	}
+	
+	//生成讨论区图表
+	@RequestMapping(value = "/generateStuGraph",produces="text/html;charset=UTF-8")
+	public void generateStuGraph(HttpServletResponse response,Integer seId,Integer sid) throws IOException{
+		System.out.println("stugraph"+sid+";"+seId);
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		String optionStr = "success";
+	    try {  
+	        optionStr= GsonUtil.format(spocdataServiceImpl.generateStuGraph(seId,sid));
 	        System.out.println(optionStr);
 	    } catch (Exception e) {  
 	    }  

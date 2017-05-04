@@ -1,4 +1,4 @@
-package com.interaction.service.impl;
+package com.interaction.service;
 
 public interface SemclatestService {
 
