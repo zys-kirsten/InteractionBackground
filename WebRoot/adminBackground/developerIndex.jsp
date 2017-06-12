@@ -238,6 +238,15 @@ float:left;
 				<li><a class="a" href="${ctxPath }/listMyComponent.do?aid=${admin.aid}" target="rightFrame">查看功能构件</a></li>
 				<li><a class="a" href="${ctxPath }/beforeAddComponent.do" target="rightFrame">上传功能构件</a></li>
 			</div>
+			<div class="div2">
+				<div class="spgl"></div>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				需求管理
+			</div>
+			<div class="div3">
+				<li><a class="a" href="${ctxPath }/adminBackground/requirement/developerListRequirement.jsp" target="rightFrame">查看需求</a></li>
+				<li><a class="a" href="${ctxPath }/adminBackground/requirement/developerFinishedRequirement.jsp" target="rightFrame">已完成需求</a></li>
+			</div>
 			<a class="a1" href="${ctxPath }/adminLogout.do"><div class="div2">
 			<div class="tcht"></div>
 				退出

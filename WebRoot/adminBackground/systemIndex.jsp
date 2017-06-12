@@ -263,6 +263,15 @@ float:left;
 			<div class="div3">
 				<li><a class="a" href="${ctxPath }/adminListComponent.do" target="rightFrame">查看功能构件</a></li>
 			</div>
+			<div class="div2">
+				<div class="spgl"></div>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				需求功能审核
+			</div>
+			<div class="div3">
+				<li><a class="a" href="${ctxPath }/adminBackground/requirement/listRequirement.jsp" target="rightFrame">待审核</a></li>
+				<li><a class="a" href="${ctxPath }/adminBackground/requirement/finishedRequirement.jsp" target="rightFrame">已审核</a></li>
+			</div>
 			<a class="a1" href="${ctxPath }/adminLogout.do"><div class="div2">
 			<div class="tcht"></div>
 				退出

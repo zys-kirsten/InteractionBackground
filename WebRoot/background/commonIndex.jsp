@@ -247,6 +247,14 @@ float:left;
 				<li><a class="a" href="${ctxPath }/teacherListComponent.do?tid=${teacher.tid}" target="rightFrame">查看已有功能</a></li>
 				<li><a class="a" href="${ctxPath }/teacherListComponentBeforeConfig.do" target="rightFrame">配置新功能</a></li>
 			</div>
+			<div class="div2">
+				<div class="spgl"></div>
+				需求管理
+			</div>
+			<div class="div3">
+				<li><a class="a" href="${ctxPath }/background/teacherreq/addRequirement.jsp" target="rightFrame">提交需求</a></li>
+				<li><a class="a" href="${ctxPath }/background/teacherreq/finishedRequirement.jsp" target="rightFrame">已完成需求</a></li>
+			</div>
 			<a class="a1" href="../logout.do"><div class="div2">
 					<div class="tcht"></div>
 					退出

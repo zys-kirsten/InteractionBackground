@@ -72,6 +72,7 @@ onload=function(){
 	  <ul>
 	   <li id="one1" onclick="setTab('one',1)">导入spoc测试题数据</li>
 	   <li id="one2" onclick="setTab('one',2)">导入spoc讨论区数据</li>
+	   <li id="one2" onclick="setTab('one',2)">导入spoc视频数据</li>
 	  </ul>
 	 </div>
 	 <br><br><br>

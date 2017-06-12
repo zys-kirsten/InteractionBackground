@@ -28,5 +28,8 @@
         <property name="testScore" type="java.lang.Double">
             <column name="TestScore" precision="22" scale="0" />
         </property>
+        <property name="testTime" type="java.lang.String">
+            <column name="TestTime" length="10"/>
+        </property>
     </class>
 </hibernate-mapping>

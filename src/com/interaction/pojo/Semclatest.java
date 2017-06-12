@@ -15,6 +15,7 @@ public class Semclatest implements java.io.Serializable {
 	private Question question;
 	private Seminar seminar;
 	private Double testScore;
+	private String testTime;
 
 	// Constructors
 
@@ -46,8 +47,17 @@ public class Semclatest implements java.io.Serializable {
 
 	// Property accessors
 
+	
 	public Integer getSctid() {
 		return this.sctid;
+	}
+
+	public String getTestTime() {
+		return testTime;
+	}
+
+	public void setTestTime(String testTime) {
+		this.testTime = testTime;
 	}
 
 	public void setSctid(Integer sctid) {

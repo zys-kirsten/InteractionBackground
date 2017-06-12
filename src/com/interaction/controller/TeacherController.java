@@ -75,7 +75,7 @@ public class TeacherController {
 //=====================================教师Android端===================================================================	
 	
 	@RequestMapping("teacherlogin")
-	public void Login(@RequestParam("tAccount")String tAccount,@RequestParam("tPwd")String tPwd,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void Login(@RequestParam("tAccount")String tAccount,@RequestParam("tPwd")String tPwd,HttpServletResponse response) throws IOException{
 		Integer tId = -1;
 		Teacher teacher = teacherServiceImpl.listByAccount(tAccount);
 		System.out.println("teacher="+teacher);
